@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lorenzespinosa.github.io/sitemap.xml
