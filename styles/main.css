@@ -81,6 +81,10 @@ h1 .accent{color:var(--lime);font-style:italic;position:relative}
 .hero-inner{display:block}
 @media(min-width:1024px){
   .hero-inner{display:grid;grid-template-columns:58fr 42fr;gap:clamp(2rem,2.5vw,3rem);align-items:center}
+  /* Tighten vertical rhythm so copy/CTA (left) and the editor (right) both sit above the fold (HERO-08). Two-column only — single-column hero keeps its original scale. */
+  .hero{padding:clamp(5rem,4rem + 2vw,6.5rem) 0 var(--space)}
+  .hero h1{font-size:clamp(2.15rem,1rem + 3.2vw,4rem);margin-bottom:1.2rem}
+  .hero .lede{margin-bottom:1.6rem}
 }
 @media(max-width:1023px){
   .hero .editor{display:none}
