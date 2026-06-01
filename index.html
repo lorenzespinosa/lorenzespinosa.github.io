@@ -74,6 +74,7 @@
 
 <header class="hero" id="top">
   <div class="wrap">
+    <div class="hero-inner">
     <div class="hero-copy">
     <span class="pill reveal"><span class="live"></span> Available for new projects · Remote worldwide</span>
     <h1 class="reveal">I turn manual work into <span class="accent">systems that run themselves.</span></h1>
@@ -88,7 +89,7 @@
       <a class="btn btn-ghost" href="#work">See the work</a>
     </div>
     <p class="cta-micro reveal"><span class="g">●</span> Free 15-minute call · no obligation · reply within 1 business day</p>
-
+    </div><!-- /.hero-copy -->
 
     <div class="editor reveal" aria-label="Interactive workflow editor: drag the nodes or run the flow">
       <div class="ed-bar">
@@ -105,17 +106,18 @@
       <div class="canvas">
         <div class="cv" id="canvas">
         <svg class="wires" id="wires" aria-hidden="true"></svg>
-        <div class="gnode trigger" data-n="trigger" style="left:3%;top:18%"><div class="body"><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Trigger</b><span>webhook · event</span></div></div>
-        <div class="gnode" data-n="validate" style="left:23%;top:18%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12 2.5 2.5L16 9"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Validate</b><span>fields · auth</span></div></div>
-        <div class="gnode" data-n="process" style="left:43%;top:18%"><div class="body"><span class="io in"></span><span class="io out-main"></span><span class="io out-err"></span><svg viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Process</b><span>transform · enrich</span></div></div>
-        <div class="gnode" data-n="deliver" style="left:62.5%;top:18%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Deliver</b><span>write · notify</span></div></div>
-        <div class="gnode" data-n="audit" style="left:82%;top:18%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h5"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><span class="addbtn" aria-hidden="true">+</span><div class="label"><b>Audit&nbsp;Log</b><span>PII-masked</span></div></div>
-        <div class="gnode" data-n="fallback" style="left:55%;top:62%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Fallback</b><span>on error · retry</span></div></div>
+        <div class="gnode trigger" data-n="trigger" style="left:4%;top:14%"><div class="body"><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Trigger</b><span>webhook · event</span></div></div>
+        <div class="gnode" data-n="validate" style="left:27%;top:14%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12 2.5 2.5L16 9"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Validate</b><span>fields · auth</span></div></div>
+        <div class="gnode" data-n="process" style="left:50%;top:14%"><div class="body"><span class="io in"></span><span class="io out-main"></span><span class="io out-err"></span><svg viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Process</b><span>transform · enrich</span></div></div>
+        <div class="gnode" data-n="deliver" style="left:73%;top:14%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Deliver</b><span>write · notify</span></div></div>
+        <div class="gnode" data-n="audit" style="left:73%;top:58%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h5"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><span class="addbtn" aria-hidden="true">+</span><div class="label"><b>Audit&nbsp;Log</b><span>PII-masked</span></div></div>
+        <div class="gnode" data-n="fallback" style="left:50%;top:58%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Fallback</b><span>on error · retry</span></div></div>
         <span class="ed-hint">drag the nodes · click ▶ to run</span>
         </div>
       </div>
       <div class="ed-foot"><span>✓</span> retry 3× with backoff → fallback path → nothing fails silently</div>
     </div>
+    </div><!-- /.hero-inner -->
 
   </div>
 </header>
