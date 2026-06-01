@@ -98,10 +98,6 @@
           <span class="ed-tab">client-intake.workflow</span>
           <span>· 6 nodes</span>
         </div>
-        <div class="right">
-          <span class="ed-zoom">100%</span>
-          <button class="ed-run" id="run" type="button">▶&nbsp; Execute workflow</button>
-        </div>
       </div>
       <div class="canvas">
         <div class="cv" id="canvas">
@@ -115,7 +111,10 @@
         <span class="ed-hint">drag the nodes · click ▶ to run</span>
         </div>
       </div>
-      <div class="ed-foot"><span>✓</span> retry 3× with backoff → fallback path → nothing fails silently</div>
+      <div class="ed-bar ed-bar--bottom">
+        <span class="ed-zoom">100%</span>
+        <button class="ed-run" id="run" type="button">▶&nbsp; Execute workflow</button>
+      </div>
     </div>
     </div><!-- /.hero-inner -->
 
