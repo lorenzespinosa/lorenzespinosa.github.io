@@ -55,7 +55,7 @@
   });
 
   // execute - restartable; lights nodes, drops green checks + item counts like a real n8n run
-  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const prm=matchMedia('(prefers-reduced-motion:reduce)');  // read live so a mid-session OS toggle is honored
   let runToken=0;
   function clearRun(){
     Object.values(nodes).forEach(n=>n.classList.remove('run','done'));
@@ -75,7 +75,7 @@
     })(performance.now());
   }
   function run(){
-    if(reduce)return;
+    if(prm.matches)return;
     const my=++runToken;          // invalidate any run already in flight
     clearRun();
     nodes.trigger.classList.add('run');
@@ -96,12 +96,13 @@
   }
   runBtn.addEventListener('click',run);
   // auto-run once when the editor scrolls into view (desktop only — editor is display:none <1024px so it never intersects on mobile); skipped entirely under reduced motion
-  if(!reduce){
+  if(!prm.matches){
     const ed=document.querySelector('.editor');
     if(ed){
       const io=new IntersectionObserver((entries,obs)=>{
         if(entries[0].isIntersecting){
           obs.unobserve(ed);             // one-shot
+          draw();                        // ensure wires are correct on first reveal (rects were 0 while hidden <1024px)
           setTimeout(run,900);           // let the .editor reveal (0.52s) settle before the pass
         }
       },{threshold:0.5});
