@@ -95,5 +95,17 @@
     })();
   }
   runBtn.addEventListener('click',run);
-  if(!reduce)setTimeout(run,1500);
+  // auto-run once when the editor scrolls into view (desktop only — editor is display:none <1024px so it never intersects on mobile); skipped entirely under reduced motion
+  if(!reduce){
+    const ed=document.querySelector('.editor');
+    if(ed){
+      const io=new IntersectionObserver((entries,obs)=>{
+        if(entries[0].isIntersecting){
+          obs.unobserve(ed);             // one-shot
+          setTimeout(run,900);           // let the .editor reveal (0.52s) settle before the pass
+        }
+      },{threshold:0.5});
+      io.observe(ed);
+    }
+  }
 })();
