@@ -64,6 +64,7 @@
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#work">Work</a>
+      <a href="#opensource">Open source</a>
       <a href="#services">Services</a>
       <a href="#roi">ROI</a>
       <a href="#faq">FAQ</a>
@@ -276,6 +277,7 @@
       <div class="about-bio reveal">
         <p>I'm an automation architect who builds <b>AI-powered, webhook-driven systems</b> for ops-heavy teams. I've automated 50+ real operational workflows across intake, case and record management, billing, and client communication, so I design for the messy edge cases real businesses actually hit, not the happy path in a demo.</p>
         <p>Every build ships with <b>validation, retries, fallback paths, and audit logging</b> from day one, plus documentation so your team owns it. No brittle scripts, no black boxes, nothing that fails quietly.</p>
+        <p class="about-cred">Beyond automation builds, I've run <b>enterprise Microsoft&nbsp;Cloud and multi-tenant IT + marketing automation</b> for <b>Le&nbsp;Cordon&nbsp;Bleu International</b> — so I'm as comfortable in a large multi-tenant environment as I am wiring up a lean ops stack.</p>
         <div class="trust-pills">
           <span class="trust-pill"><span class="d"></span>n8n Level 2 Certified</span>
           <span class="trust-pill"><span class="d"></span>AWS Cloud Practitioner</span>
@@ -311,7 +313,7 @@
     <div class="work-grid">
       <div class="work reveal">
         <span class="st">Live · v5.0</span>
-        <h3>Multi-Agent AI Ops Bot</h3>
+        <h3>OpenClaw + Slack — AI ops agents with a human approval gate</h3>
         <p>A controller that hands work off to specialist AI agents, each with a human approval step, wired to 21 MCP tools and running real ops tasks right inside Slack.</p>
         <div class="result"><span class="big">21</span><span class="desc">MCP tools · zero tokens on deterministic tasks</span></div>
         <div class="stk">OpenClaw · Slack · n8n MCP · Claude</div>
@@ -321,11 +323,11 @@
           <div class="bar-row after"><span class="lab">After</span><p>A controller hands work to specialist AI agents, each gated by a human approval step, wired to 21 MCP tools and running real ops tasks right inside Slack. Deterministic work runs as plain code — no tokens burned.</p></div>
           <div class="bar-row resultr"><span class="lab">Result</span><p><b>21 MCP tools</b> under one approval-gated controller, with <b>zero tokens spent on deterministic tasks</b>.</p></div>
         </details>
-        <a class="case-link" href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">View work →</a>
+        <a class="case-link" href="https://github.com/lorenzespinosa/openclaw-n8n-stack" target="_blank" rel="noopener">View the stack on GitHub →</a>
       </div>
       <div class="work reveal">
         <span class="st">Live</span>
-        <h3>Lead Intake Pipeline</h3>
+        <h3>n8n + Airtable — lead intake without the retyping</h3>
         <p>Catches a new lead, checks it, lets AI sort it, routes it to the CRM, and creates the record. Killed the manual data entry that used to span three separate systems.</p>
         <div class="result"><span class="big">−70%</span><span class="desc">manual data entry</span></div>
         <div class="stk">n8n · OpenPhone · CRM · Airtable</div>
@@ -335,11 +337,11 @@
           <div class="bar-row after"><span class="lab">After</span><p>A webhook catches every lead, validates it, lets AI categorize it, then routes it to the CRM and Airtable automatically, with a fallback path if anything fails.</p></div>
           <div class="bar-row resultr"><span class="lab">Result</span><p><b>70% less manual data entry</b> and no more leads lost between systems.</p></div>
         </details>
-        <a class="case-link" href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">View work →</a>
+        <a class="case-link" href="https://github.com/lorenzespinosa/n8n-legal-ops-templates" target="_blank" rel="noopener">See the intake templates →</a>
       </div>
       <div class="work reveal">
         <span class="st">Live</span>
-        <h3>AI Lead Conversion Engine</h3>
+        <h3>n8n + OpenAI — AI scoring that lifts conversion +30%</h3>
         <p>AI scores and qualifies inbound leads, drafts a personal reply, and hands them to sales. The whole path from first touch to signed.</p>
         <div class="result"><span class="big">+30%</span><span class="desc">conversion · −70% manual effort</span></div>
         <div class="stk">n8n · OpenAI · CRM</div>
@@ -349,11 +351,10 @@
           <div class="bar-row after"><span class="lab">After</span><p>AI scores and qualifies each inbound lead, drafts a personal reply, and hands it to sales — the whole path from first touch to signed, with a human in the loop where it counts.</p></div>
           <div class="bar-row resultr"><span class="lab">Result</span><p><b>+30% conversion</b> and <b>−70% manual effort</b> on lead handling.</p></div>
         </details>
-        <a class="case-link" href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">View work →</a>
       </div>
       <div class="work reveal">
         <span class="st">Live</span>
-        <h3>Billing Sync Engine</h3>
+        <h3>n8n + Clio — billing sync with zero missed invoices</h3>
         <p>Bidirectional sync between case management and billing with automatic conflict resolution and a single source of truth.</p>
         <div class="result"><span class="big">0</span><span class="desc">missed invoices</span></div>
         <div class="stk">n8n · Clio · Airtable</div>
@@ -363,7 +364,7 @@
           <div class="bar-row after"><span class="lab">After</span><p>Bidirectional sync between case management and billing with automatic conflict resolution and a single source of truth — both systems always agree.</p></div>
           <div class="bar-row resultr"><span class="lab">Result</span><p><b>Zero missed invoices</b> and no more manual reconciliation.</p></div>
         </details>
-        <a class="case-link" href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">View work →</a>
+        <a class="case-link" href="https://github.com/lorenzespinosa/airtable-automation-toolkit" target="_blank" rel="noopener">See the sync toolkit →</a>
       </div>
     </div>
     <div class="cta-row">
@@ -373,6 +374,61 @@
   </div>
 </section>
 
+
+<section id="opensource" aria-labelledby="os-h">
+  <div class="wrap">
+    <div class="eyebrow reveal">Open source</div>
+    <h2 id="os-h" class="reveal">The patterns behind the promise.</h2>
+    <p class="sec-lede reveal">I open-source the building blocks I ship with — the validate → retry → fallback → audit discipline, as real, public code you can read before we ever talk. Skim the value line; open the repo only if you want the proof.</p>
+    <div class="repo-grid">
+      <a class="repo reveal" href="https://github.com/lorenzespinosa/openclaw-n8n-stack" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="repo-name">openclaw-n8n-stack</span><span class="repo-star" aria-label="2 stars">★ 2</span></div>
+        <p class="repo-val">One-command Docker stack — OpenClaw AI agent + n8n + PostgreSQL, with MCP pre-wired for multi-agent ops.</p>
+        <div class="repo-meta"><span class="repo-tag">one-command deploy</span><span class="repo-lang">Shell</span></div>
+      </a>
+      <a class="repo reveal" href="https://github.com/lorenzespinosa/n8n-legal-ops-templates" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="repo-name">n8n-legal-ops-templates</span><span class="repo-star" aria-label="2 stars">★ 2</span></div>
+        <p class="repo-val">Production-grade n8n templates for law-firm ops — client intake, missed-call recovery, billing sync, case routing. Zero real client data.</p>
+        <div class="repo-meta"><span class="repo-tag">production templates</span><span class="repo-lang">n8n · templates</span></div>
+      </a>
+      <a class="repo reveal" href="https://github.com/lorenzespinosa/n8n-lint" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="repo-name">n8n-lint</span><span class="repo-star" aria-label="1 star">★ 1</span></div>
+        <p class="repo-val">CLI linter for n8n workflow JSON — catches credential leaks, deprecated nodes, and orphaned connections. 16 rules, zero config, CI-ready.</p>
+        <div class="repo-meta"><span class="repo-tag">credential-leak linting</span><span class="repo-lang">JavaScript</span></div>
+      </a>
+      <a class="repo reveal" href="https://github.com/lorenzespinosa/airtable-automation-toolkit" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="repo-name">airtable-automation-toolkit</span><span class="repo-star" aria-label="1 star">★ 1</span></div>
+        <p class="repo-val">Python toolkit for Airtable — a staging layer, dead-letter queue, PII-masked audit logging, and bidirectional sync.</p>
+        <div class="repo-meta"><span class="repo-tag">PII-masked audit</span><span class="repo-lang">Python</span></div>
+      </a>
+      <a class="repo reveal" href="https://github.com/lorenzespinosa/n8n-error-handling-pattern" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="repo-name">n8n-error-handling-pattern</span><span class="repo-star" aria-label="1 star">★ 1</span></div>
+        <p class="repo-val">The reliability backbone — retry with exponential backoff, a dead-letter queue, fallback paths, and audit logging.</p>
+        <div class="repo-meta"><span class="repo-tag">retry · fallback · DLQ</span><span class="repo-lang">n8n · patterns</span></div>
+      </a>
+      <a class="repo reveal" href="https://github.com/lorenzespinosa/n8n-ai-agent-delegator" target="_blank" rel="noopener">
+        <div class="repo-top"><span class="repo-name">n8n-ai-agent-delegator</span><span class="repo-star" aria-label="1 star">★ 1</span></div>
+        <p class="repo-val">Multi-agent delegation for n8n — an orchestrator routes plain-language commands to specialist agents with confidence scoring and human-in-the-loop gates.</p>
+        <div class="repo-meta"><span class="repo-tag">human-in-the-loop</span><span class="repo-lang">n8n · patterns</span></div>
+      </a>
+    </div>
+
+    <div class="os-trust reveal" aria-labelledby="os-trust-h">
+      <div class="os-trust-head">
+        <h3 id="os-trust-h">How every build works</h3>
+        <p>The discipline that keeps your systems from failing quietly — and the repo where each one lives in the open.</p>
+      </div>
+      <ul class="os-trust-list">
+        <li><b>Input validation &amp; auth</b><span>every payload is checked before it touches a system</span><code>legal-ops-templates</code></li>
+        <li><b>Retry with backoff + DLQ</b><span>transient failures retry, then park safely instead of vanishing</span><code>error-handling-pattern</code></li>
+        <li><b>Fallback paths</b><span>when a step fails, there's always a defined next move</span><code>error-handling-pattern</code></li>
+        <li><b>PII-masked audit logging</b><span>every action is logged; sensitive fields are masked</span><code>airtable-toolkit</code></li>
+        <li><b>Credential-leak linting in CI</b><span>secrets and bad nodes are caught before they ship</span><code>n8n-lint</code></li>
+        <li><b>Human-in-the-loop gates</b><span>AI assists; a person approves anything that matters</span><code>ai-agent-delegator</code></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
 <section id="services">
   <div class="wrap">
