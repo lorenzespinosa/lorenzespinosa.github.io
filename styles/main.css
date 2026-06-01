@@ -77,7 +77,16 @@ h1 .accent{color:var(--lime);font-style:italic;position:relative}
 .btn .arr{transition:transform .25s var(--ease)}
 .btn:hover .arr{transform:translatex(4px)}
 
-.editor{margin-top:clamp(3rem,2rem + 5vw,5rem);border:1px solid var(--line);border-radius:13px;overflow:hidden;
+/* Hero two-column layout (v1.1): copy left, compact editor right at >=1024px */
+.hero-inner{display:block}
+@media(min-width:1024px){
+  .hero-inner{display:grid;grid-template-columns:58fr 42fr;gap:clamp(2rem,2.5vw,3rem);align-items:center}
+}
+@media(max-width:1023px){
+  .hero .editor{display:none}
+}
+
+.editor{margin-top:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;
   background:var(--surface);box-shadow:0 40px 90px -50px rgba(0,0,0,.85)}
 .ed-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.65rem .9rem;
   background:var(--bg-2);border-bottom:1px solid var(--line);flex-wrap:wrap}
@@ -92,27 +101,27 @@ h1 .accent{color:var(--lime);font-style:italic;position:relative}
   display:inline-flex;align-items:center;gap:.45rem;transition:transform .2s var(--ease),box-shadow .2s,filter .2s}
 .ed-run:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(234,75,113,.4);filter:brightness(1.06)}
 .ed-run:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
-.canvas{position:relative;height:clamp(330px,40vw,460px);overflow-x:auto;overflow-y:hidden;
+.canvas{position:relative;height:clamp(300px,28vw,340px);overflow-x:auto;overflow-y:hidden;
   background-color:var(--canvas);
   background-image:radial-gradient(circle,var(--canvas-dot) 1.3px,transparent 1.3px);
   background-size:21px 21px}
-.cv{position:relative;height:100%;min-width:1000px}
+.cv{position:relative;height:100%;min-width:460px}
 .wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
 .wire{fill:none;stroke:var(--wire);stroke-width:2.5;transition:stroke .25s}
 .wire.run{stroke:var(--coral)}
 .pulse{fill:var(--coral)}
 
-.gnode{position:absolute;width:96px;cursor:grab;user-select:none;z-index:2;touch-action:none;
+.gnode{position:absolute;width:80px;cursor:grab;user-select:none;z-index:2;touch-action:none;
   display:flex;flex-direction:column;align-items:center}
 .gnode:active{cursor:grabbing}
-.gnode .body{position:relative;width:62px;height:62px;border-radius:15px;background:var(--canvas-node);
+.gnode .body{position:relative;width:52px;height:52px;border-radius:12px;background:var(--canvas-node);
   border:1.5px solid var(--canvas-border);display:grid;place-items:center;color:var(--coral);
   box-shadow:0 2px 7px rgba(20,20,30,.10);transition:box-shadow .25s,border-color .25s}
 .gnode:hover .body{border-color:#cfcfd7;box-shadow:0 8px 20px rgba(20,20,30,.16)}
 .gnode.run .body{border-color:var(--coral);box-shadow:0 0 0 2px rgba(234,75,113,.3),0 10px 24px rgba(234,75,113,.25)}
-.gnode .body>svg{width:26px;height:26px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.gnode .body>svg{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
-.gnode.trigger .body{border-radius:31px 15px 15px 31px;background:var(--coral);border-color:var(--coral);color:#fff}
+.gnode.trigger .body{border-radius:26px 12px 12px 26px;background:var(--coral);border-color:var(--coral);color:#fff}
 
 .gnode[data-n="validate"] .body{color:#3b82f6}
 .gnode[data-n="process"]  .body{color:#7c5cfc}
@@ -120,7 +129,7 @@ h1 .accent{color:var(--lime);font-style:italic;position:relative}
 .gnode[data-n="audit"]    .body{color:#f59e0b}
 .gnode[data-n="fallback"] .body{color:#ea4b71}
 
-.gnode .label{margin-top:9px;text-align:center;width:108px;pointer-events:none}
+.gnode .label{margin-top:8px;text-align:center;width:90px;pointer-events:none}
 .gnode .label b{font-family:var(--body);font-weight:600;font-size:.76rem;color:var(--canvas-ink);display:block;line-height:1.18}
 .gnode .label span{font-family:var(--mono);font-size:.58rem;color:var(--canvas-muted);display:block;margin-top:1px}
 
@@ -143,7 +152,7 @@ h1 .accent{color:var(--lime);font-style:italic;position:relative}
 .gnode .check svg{width:11px;height:11px;fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
 .gnode.done .check{opacity:1;transform:scale(1)}
 
-.gnode .addbtn{position:absolute;left:95px;top:31px;transform:translateY(-50%);width:21px;height:21px;border-radius:6px;
+.gnode .addbtn{position:absolute;left:80px;top:26px;transform:translateY(-50%);width:21px;height:21px;border-radius:6px;
   border:1.5px dashed #bcbcc4;color:#a6a6ae;display:grid;place-items:center;font-family:var(--body);font-size:15px;line-height:1;
   background:rgba(255,255,255,.6)}
 .gnode .addbtn::before{content:"";position:absolute;left:-15px;top:50%;width:15px;height:2px;background:#cfcfd7}
