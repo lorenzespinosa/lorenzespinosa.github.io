@@ -12,13 +12,14 @@
   --ink:#14181b; --muted:#566069; --faint:#737d86;
 
   /* accents — coral identity kept; text accents darkened for AA on white */
-  --coral:#ea4b71; --coral-2:#ff7a9c; --green:#0e9d63; --ice:#2f6df0; --amber:#b45309; --red:#dc2626;
+  --coral:#ea4b71; --coral-2:#ff7a9c; --green:#0a7a4e; --ice:#2f6df0; --amber:#b45309; --red:#dc2626;
   --coral-soft:oklch(72% 0.17 12);
   --coral-ghost:oklch(64% 0.19 12 / 0.10);
   --lime:#c42c52;                            /* text-accent alias — AA-safe on light */
+  --coral-strong:#c42c52;                    /* solid CTA fills with white text — AA both themes */
 
-  /* editor canvas — intentionally light in both themes */
-  --canvas:#f7f7f9; --canvas-dot:#d3d3da; --canvas-node:#ffffff; --canvas-border:#e3e3e8; --canvas-ink:#1c1c1f; --canvas-muted:#8a8a92; --wire:#c2c2cc;
+  /* editor canvas — intentionally light in both themes; cooler in light so it reads as a distinct panel */
+  --canvas:#eceff4; --canvas-dot:#d3d3da; --canvas-node:#ffffff; --canvas-border:#dcdde4; --canvas-ink:#1c1c1f; --canvas-muted:#8a8a92; --wire:#c2c2cc;
 
   /* themed chrome */
   --nav-bg:rgba(247,248,250,0.80);
@@ -72,6 +73,9 @@
 
   --green:#34c08b; --ice:#6ea8fe; --amber:#fbbf24; --red:#ff6b6b;
   --lime:var(--coral);
+
+  /* editor canvas stays as originally shipped in dark */
+  --canvas:#f7f7f9; --canvas-border:#e3e3e8;
 
   --nav-bg:rgba(10,12,11,0.70);
   --grain-opacity:0.40;

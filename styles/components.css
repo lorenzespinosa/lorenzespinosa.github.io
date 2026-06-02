@@ -46,6 +46,13 @@ summary{cursor:pointer}
 [data-theme="dark"] .theme-toggle .ic-sun{display:block}
 [data-theme="dark"] .theme-toggle .ic-moon{display:none}
 @media(prefers-reduced-motion:reduce){.theme-toggle:hover,.theme-toggle:active{transform:none}}
+/* Narrow nav: only CTA + toggle remain (section links hidden ≤720px) — keep them tight so nothing clips at 320px. */
+@media(max-width:720px){.nav-links{gap:.7rem}}
+@media(max-width:520px){.brand{font-size:.98rem}.nav-cta{font-size:.7rem;padding:.55rem .85rem}}
+@media(max-width:420px){.theme-toggle{width:36px;height:36px}}
+/* Tiniest screens (≤374px): brand + full CTA + toggle can't coexist — drop the redundant nav CTA
+   (hero + closing section keep prominent CTAs), keep brand + theme toggle. */
+@media(max-width:374px){.nav-cta{display:none}}
 
 @media(prefers-reduced-motion:reduce){
   .work,.services .card,.btn{transition:none}
