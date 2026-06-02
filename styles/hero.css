@@ -40,7 +40,7 @@
    out in place); below 960px this is overridden by a readable cluster. */
 #flow[data-stage="0"] .frame-chaos .c1,#flow[data-stage="1"] .frame-chaos .c1{transform:translate(-50%,-50%) rotate(-8deg) translate(-38vw,-40vh)}
 #flow[data-stage="0"] .frame-chaos .c2,#flow[data-stage="1"] .frame-chaos .c2{transform:translate(-50%,-50%) rotate(6deg) translate(-14vw,-47vh)}
-#flow[data-stage="0"] .frame-chaos .c3,#flow[data-stage="1"] .frame-chaos .c3{transform:translate(-50%,-50%) rotate(-5deg) translate(6vw,18vh)}
+#flow[data-stage="0"] .frame-chaos .c3,#flow[data-stage="1"] .frame-chaos .c3{transform:translate(-50%,-50%) rotate(-5deg) translate(6vw,10vh)}
 #flow[data-stage="0"] .frame-chaos .c4,#flow[data-stage="1"] .frame-chaos .c4{transform:translate(-50%,-50%) rotate(10deg) translate(38vw,-40vh)}
 #flow[data-stage="0"] .frame-chaos .c5,#flow[data-stage="1"] .frame-chaos .c5{transform:translate(-50%,-50%) rotate(-12deg) translate(-26vw,-24vh)}
 #flow[data-stage="0"] .frame-chaos .c6,#flow[data-stage="1"] .frame-chaos .c6{transform:translate(-50%,-50%) rotate(7deg) translate(40vw,-8vh)}
@@ -52,7 +52,7 @@
 #flow[data-stage="0"] .frame-chaos .c12,#flow[data-stage="1"] .frame-chaos .c12{transform:translate(-50%,-50%) rotate(8deg) translate(26vw,-40vh)}
 #flow[data-stage="0"] .frame-chaos .c13,#flow[data-stage="1"] .frame-chaos .c13{transform:translate(-50%,-50%) rotate(5deg) translate(-40vw,4vh)}
 #flow[data-stage="0"] .frame-chaos .c14,#flow[data-stage="1"] .frame-chaos .c14{transform:translate(-50%,-50%) rotate(-9deg) translate(38vw,22vh)}
-#flow[data-stage="0"] .frame-chaos .c15,#flow[data-stage="1"] .frame-chaos .c15{transform:translate(-50%,-50%) rotate(4deg) translate(-12vw,26vh)}
+#flow[data-stage="0"] .frame-chaos .c15,#flow[data-stage="1"] .frame-chaos .c15{transform:translate(-50%,-50%) rotate(4deg) translate(28vw,14vh)}
 #flow[data-stage="1"] .frame-chaos{opacity:.13}
 
 .frame-pipe{opacity:1;transform:none}
@@ -63,7 +63,7 @@
 .frame-pipe .pnode.ok{color:var(--bg);background:var(--green);border-color:var(--green);font-weight:700}
 .frame-pipe .pwire{width:clamp(16px,4vw,44px);height:2px;background:linear-gradient(90deg,var(--coral),var(--green));border-radius:2px}
 
-.scrolly-cap{font-family:var(--mono);font-size:var(--text-xs);color:var(--faint);display:flex;align-items:center;gap:.5rem}
+.scrolly-cap{position:relative;z-index:2;font-family:var(--mono);font-size:var(--text-xs);color:var(--faint);display:flex;align-items:center;gap:.5rem}
 .scrolly-cap .dot{width:7px;height:7px;border-radius:50%;background:var(--coral);box-shadow:0 0 8px var(--coral)}
 
 @media(prefers-reduced-motion:reduce){
