@@ -16,37 +16,43 @@
 #flow[data-stage="0"] .flip-after,
 #flow[data-stage="1"] .flip-after{opacity:0;transform:translateY(.35em)}
 
-.flow-viz{position:relative;width:min(700px,92vw);height:230px}
+.flow-viz{position:relative;width:min(820px,94vw);height:300px}
 .frame{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.7rem;
   transition:opacity var(--duration-slow) var(--ease),transform var(--duration-slow) var(--ease)}
 
-.frame-chaos{opacity:0}
+/* Chaos chips are positioned absolutely from the true center so each chip's
+   scatter offset is exact regardless of how many chips exist — flex-wrap
+   would compound each translate on top of an already-spread row position. */
+.frame-chaos{opacity:0;display:block}
 .frame-chaos .chip{
+  position:absolute;left:50%;top:50%;white-space:nowrap;
   font-family:var(--mono);font-size:var(--text-sm);color:var(--ink);
   background:var(--surface);border:1px solid color-mix(in oklab,var(--amber) 35%,var(--line));
   border-radius:var(--r-sm);padding:.5rem .8rem;box-shadow:var(--elev-1);
   transition:transform var(--duration-slow) var(--ease),opacity var(--duration-slow) var(--ease);
-  transform:none;
+  transform:translate(-50%,-50%);
 }
-#flow[data-stage="0"] .frame-chaos,
-#flow[data-stage="1"] .frame-chaos{opacity:1}
-#flow[data-stage="0"] .frame-chaos .c1{transform:rotate(-8deg) translate(-150px,-40px)}
-#flow[data-stage="0"] .frame-chaos .c2{transform:rotate(6deg) translate(150px,-60px)}
-#flow[data-stage="0"] .frame-chaos .c3{transform:rotate(-5deg) translate(-180px,50px)}
-#flow[data-stage="0"] .frame-chaos .c4{transform:rotate(10deg) translate(170px,55px)}
-#flow[data-stage="0"] .frame-chaos .c5{transform:rotate(-12deg) translate(20px,90px)}
-#flow[data-stage="0"] .frame-chaos .c6{transform:rotate(7deg) translate(-40px,-90px)}
-#flow[data-stage="0"] .frame-chaos .c7{transform:rotate(9deg) translate(-200px,-75px)}
-#flow[data-stage="0"] .frame-chaos .c8{transform:rotate(-7deg) translate(205px,-15px)}
-#flow[data-stage="0"] .frame-chaos .c9{transform:rotate(11deg) translate(-110px,100px)}
-#flow[data-stage="0"] .frame-chaos .c10{transform:rotate(-10deg) translate(120px,-100px)}
-#flow[data-stage="0"] .frame-chaos .c11{transform:rotate(-6deg) translate(75px,25px)}
-#flow[data-stage="0"] .frame-chaos .c12{transform:rotate(8deg) translate(-75px,-20px)}
-#flow[data-stage="0"] .frame-chaos .c13{transform:rotate(5deg) translate(195px,95px)}
-#flow[data-stage="0"] .frame-chaos .c14{transform:rotate(-9deg) translate(-155px,-115px)}
-#flow[data-stage="0"] .frame-chaos .c15{transform:rotate(6deg) translate(45px,-45px)}
-#flow[data-stage="1"] .frame-chaos{opacity:.35}
-#flow[data-stage="1"] .frame-chaos .chip{transform:none}
+#flow[data-stage="0"] .frame-chaos{opacity:1}
+/* Chips scatter into a top band and a bottom band, leaving the vertical
+   center clear for the pipeline. Scatter holds through stage 1 (chips
+   fade out in place) rather than collapsing into a grid that would
+   overlap the pipeline row. Offsets are from center (translate -50%,-50% base). */
+#flow[data-stage="0"] .frame-chaos .c1,#flow[data-stage="1"] .frame-chaos .c1{transform:translate(-50%,-50%) rotate(-8deg) translate(-290px,-110px)}
+#flow[data-stage="0"] .frame-chaos .c2,#flow[data-stage="1"] .frame-chaos .c2{transform:translate(-50%,-50%) rotate(6deg) translate(60px,-112px)}
+#flow[data-stage="0"] .frame-chaos .c3,#flow[data-stage="1"] .frame-chaos .c3{transform:translate(-50%,-50%) rotate(-5deg) translate(-250px,95px)}
+#flow[data-stage="0"] .frame-chaos .c4,#flow[data-stage="1"] .frame-chaos .c4{transform:translate(-50%,-50%) rotate(10deg) translate(-110px,-112px)}
+#flow[data-stage="0"] .frame-chaos .c5,#flow[data-stage="1"] .frame-chaos .c5{transform:translate(-50%,-50%) rotate(-12deg) translate(-95px,108px)}
+#flow[data-stage="0"] .frame-chaos .c6,#flow[data-stage="1"] .frame-chaos .c6{transform:translate(-50%,-50%) rotate(7deg) translate(-25px,-56px)}
+#flow[data-stage="0"] .frame-chaos .c7,#flow[data-stage="1"] .frame-chaos .c7{transform:translate(-50%,-50%) rotate(9deg) translate(-200px,-56px)}
+#flow[data-stage="0"] .frame-chaos .c8,#flow[data-stage="1"] .frame-chaos .c8{transform:translate(-50%,-50%) rotate(-7deg) translate(-175px,60px)}
+#flow[data-stage="0"] .frame-chaos .c9,#flow[data-stage="1"] .frame-chaos .c9{transform:translate(-50%,-50%) rotate(11deg) translate(0px,64px)}
+#flow[data-stage="0"] .frame-chaos .c10,#flow[data-stage="1"] .frame-chaos .c10{transform:translate(-50%,-50%) rotate(-10deg) translate(300px,-56px)}
+#flow[data-stage="0"] .frame-chaos .c11,#flow[data-stage="1"] .frame-chaos .c11{transform:translate(-50%,-50%) rotate(-6deg) translate(175px,60px)}
+#flow[data-stage="0"] .frame-chaos .c12,#flow[data-stage="1"] .frame-chaos .c12{transform:translate(-50%,-50%) rotate(8deg) translate(235px,-112px)}
+#flow[data-stage="0"] .frame-chaos .c13,#flow[data-stage="1"] .frame-chaos .c13{transform:translate(-50%,-50%) rotate(5deg) translate(250px,95px)}
+#flow[data-stage="0"] .frame-chaos .c14,#flow[data-stage="1"] .frame-chaos .c14{transform:translate(-50%,-50%) rotate(-9deg) translate(80px,110px)}
+#flow[data-stage="0"] .frame-chaos .c15,#flow[data-stage="1"] .frame-chaos .c15{transform:translate(-50%,-50%) rotate(4deg) translate(150px,-56px)}
+#flow[data-stage="1"] .frame-chaos{opacity:.16}
 
 .frame-pipe{opacity:1;transform:none}
 #flow[data-stage="0"] .frame-pipe{opacity:0;transform:scale(.94)}
@@ -67,8 +73,16 @@
   .frame-pipe{position:relative;opacity:1;transform:none}
   .scrolly-head>span{transition:none}
 }
+/* Below the scatter's minimum width, the wide-spread chips would clip off
+   the viewport edges. Switch chaos to a readable wrapped cluster instead of
+   shrinking the phrases into illegible specks. */
+@media(max-width:820px){
+  .flow-viz{width:94vw;height:340px}
+  .frame-chaos{display:flex;flex-wrap:wrap;align-content:center;gap:.45rem .5rem;padding:0 .4rem}
+  .frame-chaos .chip{position:static;transform:none !important;font-size:var(--text-xs)}
+}
 @media(max-width:560px){
-  .flow-viz{height:300px}
+  .flow-viz{height:360px}
   .frame-pipe{flex-direction:column}
   .frame-pipe .pwire{width:2px;height:14px}
 }
