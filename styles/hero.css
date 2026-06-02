@@ -36,6 +36,15 @@
 #flow[data-stage="0"] .frame-chaos .c4{transform:rotate(10deg) translate(170px,55px)}
 #flow[data-stage="0"] .frame-chaos .c5{transform:rotate(-12deg) translate(20px,90px)}
 #flow[data-stage="0"] .frame-chaos .c6{transform:rotate(7deg) translate(-40px,-90px)}
+#flow[data-stage="0"] .frame-chaos .c7{transform:rotate(9deg) translate(-200px,-75px)}
+#flow[data-stage="0"] .frame-chaos .c8{transform:rotate(-7deg) translate(205px,-15px)}
+#flow[data-stage="0"] .frame-chaos .c9{transform:rotate(11deg) translate(-110px,100px)}
+#flow[data-stage="0"] .frame-chaos .c10{transform:rotate(-10deg) translate(120px,-100px)}
+#flow[data-stage="0"] .frame-chaos .c11{transform:rotate(-6deg) translate(75px,25px)}
+#flow[data-stage="0"] .frame-chaos .c12{transform:rotate(8deg) translate(-75px,-20px)}
+#flow[data-stage="0"] .frame-chaos .c13{transform:rotate(5deg) translate(195px,95px)}
+#flow[data-stage="0"] .frame-chaos .c14{transform:rotate(-9deg) translate(-155px,-115px)}
+#flow[data-stage="0"] .frame-chaos .c15{transform:rotate(6deg) translate(45px,-45px)}
 #flow[data-stage="1"] .frame-chaos{opacity:.35}
 #flow[data-stage="1"] .frame-chaos .chip{transform:none}
 
