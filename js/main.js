@@ -1,3 +1,4 @@
+import './theme.js';
 import './nav.js';
 import './counters.js';
 import './reveal.js';

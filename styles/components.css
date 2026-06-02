@@ -32,6 +32,21 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 
 summary{cursor:pointer}
 
+/* ── Theme toggle (Phase 10) ─────────────────────────────────── */
+.theme-toggle{display:inline-grid;place-items:center;width:40px;height:40px;flex:0 0 auto;
+  border:1px solid var(--line-bright);border-radius:var(--r-pill);background:transparent;
+  color:var(--muted);cursor:pointer;padding:0;
+  transition:color var(--duration-fast) var(--ease),border-color var(--duration-fast) var(--ease),
+             background var(--duration-fast) var(--ease),transform var(--duration-fast) var(--ease)}
+.theme-toggle:hover{color:var(--ink);border-color:var(--coral);transform:translateY(-1px)}
+.theme-toggle:active{transform:translateY(0) scale(.94)}
+.theme-toggle svg{width:18px;height:18px;display:block;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.theme-toggle .ic-sun{display:none}
+[data-theme="dark"] .theme-toggle .ic-sun{display:block}
+[data-theme="dark"] .theme-toggle .ic-moon{display:none}
+@media(prefers-reduced-motion:reduce){.theme-toggle:hover,.theme-toggle:active{transform:none}}
+
 @media(prefers-reduced-motion:reduce){
   .work,.services .card,.btn{transition:none}
   .work:hover,.services .card:hover,.btn-primary:hover,.btn-primary:active{transform:none}
