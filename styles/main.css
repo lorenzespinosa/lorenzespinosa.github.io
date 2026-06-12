@@ -52,7 +52,7 @@ nav.scrolled{border-bottom:1px solid var(--line)}
 .hero .pill{animation-delay:.05s}
 .hero h1{animation-delay:.15s}
 .hero .lede{animation-delay:.28s}
-.hero .cta-row{animation-delay:.4s}
+.hero .cta-row{animation-delay:.4s;justify-content:flex-start;text-align:left}
 .hero .editor{animation-delay:.52s}
 .hero .metrics{animation-delay:.62s}
 @keyframes riseIn{to{opacity:1;transform:none}}
