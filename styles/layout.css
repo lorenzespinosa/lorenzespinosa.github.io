@@ -42,6 +42,12 @@
 .btile--stack .chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.3rem}
 .btile--stack .chips span{font-family:var(--mono);font-size:var(--text-xs);color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .65rem}
 
+.btile--beliefs{justify-content:flex-start}
+.btile--beliefs .beliefs{list-style:none;margin:.65rem 0 0;padding:0;display:grid;gap:.6rem}
+.btile--beliefs .beliefs li{display:flex;align-items:baseline;gap:.65rem;font-size:var(--text-sm);color:var(--muted);line-height:1.4}
+.btile--beliefs .beliefs li b{color:var(--ink);font-weight:var(--w-semibold)}
+.btile--beliefs .b-mark{flex:none;width:.5rem;height:.5rem;margin-top:.3rem;border-radius:1px;background:var(--coral);transform:rotate(45deg)}
+
 .btile--cta{grid-column:span 2;justify-content:center;gap:.9rem;background:linear-gradient(160deg,var(--surface-2),var(--surface))}
 .btile--cta p{font-family:var(--display);font-weight:var(--w-display);font-size:var(--text-lg);color:var(--ink);line-height:1.15}
 
