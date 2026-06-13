@@ -1,0 +1,39 @@
+# Lorenz Espinosa — AI Systems & Automation Architect
+
+> Independent AI systems & automation architect for ops-heavy businesses. Builds reliable, self-hosted automation on n8n: fixes the broken process and cuts SaaS/subscription bloat first, then adds AI exactly where it earns its keep — gated with evals, guardrails, and human-in-the-loop. Track record: 50+ operational processes automated and $800K+ in hard-dollar client savings. Fully remote, worldwide.
+
+## About
+- Role: AI Systems & Automation Architect (independent / freelance)
+- Approach: fix the process first, self-hosted and private, deterministic core, AI only where it earns its keep. No tool sprawl, no AI slop, nothing that hallucinates into business-critical work.
+- Background: 5 years in IT, Windows Server, and AWS before specializing in automation; concurrent year-long engagement with Le Cordon Bleu International (IT infrastructure + marketing automation).
+
+## Services
+- Automation & Cost Audit — map workflows, find highest-ROI automations, flag overlapping tools and SaaS overspend (starts ~$750).
+- Build & Ship — fixed-scope automation built end-to-end: trigger, validate, process, integrate, audit log (from $2,500).
+- AI Agents & Orchestration — production agents wired to real tools, gated by human approval, with evals and guardrails.
+- Fractional Automation Engineering — ongoing ownership of the automation backlog (retainer from $1,500/month).
+
+## Proof / outcomes
+- 50+ operational processes automated across intake, case and record management, billing, and client communication.
+- $800K+ in hard-dollar client savings.
+- +30% lead conversion on a capped AI budget; -70% manual data entry on a 3-system intake pipeline; zero missed invoices on a deterministic billing sync.
+
+## Skills & stack
+- Self-hosted orchestration: n8n, Docker Compose, Traefik, Temporal
+- AI: AI agents, agent orchestration, multi-agent systems, LLMOps, AgentOps, evals & guardrails, RAG, Model Context Protocol (MCP), hybrid model routing, self-hosted/on-prem LLMs, AI governance, Azure AI Foundry, AutoGen, Claude
+- Data: Supabase, PostgreSQL, Qdrant (vector / semantic cache), Airtable
+- Languages: Python, JavaScript, REST/webhooks
+
+## Open source
+- n8n-lint — static analysis for n8n workflow JSON (credential leaks, deprecated nodes, orphaned connections).
+- openclaw-n8n-stack — one-command Docker stack: AI agent gateway + n8n + PostgreSQL, MCP pre-wired.
+- n8n-error-handling-pattern, n8n-ai-agent-delegator, airtable-automation-toolkit, n8n-legal-ops-templates.
+
+## Links
+- Portfolio & services: https://lorenzespinosa.github.io/
+- GitHub: https://github.com/lorenzespinosa
+- LinkedIn: https://www.linkedin.com/in/lorenz-leslie-espinosa/
+- Email: renzespinosa13@gmail.com
+
+## Contact
+Free 15-minute call, no obligation. Replies within one business day. Fully remote, worldwide.
