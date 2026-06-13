@@ -54,7 +54,7 @@ The building blocks I ship with — the `validate → retry → fallback → aud
 
 ## 📊 By the numbers
 
-- **120+** operational processes automated
+- **50+** operational processes automated
 - **$800K+** in hard-dollar savings
 - **−70%** manual data entry on a 3-system intake pipeline · **+30%** lead conversion on a budget
 - **Zero** missed invoices · **Zero** tokens on deterministic money paths · **Zero** hallucinations in critical paths

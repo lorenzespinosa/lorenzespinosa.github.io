@@ -31,7 +31,7 @@ What that buys you:
 - **No third-party fragility.** Self-hosted means no API to rate-limit you, reprice you, or go down mid-operation.
 - **No hallucinations where it matters.** A rule can't invent a number into an invoice or a client record. Business-critical paths stay deterministic.
 
-The track record: **120+ operational processes automated**, **$800K+ in hard-dollar savings**, across intake, case and record management, billing, and client communication. Real systems running in production — most of them migrating a business off fragile, high-token AI wrappers and onto robust, self-hosted orchestration. Every build ships with validation, retries, fallback paths, and PII-masked audit logging from day one, plus docs so your team owns it.
+The track record: **50+ operational processes automated**, **$800K+ in hard-dollar savings**, across intake, case and record management, billing, and client communication. Real systems running in production — most of them migrating a business off fragile, high-token AI wrappers and onto robust, self-hosted orchestration. Every build ships with validation, retries, fallback paths, and PII-masked audit logging from day one, plus docs so your team owns it.
 
 Background: enterprise Microsoft Cloud and multi-tenant IT + marketing automation for **Le Cordon Bleu International** — so I'm as comfortable in a large multi-tenant environment as I am wiring up a lean ops stack. Certified: n8n Level 2, AWS Cloud Practitioner, Azure AZ-900, Make & Zapier, GitHub Foundations.
 
