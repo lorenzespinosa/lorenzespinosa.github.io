@@ -1,0 +1,348 @@
+/* ── Liquid Glass layer ──────────────────────────────────────────
+   Loaded LAST in the cascade (after hero.css) so rules win without
+   !important. Additive and reversible — no HTML edits except this
+   one <link>. Blur capped at 16px (dark) / 14px (light) to limit
+   GPU cost. No broad will-change. Compositor-only properties only.
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── 1. Glass primitive utility ─────────────────────────────── */
+.glass{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border:1px solid var(--glass-border);
+  position:relative;
+}
+
+/* Specular top-edge highlight — the bright glass "lip" */
+.glass::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(180deg,var(--glass-edge),transparent 38%);
+  opacity:.7;
+  mix-blend-mode:screen;
+  z-index:0;
+}
+
+/* Hover sheen — diagonal light streak, opacity only (compositor-only) */
+.glass::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,var(--glass-sheen) 50%,transparent 70%);
+  opacity:0;
+  transform:translateX(-30%);
+  transition:opacity var(--duration-normal) var(--ease),
+             transform var(--duration-normal) var(--ease);
+  z-index:0;
+}
+.glass:hover::after{
+  opacity:1;
+  transform:translateX(30%);
+}
+
+.glass:hover{filter:brightness(1.04)}
+.glass:active{filter:brightness(.98)}
+
+/* ── 2. Surface-specific glass rules ─────────────────────────── */
+
+/* Nav: upgrade existing blur-12px to glass token set */
+nav{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border-bottom:1px solid var(--glass-border);
+  position:relative;
+}
+nav.scrolled{border-bottom-color:var(--glass-border)}
+
+/* Nav specular edge via ::before — nav already uses ::after for nothing */
+nav::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,var(--glass-edge),transparent 38%);
+  opacity:.5;
+  mix-blend-mode:screen;
+  z-index:0;
+}
+
+/* Cards, work, trust, persona, repo, FAQ — shared glass surface.
+   Use ::before for specular edge (these elements' ::after is either
+   unused or carries content borders — we add ::before safely). */
+.card,
+.work,
+.tcard,
+.persona,
+.repo,
+details.faq{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border-color:var(--glass-border);
+}
+
+/* Specular edge for cards group (::before pseudo) */
+.card::before,
+.work::before,
+.tcard::before,
+.persona::before,
+.repo::before,
+details.faq::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(180deg,var(--glass-edge),transparent 38%);
+  opacity:.6;
+  mix-blend-mode:screen;
+  z-index:0;
+}
+
+/* Card hover: existing transform stays; add brightness + border reveal */
+.card:hover,
+.work:hover,
+.tcard:hover,
+.persona:hover,
+.repo:hover{
+  background:var(--glass-bg-2);
+  border-color:var(--glass-border);
+  filter:brightness(1.04);
+}
+
+/* Bento tiles — glass bg layered UNDER the existing gradient overlay.
+   .btile uses linear-gradient in background; we set background-color
+   via a rgba fallback and keep backdrop-filter on top. */
+.btile{
+  background:
+    linear-gradient(160deg,var(--surface),var(--bg-2)),
+    var(--glass-bg);  /* glass tint visible through gradient */
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border-color:var(--glass-border);
+}
+
+/* .btile--feature: preserve coral radial-gradient; glass bg underneath.
+   Its ::after may be used by JS animations — put specular on ::before. */
+.btile--feature{
+  background:
+    radial-gradient(120% 120% at 100% 0%,var(--coral-ghost),transparent 55%),
+    linear-gradient(160deg,var(--surface),var(--bg-2));
+  /* backdrop-filter inherited from .btile */
+}
+.btile::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(180deg,var(--glass-edge),transparent 38%);
+  opacity:.55;
+  mix-blend-mode:screen;
+  z-index:0;
+}
+
+/* Editor chrome (.editor + .ed-bar) — NOT .canvas (drag legibility) */
+.editor{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border-color:var(--glass-border);
+}
+.ed-bar{
+  background:var(--glass-bg-2);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border-color:var(--glass-border);
+}
+/* Explicit guard: .canvas is NOT glassed — keep its solid bg for legibility */
+.canvas{
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  background-color:var(--canvas); /* restores solid canvas */
+}
+
+/* ROI panel — .calc container + .calc-result inner panel */
+.calc{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border-color:var(--glass-border);
+}
+/* .calc-result uses ::after for the coral blob — keep it.
+   Use ::before for the specular edge on calc-result. */
+.calc-result{
+  background:var(--glass-bg-2);
+  -webkit-backdrop-filter:blur(calc(var(--glass-blur) * 0.75)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(calc(var(--glass-blur) * 0.75)) saturate(var(--glass-saturate));
+}
+.calc-result::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,var(--glass-edge),transparent 38%);
+  opacity:.45;
+  mix-blend-mode:screen;
+  z-index:0;
+}
+/* Coral blob (calc-result::after) is preserved — no override here */
+
+/* .calc-stat inner cards — use --glass-bg-2 */
+.calc-stat{
+  background:var(--glass-bg-2);
+  -webkit-backdrop-filter:blur(8px) saturate(var(--glass-saturate));
+  backdrop-filter:blur(8px) saturate(var(--glass-saturate));
+  border-color:var(--glass-border);
+}
+
+/* Buttons:
+   - .btn-ghost: full glass treatment (it has no solid fill)
+   - .btn-primary: KEEP solid --lime fill for AA white-on-coral; add
+     specular edge + glass border only — no translucent fill */
+.btn-ghost{
+  background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(8px) saturate(var(--glass-saturate));
+  backdrop-filter:blur(8px) saturate(var(--glass-saturate));
+  border-color:var(--glass-border);
+}
+.btn-ghost:hover{
+  background:var(--glass-bg-2);
+  border-color:var(--glass-border);
+  filter:brightness(1.06);
+}
+/* .btn-primary: solid fill kept; add specular via ::before + glass border */
+.btn-primary{
+  border:1px solid var(--glass-border);
+  position:relative;
+  overflow:hidden;
+}
+.btn-primary::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(180deg,var(--glass-edge),transparent 35%);
+  opacity:.3;
+  mix-blend-mode:screen;
+  z-index:0;
+}
+
+/* ── 3. @supports fallback — opaque surfaces for browsers without
+         backdrop-filter (Firefox default, older browsers).
+         Restores exact --surface / --nav-bg tokens, zero contrast loss. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  nav{
+    background:var(--nav-bg);
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{border-bottom-color:var(--line)}
+  nav::before{display:none}
+
+  .card,
+  .work,
+  .tcard,
+  .persona,
+  .repo,
+  details.faq,
+  .calc,
+  .editor{
+    background:var(--surface);
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    border-color:var(--line);
+  }
+  .calc-result{
+    background:linear-gradient(160deg,var(--bg-2),var(--bg));
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+  }
+  .calc-result::before{display:none}
+  .calc-stat{
+    background:var(--surface);
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    border-color:var(--line);
+  }
+  .ed-bar{
+    background:var(--bg-2);
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    border-color:var(--line);
+  }
+  .btile{
+    background:linear-gradient(160deg,var(--surface),var(--bg-2));
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    border-color:var(--line);
+  }
+  .btile--feature{
+    background:
+      radial-gradient(120% 120% at 100% 0%,var(--coral-ghost),transparent 55%),
+      linear-gradient(160deg,var(--surface),var(--bg-2));
+  }
+  .btn-ghost{
+    background:transparent;
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    border-color:var(--line-bright);
+  }
+  .btn-primary{border-color:transparent}
+  /* Reset specular edges to invisible on fallback path */
+  .card::before,
+  .work::before,
+  .tcard::before,
+  .persona::before,
+  .repo::before,
+  details.faq::before,
+  .btile::before,
+  .btn-primary::before{
+    opacity:0;
+  }
+}
+
+/* ── 4. Reduced-motion kill-switch ───────────────────────────────
+   Static glass (blur + edge) is fine; kill sheen sweep, hover-lift
+   filter, and all glass transitions. The main.css kill-switch
+   already covers *{transition:none!important} globally, but this
+   block ensures glass.css is self-contained and modular. */
+@media(prefers-reduced-motion:reduce){
+  .glass::after,
+  nav::before,
+  .card::before,
+  .work::before,
+  .tcard::before,
+  .persona::before,
+  .repo::before,
+  details.faq::before,
+  .btile::before,
+  .calc-result::before,
+  .btn-primary::before{
+    opacity:0;
+    transition:none;
+  }
+  .glass:hover::after{
+    opacity:0;
+    transform:translateX(-30%);
+    transition:none;
+  }
+  .glass:hover,
+  .card:hover,
+  .work:hover,
+  .tcard:hover,
+  .persona:hover,
+  .repo:hover,
+  .btn-ghost:hover{
+    filter:none;
+  }
+}
