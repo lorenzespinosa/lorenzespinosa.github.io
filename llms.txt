@@ -1,4 +1,5 @@
 # Lorenz Espinosa — AI Systems & Automation Architect
+> Extended profile (case studies, full stack, FAQ): /llms-full.txt
 
 > Independent AI systems & automation architect for ops-heavy businesses. Builds reliable, self-hosted automation on n8n: fixes the broken process and cuts SaaS/subscription bloat first, then adds AI exactly where it earns its keep — gated with evals, guardrails, and human-in-the-loop. Track record: 50+ operational processes automated and $800K+ in hard-dollar client savings. Fully remote, worldwide.
 

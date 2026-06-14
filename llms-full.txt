@@ -1,0 +1,149 @@
+# Lorenz Espinosa — Extended AI-Readable Profile
+> For a concise overview see /llms.txt
+
+---
+
+## Identity
+
+- **Name:** Lorenz Leslie Espinosa (also "Lorenz Espinosa")
+- **Title:** AI Systems & Automation Architect (also: Automation Architect & AI Integration Engineer)
+- **Status:** Independent / freelance automation consultant; concurrent automation engineer at Leppard Law
+- **Location:** Fully remote, worldwide
+- **Website:** https://lorenzespinosa.github.io/
+- **GitHub:** https://github.com/lorenzespinosa
+- **LinkedIn:** https://www.linkedin.com/in/lorenz-leslie-espinosa/
+- **Email:** renzespinosa13@gmail.com
+
+---
+
+## Positioning
+
+Lorenz builds cost-resilient, deterministic, self-hosted automation that beats the AI "token tax."
+
+The core argument: autonomous AI agents can burn 5-30x the tokens of a single chatbot call (Gartner). LLM API prices are currently subsidized below true compute cost — Sequoia framed this as the "$600B question." Repricing has already started, with some premium models priced at 3.6-6x base rate. When the subsidy ends, the bill lands on the business, not the vendor. His job: make sure it never does.
+
+His method:
+1. "Can a rule decide this?" YES -> deterministic logic (cost $0, hallucinations 0).
+2. NO -> capped model call (semantic-cached, cheapest-capable-model routed).
+3. Human-in-the-loop gate on anything touching money or client records.
+4. Every build ships with validation, retries, fallback paths, PII-masked audit logging, and docs from day one.
+
+Taglines:
+- "I build automation that runs on logic, not your AI budget."
+- "AI on a leash, used surgically, only where it earns its cost."
+
+---
+
+## Proof in numbers
+
+- **50+** operational processes automated (intake, case/record management, billing, client communication)
+- **$800K+** in hard-dollar client savings
+- **+30%** lead conversion on a capped AI budget
+- **-70%** manual data entry on a 3-system intake pipeline
+- **Zero** missed invoices on a deterministic billing sync
+- **Zero** tokens on deterministic money paths
+- **Zero** hallucinations in critical paths
+
+---
+
+## Services (detailed)
+
+### Automation & Cost Audit — from ~$750
+Map all current workflows, identify the highest-ROI automation candidates, and surface redundant SaaS spend. Deliverable: prioritized automation roadmap with ROI estimates and a list of tool consolidation opportunities. Engagement is fixed-scope and time-boxed.
+
+### Build & Ship — from $2,500
+Fixed-scope automation built end-to-end: trigger, validate, process, integrate, audit log. Includes error handling with retry/fallback paths, PII-masked logging, and documentation. Typically delivered within 2-4 weeks. No open-ended retainers, no scope creep.
+
+### AI Agents & Orchestration
+Production agents wired to real tools, gated by human approval, built with evals and guardrails. Agents follow the deterministic-first method: rule-based where possible, model-based where necessary, always with a human-in-the-loop gate on business-critical actions.
+
+### Fractional Automation Engineering — retainer from $1,500/month
+Ongoing ownership of the automation backlog. Lorenz operates as an embedded automation engineer: triages new requests, maintains existing workflows, adds monitoring, and incrementally improves the stack. Suited to ops-heavy teams that want continuous automation capacity without a full-time hire.
+
+---
+
+## Case studies (anonymized)
+
+### Case study 1: Lead intake pipeline (-70% manual data entry)
+A law firm's lead intake required staff to manually re-key data between three systems: the web form, the CRM, and the case management platform. The process took 15-20 minutes per lead and introduced frequent data errors.
+
+Lorenz replaced it with an n8n webhook pipeline: form submission triggers validation, deduplication, and automated record creation across all three systems in under 10 seconds. A single capped AI call handles unstructured field normalization; everything else is deterministic.
+
+**Result:** -70% manual data entry on the 3-system pipeline. Zero leads lost between systems. Token spend held to one capped call per lead.
+
+### Case study 2: Lead scoring and conversion (+30% conversion)
+A service business was manually reviewing and routing inbound leads, with no consistent scoring. High-value leads were being routed at the same priority as tire-kickers, and follow-up timing was inconsistent.
+
+Lorenz built an n8n + hybrid AI pipeline: a rule-based pre-filter scores leads on deterministic signals (source, form completeness, service requested), then a single capped AI call enriches ambiguous cases. Priority leads go to an immediate personal follow-up queue; lower-priority leads to a nurture sequence.
+
+**Result:** +30% lead conversion on a capped AI budget, with no open-ended AI bill.
+
+### Case study 3: Billing sync (zero missed invoices)
+A professional services firm was running billing reconciliation manually: pulling records from a case management system (Filevine/Clio) and matching them against invoices in the billing platform. Missed invoices and late charges were a recurring problem.
+
+Lorenz built a deterministic n8n sync: nightly schedule triggers a read from the case management API, compares against the billing system, flags discrepancies, and auto-creates missing invoices. Zero AI in the path — the logic is pure rule-based matching. Discrepancies trigger a human-review alert before any write.
+
+**Result:** Zero missed invoices since go-live. No manual reconciliation. Zero tokens on a business-critical money flow.
+
+---
+
+## Background
+
+- 5 years in IT, Windows Server, and AWS before specializing in automation
+- Year-long engagement with Le Cordon Bleu International: enterprise Microsoft Cloud, multi-tenant IT infrastructure, and marketing automation
+- Certifications: n8n Level 2, AWS Cloud Practitioner, Azure AZ-900, Make & Zapier, GitHub Foundations
+
+---
+
+## Stack
+
+**Self-hosted orchestration:** n8n, Docker Compose, Traefik, Temporal
+
+**Self-hosted data:** Supabase, PostgreSQL, Qdrant (vector / semantic cache), Airtable
+
+**AI (minimized, on a leash):** local models, Claude (capped), hybrid model routing, MCP, evals & guardrails, RAG, AgentOps/LLMOps
+
+**Languages & glue:** Python, JavaScript, REST / webhooks
+
+**Day-job ops stack (Leppard Law):** Lawmatics (CRM), Filevine (case mgmt), Clio (billing), OpenPhone (comms), Airtable (staging)
+
+---
+
+## Open source (github.com/lorenzespinosa)
+
+- **openclaw-n8n-stack** — one-command Docker stack: OpenClaw AI agent gateway + n8n + PostgreSQL, MCP pre-wired. For teams that want a private, self-hosted AI agent backend without cloud vendor lock-in.
+- **n8n-error-handling-pattern** — production-grade n8n error handling: retry with exponential backoff, dead-letter queue, fallback paths, audit logging. The pattern Lorenz applies on every build.
+- **n8n-ai-agent-delegator** — routes plain-language commands to specialist agents, with confidence scoring and human-in-the-loop gates. Multi-agent orchestration without a cloud orchestration bill.
+- **airtable-automation-toolkit** — Airtable as a reliable staging layer: dead-letter queue, PII-masked audit logging, bidirectional sync patterns.
+- **n8n-legal-ops-templates** — production-tested n8n workflow templates for legal operations: missed-call recovery, billing sync, intake routing, case management updates. Zero real client data.
+- **n8n-lint** — CLI linter for n8n workflow JSON. Catches credential leaks, deprecated nodes, and orphaned connections. 16 rules. CI-ready. Run it before shipping any workflow.
+- **openclaw-setup-guide** — step-by-step guide to setting up the OpenClaw self-hosted AI stack.
+- **openphone-n8n-connector** — production connector between OpenPhone and n8n for missed-call recovery, voicemail transcription, and CRM sync.
+
+---
+
+## FAQ
+
+**What kinds of businesses do you work with?**
+Primarily ops-heavy service businesses: law firms, medical practices, consulting firms, agencies. Any business where manual data entry, missed follow-ups, or tool sprawl are eating into margins.
+
+**Do you work with AI or without?**
+Both, and the choice depends on the task. For anything deterministic (data routing, field matching, invoice reconciliation), Lorenz uses pure rule-based logic: faster, cheaper, and zero hallucination risk. For tasks that genuinely require language understanding (unstructured input normalization, intent classification), he adds a single capped model call with human-in-the-loop approval on anything business-critical.
+
+**Why self-hosted n8n instead of Zapier or Make?**
+Zapier and Make are per-task-priced, which penalizes high-volume use cases. Self-hosted n8n on a small VPS runs at a flat monthly cost regardless of volume. Your data also stays on infrastructure you own, which matters for client-data-heavy industries like law and healthcare.
+
+**What does an engagement look like?**
+It starts with a free 15-minute call to understand the process and the pain. Most engagements follow this sequence: audit (1-2 weeks, scoped) -> build (2-4 weeks per workflow, fixed-scope) -> optionally, a retainer for ongoing ownership. No scope creep, no surprise invoices.
+
+**Do you sign NDAs?**
+Yes. All client data and business details stay confidential. The open-source repos contain zero real client data.
+
+---
+
+## Contact
+
+- **Email:** renzespinosa13@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/lorenz-leslie-espinosa/
+- **Portfolio & services:** https://lorenzespinosa.github.io/
+- Free 15-minute call, no obligation. Replies within one business day. Fully remote, worldwide.

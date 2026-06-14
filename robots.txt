@@ -1,3 +1,19 @@
 User-agent: *
 Allow: /
 Sitemap: https://lorenzespinosa.github.io/sitemap.xml
+
+# Explicit allow stanzas for AI crawlers (intentional, not required by wildcard above)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
