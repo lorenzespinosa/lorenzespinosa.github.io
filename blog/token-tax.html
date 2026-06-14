@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<script>/* FOUC-free theme resolver, must run before any stylesheet. */(function(){try{var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>The Token Tax Is Real: Why I Self-Host My AI Stack</title>
+<meta name="description" content="Autonomous AI agents burn 5-30x the tokens of a single chat call. GitHub already repriced premium models 3.6-6x. Here's the math that made me self-host." />
+<meta property="og:title" content="The Token Tax Is Real: Why I Self-Host" />
+<meta property="og:description" content="Autonomous AI agents burn 5-30x the tokens of a single chat call. GitHub already repriced premium models 3.6-6x. Here's the math that made me self-host." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lorenzespinosa.github.io/blog/token-tax.html" />
+<meta property="og:image" content="https://lorenzespinosa.github.io/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The Token Tax Is Real: Why I Self-Host" />
+<meta name="twitter:description" content="Autonomous AI agents burn 5-30x the tokens of a single chat call. GitHub already repriced premium models 3.6-6x. Here's the math that made me self-host." />
+<meta name="twitter:image" content="https://lorenzespinosa.github.io/og-image.png" />
+<meta name="theme-color" id="theme-color" content="#f6f7f8" />
+<link rel="canonical" href="https://lorenzespinosa.github.io/blog/token-tax.html" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0c0b'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ea4b71'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ea4b71' stroke-opacity='0.35' stroke-width='1.5'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles/tokens.css" />
+<link rel="stylesheet" href="../styles/typography.css" />
+<link rel="stylesheet" href="../styles/main.css" />
+<link rel="stylesheet" href="../styles/layout.css" />
+<link rel="stylesheet" href="../styles/components.css" />
+<link rel="stylesheet" href="../styles/glass.css" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Token Tax Is Real: The Math That Made Me Self-Host",
+  "datePublished": "2026-06-14",
+  "dateModified": "2026-06-14",
+  "author": {
+    "@type": "Person",
+    "name": "Lorenz Leslie Espinosa",
+    "url": "https://lorenzespinosa.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Lorenz Leslie Espinosa",
+    "url": "https://lorenzespinosa.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lorenzespinosa.github.io/blog/token-tax.html"
+  },
+  "description": "Autonomous AI agents burn 5-30x the tokens of a single chat call. GitHub already repriced premium models 3.6-6x. Here is the math that made me self-host and build deterministic automation instead.",
+  "keywords": ["token tax", "AI cost", "self-hosted automation", "n8n", "deterministic automation", "agentic AI cost", "GitHub Copilot pricing"],
+  "url": "https://lorenzespinosa.github.io/blog/token-tax.html"
+}
+</script>
+<style>
+/* ── Blog post styles ─────────────────────────────────────────── */
+.post-hero {
+  padding: clamp(8rem, 6rem + 6vw, 11rem) 0 clamp(3rem, 2rem + 3vw, 5rem);
+  position: relative;
+}
+.post-meta {
+  font-family: var(--mono);
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--faint);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.8rem;
+}
+.post-meta .sep { color: var(--line-bright); }
+.post-tag {
+  color: var(--lime);
+  border: 1px solid var(--coral-ghost);
+  background: var(--coral-ghost);
+  border-radius: var(--r-pill);
+  padding: .25rem .65rem;
+  font-size: .68rem;
+}
+.post-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 1.2rem + 4.5vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -.03em;
+  max-width: 18ch;
+  margin-bottom: 1.4rem;
+  color: var(--ink);
+}
+.post-title .accent { color: var(--lime); }
+.post-lede {
+  font-size: clamp(1.1rem, 1rem + .5vw, 1.35rem);
+  color: var(--muted);
+  max-width: 56ch;
+  line-height: 1.55;
+  margin-bottom: 2.5rem;
+}
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.4rem;
+}
+.post-author-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid var(--line);
+  background: var(--bg-2);
+}
+.post-author-name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: .98rem;
+  color: var(--ink);
+  display: block;
+}
+.post-author-role {
+  font-family: var(--mono);
+  font-size: .68rem;
+  color: var(--faint);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  display: block;
+  margin-top: .15rem;
+}
+
+/* ── Article body prose ───────────────────────────────────────── */
+.post-body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 2rem + 3vw, 4.5rem) clamp(1.25rem, 4vw, 2.5rem);
+  font-size: clamp(1rem, .95rem + .25vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--ink);
+}
+.post-body h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.2rem);
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 3rem 0 1rem;
+  max-width: none;
+}
+.post-body h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1rem + .7vw, 1.5rem);
+  letter-spacing: -.01em;
+  color: var(--ink);
+  margin: 2.2rem 0 .8rem;
+}
+.post-body p {
+  margin-bottom: 1.4rem;
+  color: var(--muted);
+}
+.post-body p strong, .post-body p b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.post-body a {
+  color: var(--lime);
+  border-bottom: 1px solid var(--coral-ghost);
+  transition: border-color var(--duration-fast) var(--ease);
+}
+.post-body a:hover { border-color: var(--lime); }
+.post-body ul, .post-body ol {
+  margin: 0 0 1.4rem 1.4rem;
+  color: var(--muted);
+}
+.post-body li { margin-bottom: .5rem; line-height: 1.65; }
+.post-body li strong { color: var(--ink); }
+.post-body hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 3rem 0;
+}
+
+/* ── Fact block (GEO standalone claim block) ─────────────────── */
+.fact-block {
+  background: linear-gradient(160deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--line-bright);
+  border-left: 3px solid var(--lime);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: 1.6rem 1.8rem;
+  margin: 2.2rem 0;
+}
+.fact-block .fact-label {
+  font-family: var(--mono);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--lime);
+  margin-bottom: 1rem;
+  display: block;
+}
+.fact-block ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fact-block li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: .55rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: .97rem;
+  margin-bottom: 0;
+}
+.fact-block li:last-child { border-bottom: none; }
+.fact-block .stat {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--lime);
+  letter-spacing: -.02em;
+  flex: 0 0 5.5rem;
+  line-height: 1;
+}
+.fact-block .desc {
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: .93rem;
+}
+
+/* ── Cost table ──────────────────────────────────────────────── */
+.cost-table {
+  width: stretch;
+  border-collapse: collapse;
+  font-size: .92rem;
+  margin: 1.6rem 0 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.cost-table th {
+  font-family: var(--mono);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--faint);
+  background: var(--bg-2);
+  padding: .8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.cost-table td {
+  padding: .85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.cost-table tr:last-child td { border-bottom: none; }
+.cost-table .td-stat {
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.cost-table .td-bad { color: var(--red); font-weight: 600; }
+@media (max-width: 640px) {
+  .cost-table { display: block; overflow-x: auto; }
+}
+
+/* ── Method block ─────────────────────────────────────────────── */
+.method-steps {
+  display: grid;
+  gap: .8rem;
+  margin: 1.6rem 0 2rem;
+}
+.method-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 1.1rem 1.3rem;
+  background: var(--surface);
+}
+.method-step .num {
+  font-family: var(--mono);
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--lime);
+  flex: 0 0 1.8rem;
+  line-height: 1.6;
+}
+.method-step .text {
+  font-size: .95rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.method-step .text strong { color: var(--ink); }
+
+/* ── CTA block ───────────────────────────────────────────────── */
+.post-cta {
+  background: linear-gradient(160deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(2rem, 1.5rem + 2vw, 3rem) clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  margin: 3rem 0 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.post-cta::before {
+  content: "";
+  position: absolute;
+  top: -8rem;
+  right: -3rem;
+  width: 22rem;
+  height: 18rem;
+  background: var(--coral);
+  opacity: .06;
+  border-radius: 999px;
+  filter: blur(55px);
+}
+.post-cta h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem);
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: .7rem;
+  position: relative;
+}
+.post-cta p {
+  color: var(--muted);
+  font-size: .98rem;
+  max-width: 46ch;
+  margin: 0 auto 1.6rem;
+  line-height: 1.6;
+  position: relative;
+}
+.post-cta .cta-row { justify-content: center; position: relative; }
+.post-cta .cta-micro {
+  justify-content: center;
+  margin-top: .9rem;
+  position: relative;
+}
+
+/* ── Back nav ─────────────────────────────────────────────────── */
+.post-back {
+  font-family: var(--mono);
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  transition: color var(--duration-fast) var(--ease);
+  margin-bottom: 1.2rem;
+  text-decoration: none;
+}
+.post-back:hover { color: var(--lime); }
+.post-back .arr { color: var(--lime); }
+</style>
+</head>
+<body>
+
+<a href="#top" class="skip">Skip to content</a>
+<div id="progress" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../index.html" class="brand"><span class="dot"></span>Lorenz Espinosa</a>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#opensource">Open source</a>
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#faq">FAQ</a>
+      <a class="nav-cta" href="mailto:renzespinosa13@gmail.com?subject=Automation%20project%20inquiry&body=Hi%20Lorenz%2C%0A%0AGoal%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A">Start a project</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle light/dark theme">
+        <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="post-hero" id="top">
+  <div class="wrap">
+    <a href="../index.html" class="post-back"><span class="arr">&#8592;</span> Back to home</a>
+    <div class="post-meta">
+      <span class="post-tag">AI Cost</span>
+      <span class="post-tag">Self-Hosted</span>
+      <span class="sep">|</span>
+      <span>June 14, 2026</span>
+      <span class="sep">|</span>
+      <span>12 min read</span>
+    </div>
+    <h1 class="post-title">The token tax is real. <span class="accent">Here's the math that made me self-host.</span></h1>
+    <p class="post-lede">Subsidized AI pricing is ending. Autonomous agents burn 5-30x the tokens of a single chat call. GitHub already repriced premium models at 3.6-6x base rate. If you're building on rented AI infrastructure right now, the bill is going to land on your P&amp;L, not on your vendor's. Here's what I did about it.</p>
+    <div class="post-author">
+      <img src="../lorenz.webp" alt="Lorenz Espinosa" class="post-author-img" width="44" height="44" loading="eager" />
+      <div>
+        <span class="post-author-name">Lorenz Leslie Espinosa</span>
+        <span class="post-author-role">AI Systems &amp; Automation Architect</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<article class="post-body" id="main-content">
+
+<p>
+Half my job lately is talking clients out of using more AI. Not because AI is bad. Because the pricing math right now is a slow leak that turns into a flood the moment you run anything autonomous. I built the self-hosted stack I run today because I ran those numbers and didn't like where they pointed. This is that story.
+</p>
+
+<h2>The "cheap Uber rides" problem</h2>
+
+<p>
+Silicon Valley has done this before. For a decade, venture capital underwrote below-cost pricing on rides, deliveries, and streaming to capture market share. You got Uber rides that cost pennies on the dollar to actually run. Eventually the subsidies ended, prices corrected, and anyone who'd built a business model around those artificially cheap unit economics had to scramble.
+</p>
+
+<p>
+AI is running the same play. The flat-rate, cheap frontier model access you're using today is not priced at true compute cost. And the people funding that gap are asking serious questions about when they get paid back.
+</p>
+
+<p>
+Sequoia put a number on it. David Cahn's "$600B question" estimates that the AI industry needs roughly <strong>$600B in annual revenue</strong> just to break even on the current infrastructure buildout. GPU spend is only half the picture. Energy, buildings, and cooling double it. Add a healthy gross margin for the provider on top, and you get a revenue requirement that the industry isn't anywhere close to hitting. Prices are going up. That's not a prediction, it's arithmetic.
+</p>
+
+<h2>The repricing has already started. Most people missed it.</h2>
+
+<p>
+This isn't future tense. GitHub Copilot already repriced its premium models at <strong>3.6-6x the base rate</strong>. Providers are pivoting from flat subscriptions to usage-based, per-token billing. That's a direct transfer of compute risk from vendor to customer. And it hits hardest on exactly the use case everyone is excited about right now: autonomous agents.
+</p>
+
+<p>
+A single chatbot call is cheap. You send a message, get a response, done. Maybe a few hundred tokens. But an "agentic" workflow, where an AI reasons through a task, calls tools, re-reads its own context, loops back, and tries again, is a completely different animal. Research from Gartner puts the gap at <strong>5-30x the tokens</strong> of a standard chat call. That's not a typo. A task that costs next to nothing in a chat window can cost dollars per run when you let an agent "just figure it out."
+</p>
+
+<p>
+At low volume, fine. At production scale, across every process you've handed to AI, that's a line item that will show up on your P&amp;L and keep growing.
+</p>
+
+<div class="fact-block">
+  <span class="fact-label">The token tax in numbers</span>
+  <ul>
+    <li>
+      <span class="stat">5-30x</span>
+      <span class="desc">More tokens burned by autonomous agents versus a single chatbot call. Source: Gartner. The multiplier grows with task complexity and context window size.</span>
+    </li>
+    <li>
+      <span class="stat">$600B</span>
+      <span class="desc">Annual revenue the AI infrastructure buildout needs to break even. Sequoia's named figure for the compute subsidy gap providers are currently absorbing.</span>
+    </li>
+    <li>
+      <span class="stat">3.6-6x</span>
+      <span class="desc">GitHub's premium model repricing vs. base rate. Already live. The first visible signal that the subsidy era is ending.</span>
+    </li>
+    <li>
+      <span class="stat">$800K+</span>
+      <span class="desc">Hard-dollar savings delivered across 50+ automations I've shipped in production. Most of it by using deterministic logic instead of AI wherever a rule can decide.</span>
+    </li>
+  </ul>
+</div>
+
+<h2>What an agentic token bill actually looks like</h2>
+
+<p>
+Here's a rough breakdown of token consumption by interaction type at current pricing. These aren't hypotheticals. They're what I see in production logs across different kinds of automation work.
+</p>
+
+<table class="cost-table" aria-label="Token consumption by interaction type">
+  <thead>
+    <tr>
+      <th>Interaction type</th>
+      <th>Tokens per task</th>
+      <th>Rough cost</th>
+      <th>What drives it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard chat call</td>
+      <td class="td-stat">500 - 1,000</td>
+      <td>pennies per run</td>
+      <td>Single-turn response, minimal context</td>
+    </tr>
+    <tr>
+      <td>Agentic loop (typical)</td>
+      <td class="td-stat">15,000 - 30,000</td>
+      <td class="td-bad">dollars per run</td>
+      <td>Tool calls, context re-injection, reasoning loops</td>
+    </tr>
+    <tr>
+      <td>Multi-step agent (complex)</td>
+      <td class="td-stat">50,000 - 100,000</td>
+      <td class="td-bad">several dollars per run</td>
+      <td>Multi-agent delegation, extended memory, retries</td>
+    </tr>
+    <tr>
+      <td>Autonomous developer session</td>
+      <td class="td-stat">millions of tokens</td>
+      <td class="td-bad">real money per session</td>
+      <td>Multi-hour sessions, continuous code analysis, large context</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+Now multiply the agentic loop row by how many processes you want to automate. Multiply again by how many times each process runs per day. The math gets uncomfortable fast, and that's at today's subsidized prices.
+</p>
+
+<h2>Why "AI for everything" fails the business case</h2>
+
+<p>
+The appeal of agentic automation is real. You describe what you want in plain language, the agent figures it out, and things happen. It feels like progress. It produces polished output. But "AI for everything" consistently fails the business case for one reason: AI tokens have a cost, deterministic logic doesn't.
+</p>
+
+<p>
+Think about the actual decision structure of most business processes. Someone submits a form. You validate the fields. You check if a record already exists. You route based on type. You write to a database. You send a notification. Almost none of those steps require probabilistic reasoning. They're rules. Hard, testable, predictable rules.
+</p>
+
+<p>
+Every time you use an LLM to "reason through" a rule that could just be an if-statement, you pay a token tax on something that should cost zero. You also introduce hallucination risk into a path that would otherwise be completely deterministic and testable.
+</p>
+
+<p>
+I rebuilt a client's intake pipeline that was using AI across the whole flow. Routing, field extraction, CRM writes, notifications, the works. I replaced the deterministic parts with deterministic code. One constrained AI call handled only the genuine edge cases: unstructured text that actually needed semantic understanding. The result was <strong>-70% manual data entry</strong> and a token spend that dropped to a fraction of what they were burning. The pipeline runs cleaner now and costs less.
+</p>
+
+<h2>How I actually build it: the deterministic-first method</h2>
+
+<p>
+The question I ask before every automation decision is this: can a rule decide this? If yes, hard-code it. Zero tokens, zero hallucinations, fully testable, runs forever for free.
+</p>
+
+<p>
+If not, and only then, I use the cheapest capable model for the task. Semantic cache first. Route simple classification to a small model. Reserve frontier models for genuine multi-step reasoning. Human-in-the-loop gate on anything touching money or client records.
+</p>
+
+<div class="method-steps" aria-label="Deterministic-first decision method">
+  <div class="method-step">
+    <span class="num">01</span>
+    <div class="text"><strong>Can a rule decide this?</strong> If yes, hard-code it. Deterministic logic costs nothing and cannot hallucinate. This handles the vast majority of most business processes.</div>
+  </div>
+  <div class="method-step">
+    <span class="num">02</span>
+    <div class="text"><strong>If not, use the cheapest capable model.</strong> Check semantic cache first. Route to a small local model if it can handle it. Frontier models only for the genuinely hard stuff.</div>
+  </div>
+  <div class="method-step">
+    <span class="num">03</span>
+    <div class="text"><strong>Human gate on critical paths.</strong> Anything touching money, client records, or irreversible actions gets a human approval step before it runs. AI assists, humans decide.</div>
+  </div>
+  <div class="method-step">
+    <span class="num">04</span>
+    <div class="text"><strong>Every build ships with validation, retries, fallback paths, and audit logging from day one.</strong> If it can fail, there's a defined path. Nothing fails silently.</div>
+  </div>
+</div>
+
+<h2>The self-hosted stack that makes this possible</h2>
+
+<p>
+Running deterministic-first automation at scale requires infrastructure you control. If your orchestration layer is a SaaS platform, you're paying per-execution fees on top of your token spend. If your data moves through third-party APIs, you're adding latency, egress costs, and a new failure point every hop.
+</p>
+
+<p>
+I run everything on self-hosted n8n with Docker Compose and Traefik for routing. Data lives in Supabase (Postgres) and Qdrant handles vector search for semantic caching. When a query hits the cache, no token is spent. When a query needs a model call, it gets routed to the cheapest capable option.
+</p>
+
+<p>
+The key insight from Sequoia's analysis is this: GPU compute is a commodity. Providers who own nothing but rented GPUs have no pricing moat. Every new hardware generation makes the prior generation cheaper, which means sunk capex erodes fast. The incentive to raise prices on the software layer is enormous. Owning your own orchestration and keeping AI at the edges of your workflows is the hedge against that.
+</p>
+
+<h3>What "boring on purpose" actually means</h3>
+
+<p>
+I call my automation stack "boring on purpose." Deterministic is boring. Rules are boring. If-statements are boring. They're also reliable, cheap, testable, and completely immune to pricing shocks. Boring automation doesn't hallucinate. It doesn't wake you up at 3am because a vendor raised prices. It runs.
+</p>
+
+<p>
+The builds I'm proudest of are the ones that look underwhelming on a demo. A billing sync that moved zero invoices to "missed" because it's just deterministic rules running on a schedule. A lead intake that cut manual data entry by 70% because it routes deterministically and uses one cheap, capped AI call only when the input is genuinely unstructured. A lead scoring system that lifted conversion by <strong>+30%</strong> because the routing is tight and the AI call is constrained, not because we gave AI free rein over the whole pipeline.
+</p>
+
+<p>
+None of these are flashy. All of them are in production. None of them will break when a vendor raises prices, because the parts that are expensive to run are already replaced by the parts that are free to run.
+</p>
+
+<h2>What to do before the subsidy ends</h2>
+
+<p>
+You don't need to rip out everything you've built with AI. You need to audit what you've actually handed to AI versus what could be a rule.
+</p>
+
+<ul>
+  <li><strong>Audit by task, not by total bill.</strong> Aggregate spending hides which agents are burning budget without producing value. Log every AI call by specific task and look at cost-per-outcome.</li>
+  <li><strong>Identify deterministic candidates.</strong> If a process can be drawn as a flowchart, hard-code it. Don't pay an LLM to reason through static logic on every execution.</li>
+  <li><strong>Add semantic caching before you add more AI.</strong> A vector cache that serves stored answers for similar queries cuts spend without changing the workflow. Use namespacing to prevent cross-tenant data leaks.</li>
+  <li><strong>Move orchestration off SaaS.</strong> Self-hosted n8n eliminates per-task execution fees. One host, one bill, your data stays on your infrastructure.</li>
+  <li><strong>Put a human gate on anything irreversible.</strong> Agents make mistakes. The cost of a human approval step is much lower than the cost of an agent writing bad data to a client record at scale.</li>
+</ul>
+
+<p>
+The businesses that come out ahead on the other side of this pricing shift are the ones that built cost-resilient automation now, not the ones that bet everything on cheap tokens staying cheap.
+</p>
+
+<hr />
+
+<p>
+I've shipped $800K+ in hard-dollar savings across 50+ automations by treating AI as a scalpel, not a hammer. The deterministic work runs free. The AI work is capped, gated, and audited. That's the architecture that holds when prices correct.
+</p>
+
+<div class="post-cta">
+  <h3>Is your AI spend climbing faster than your results?</h3>
+  <p>I do a free 15-minute call where you walk me through your current setup and I tell you straight what's worth automating, what's a token sink, and where the fastest wins are.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Token%20tax%20audit%20inquiry&body=Hi%20Lorenz%2C%0A%0AI%20read%20your%20token%20tax%20post%20and%20want%20to%20talk%20about%20my%20AI%20spend.%0A%0AGoal%3A%0ACurrent%20setup%3A%0ATimeline%3A%0A">Book a free 15-min call <span class="arr">&#8594;</span></a>
+    <a class="btn btn-ghost" href="../index.html">See the work</a>
+  </div>
+  <p class="cta-micro"><span class="g">&#9679;</span> Free 15-minute call &middot; no obligation &middot; reply within 1 business day</p>
+</div>
+
+</article>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span class="l">&#169; 2026 Lorenz Leslie Espinosa &middot; Automation Architect</span>
+    <div>
+      <a href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/lorenz-leslie-espinosa/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:renzespinosa13@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Minimal scroll + nav + theme toggle. Mirrors the homepage scripts without the canvas. */
+(function () {
+  'use strict';
+
+  // Progress bar
+  var bar = document.getElementById('progress');
+  function updateProgress() {
+    var h = document.documentElement;
+    var pct = (h.scrollTop || document.body.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    if (bar) bar.style.width = Math.min(100, pct) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // Nav scroll state
+  var nav = document.getElementById('nav');
+  function updateNav() {
+    var st = window.scrollY || document.documentElement.scrollTop;
+    if (nav) nav.classList.toggle('scrolled', st > 40);
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Reveal on scroll
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(function (el) { ro.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Theme toggle
+  var btn = document.getElementById('theme-toggle');
+  var root = document.documentElement;
+  var tc = document.getElementById('theme-color');
+  function applyTheme(t) {
+    document.body.classList.add('theme-transition');
+    root.setAttribute('data-theme', t);
+    localStorage.setItem('theme', t);
+    if (tc) tc.content = t === 'dark' ? '#0a0c0b' : '#f6f7f8';
+    if (btn) {
+      btn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+      btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+    setTimeout(function () { document.body.classList.remove('theme-transition'); }, 350);
+  }
+  if (btn) {
+    var cur = root.getAttribute('data-theme') || 'light';
+    btn.setAttribute('aria-pressed', cur === 'dark' ? 'true' : 'false');
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  }
+})();
+</script>
+</body>
+</html>
