@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <script>/* FOUC-free theme resolver, must run before any stylesheet. */(function(){try{var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
-<title>The token tax is real: plan AI costs before they sprawl</title>
-<meta name="description" content="Agentic workflows can consume far more than a single chat request. Plan the cost, use rules for predictable work, and reserve AI for defined tasks." />
-<meta property="og:title" content="The token tax is real: plan AI costs before they sprawl" />
-<meta property="og:description" content="Plan AI operating cost, use rules for predictable work, and reserve model calls for defined tasks." />
+<title>When AI belongs in a workflow</title>
+<meta name="description" content="Use rules for predictable workflow steps. Give AI a narrow task, then plan for review, failures and ongoing support." />
+<meta property="og:title" content="When AI belongs in a workflow" />
+<meta property="og:description" content="A practical way to choose which workflow steps need AI and keep the rest testable and reviewable." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lorenzespinosa.github.io/blog/token-tax.html" />
 <meta property="og:image" content="https://lorenzespinosa.github.io/lorenz.jpg" />
 <meta property="og:image:width" content="576" />
 <meta property="og:image:height" content="576" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="The token tax is real: plan AI costs before they sprawl" />
-<meta name="twitter:description" content="Plan AI operating cost, use rules for predictable work, and reserve model calls for defined tasks." />
+<meta name="twitter:title" content="When AI belongs in a workflow" />
+<meta name="twitter:description" content="A practical way to choose which workflow steps need AI and keep the rest testable and reviewable." />
 <meta name="twitter:image" content="https://lorenzespinosa.github.io/lorenz.jpg" />
 <meta name="theme-color" id="theme-color" content="#f6f7f8" />
 <link rel="canonical" href="https://lorenzespinosa.github.io/blog/token-tax.html" />
@@ -34,9 +34,9 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "The token tax is real: plan AI costs before they sprawl",
+  "headline": "When AI belongs in a workflow",
   "datePublished": "2026-06-14",
-  "dateModified": "2026-06-14",
+  "dateModified": "2026-10-06",
   "author": {
     "@type": "Person",
     "name": "Lorenz Leslie Espinosa",
@@ -51,8 +51,8 @@
     "@type": "WebPage",
     "@id": "https://lorenzespinosa.github.io/blog/token-tax.html"
   },
-  "description": "Agentic workflows can consume far more than a single chat request. Plan the cost, use rules for predictable work, and reserve AI for defined tasks.",
-  "keywords": ["token tax", "AI cost", "self-hosted automation", "n8n", "deterministic automation", "agentic AI cost", "GitHub Copilot pricing"],
+  "description": "Use rules for predictable workflow steps. Give AI a narrow task, then plan for review, failures and ongoing support.",
+  "keywords": ["workflow automation", "IT systems", "AI workflows", "human review", "input validation", "failure handling"],
   "url": "https://lorenzespinosa.github.io/blog/token-tax.html"
 }
 </script>
@@ -397,15 +397,13 @@
   <div class="wrap">
     <a href="../index.html" class="post-back"><span class="arr">&#8592;</span> Back to home</a>
     <div class="post-meta">
-      <span class="post-tag">AI Cost</span>
-      <span class="post-tag">Self-Hosted</span>
+      <span class="post-tag">Workflow design</span>
+      <span class="post-tag">AI where useful</span>
       <span class="sep">|</span>
-      <span>June 14, 2026</span>
-      <span class="sep">|</span>
-      <span>12 min read</span>
+      <span>Revised October 6, 2026</span>
     </div>
-    <h1 class="post-title">The token tax is real. <span class="accent">Plan the operating cost before it sprawls.</span></h1>
-    <p class="post-lede">An agent that calls tools, rereads context, and retries can consume much more than a single chat request. The practical response is to measure usage by task, keep predictable work rule-based, and reserve model calls for jobs that need interpretation.</p>
+    <h1 class="post-title">When AI belongs <span class="accent">in a workflow.</span></h1>
+    <p class="post-lede">Some steps need language interpretation. Others follow a clear rule. A good workflow makes that distinction before adding a model.</p>
     <div class="post-author">
       <img src="../lorenz.webp" alt="Lorenz Espinosa" class="post-author-img" width="44" height="44" loading="eager" />
       <div>
@@ -418,213 +416,32 @@
 
 <main>
 <article class="post-body" id="main-content">
+<p>A workflow usually has several jobs hidden inside it: collect information, check it, move it, and decide what needs a person. Putting AI over the whole chain makes it harder to tell which step failed. I would start by drawing the handoff.</p>
 
-<p>
-Half my job lately is talking clients out of using more AI. Not because AI is bad. Because the pricing math right now is a slow leak that turns into a flood the moment you run anything autonomous. I built the self-hosted stack I run today because I ran those numbers and didn't like where they pointed. This is that story.
-</p>
+<h2>Let rules handle the parts that are rules</h2>
+<p>If a form requires an email address or a record must go to a named system, write that requirement down and test it. What happens with a missing field, a duplicate, or a connected service that does not answer? Those questions matter whether AI is involved or not.</p>
+<p>Rules do not make a workflow automatically reliable. They make the expected behavior easier to inspect. A failed request still needs an owner and a path for review.</p>
 
-<h2>The "cheap Uber rides" problem</h2>
+<h2>Give AI one defined task</h2>
+<p>Free-form text can be useful input for a summary or draft. Before adding a model, decide what information it can see, what kind of output it should return, and who reviews that output. If the step could affect a record or a message to another person, make the approval point explicit.</p>
+<p>The answer may be to leave AI out. That is a design decision, not a shortcoming.</p>
 
-<p>
-Silicon Valley has done this before. For a decade, venture capital underwrote below-cost pricing on rides, deliveries, and streaming to capture market share. You got Uber rides that cost pennies on the dollar to actually run. Eventually the subsidies ended, prices corrected, and anyone who'd built a business model around those artificially cheap unit economics had to scramble.
-</p>
+<h2>Test the whole handoff</h2>
+<p>Try an ordinary request, then one with missing information. Check what a user sees when a connected tool is down. If a model is used, review examples where it gets the context wrong or gives an answer that sounds plausible but should not be accepted.</p>
+<p>Measure the cost and time of the complete task, including retries and review. The right choice depends on the workflow and the team that will maintain it. Vendor prices can change, so use current terms when you do the comparison rather than an old multiplier from a blog post.</p>
 
-<p>
-AI is running the same play. The flat-rate, cheap frontier model access you're using today is not priced at true compute cost. And the people funding that gap are asking serious questions about when they get paid back.
-</p>
-
-<p>
-Sequoia put a number on it. David Cahn's "$600B question" estimates that the AI industry needs roughly <strong>$600B in annual revenue</strong> just to break even on the current infrastructure buildout. GPU spend is only half the picture. Energy, buildings, and cooling double it. Add a healthy gross margin for the provider on top, and you get a revenue requirement that the industry isn't anywhere close to hitting. Prices are going up. That's not a prediction, it's arithmetic.
-</p>
-
-<h2>The repricing has already started. Most people missed it.</h2>
-
-<p>
-This isn't future tense. GitHub Copilot already repriced its premium models at <strong>3.6-6x the base rate</strong>. Providers are pivoting from flat subscriptions to usage-based, per-token billing. That's a direct transfer of compute risk from vendor to customer. And it hits hardest on exactly the use case everyone is excited about right now: autonomous agents.
-</p>
-
-<p>
-A single chatbot call is cheap. You send a message, get a response, done. Maybe a few hundred tokens. But an "agentic" workflow, where an AI reasons through a task, calls tools, re-reads its own context, loops back, and tries again, is a completely different animal. Research from Gartner puts the gap at <strong>5-30x the tokens</strong> of a standard chat call. That's not a typo. A task that costs next to nothing in a chat window can cost dollars per run when you let an agent "just figure it out."
-</p>
-
-<p>
-At low volume, fine. At production scale, across every process you've handed to AI, that's a line item that will show up on your P&amp;L and keep growing.
-</p>
-
-<div class="fact-block">
-  <span class="fact-label">The token tax in numbers</span>
-  <ul>
-    <li>
-      <span class="stat">5-30x</span>
-      <span class="desc">More tokens burned by autonomous agents versus a single chatbot call. Source: Gartner. The multiplier grows with task complexity and context window size.</span>
-    </li>
-    <li>
-      <span class="stat">$600B</span>
-      <span class="desc">Annual revenue the AI infrastructure buildout needs to break even. Sequoia's named figure for the compute subsidy gap providers are currently absorbing.</span>
-    </li>
-    <li>
-      <span class="stat">3.6-6x</span>
-      <span class="desc">GitHub's premium model repricing vs. base rate. Already live. The first visible signal that the subsidy era is ending.</span>
-    </li>
-  </ul>
-</div>
-
-<h2>What an agentic token bill actually looks like</h2>
-
-<p>
-Here's a rough breakdown of token consumption by interaction type at current pricing. These aren't hypotheticals. They're what I see in production logs across different kinds of automation work.
-</p>
-
-<table class="cost-table" aria-label="Token consumption by interaction type">
-  <thead>
-    <tr>
-      <th>Interaction type</th>
-      <th>Tokens per task</th>
-      <th>Rough cost</th>
-      <th>What drives it</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Standard chat call</td>
-      <td class="td-stat">500 - 1,000</td>
-      <td>pennies per run</td>
-      <td>Single-turn response, minimal context</td>
-    </tr>
-    <tr>
-      <td>Agentic loop (typical)</td>
-      <td class="td-stat">15,000 - 30,000</td>
-      <td class="td-bad">dollars per run</td>
-      <td>Tool calls, context re-injection, reasoning loops</td>
-    </tr>
-    <tr>
-      <td>Multi-step agent (complex)</td>
-      <td class="td-stat">50,000 - 100,000</td>
-      <td class="td-bad">several dollars per run</td>
-      <td>Multi-agent delegation, extended memory, retries</td>
-    </tr>
-    <tr>
-      <td>Autonomous developer session</td>
-      <td class="td-stat">millions of tokens</td>
-      <td class="td-bad">real money per session</td>
-      <td>Multi-hour sessions, continuous code analysis, large context</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>
-Now multiply the agentic loop row by how many processes you want to automate. Multiply again by how many times each process runs per day. The math gets uncomfortable fast, and that's at today's subsidized prices.
-</p>
-
-<h2>Why "AI for everything" fails the business case</h2>
-
-<p>
-The appeal of agentic automation is real. You describe what you want in plain language, the agent figures it out, and things happen. It feels like progress. It produces polished output. But "AI for everything" consistently fails the business case for one reason: AI tokens have a cost, deterministic logic doesn't.
-</p>
-
-<p>
-Think about the actual decision structure of most business processes. Someone submits a form. You validate the fields. You check if a record already exists. You route based on type. You write to a database. You send a notification. Almost none of those steps require probabilistic reasoning. They're rules. Hard, testable, predictable rules.
-</p>
-
-<p>
-Every time you use an LLM to "reason through" a rule that could just be an if-statement, you pay a token tax on something that should cost zero. You also introduce hallucination risk into a path that would otherwise be completely deterministic and testable.
-</p>
-
-<p>
-A useful intake pattern is to keep validation, routing, and system writes deterministic, then use one constrained model call only for genuinely unstructured text. This makes the predictable path testable and gives the AI step a clear cost boundary.
-</p>
-
-<h2>How I actually build it: the deterministic-first method</h2>
-
-<p>
-The question I ask before every automation decision is this: can a rule decide this? If yes, hard-code it. Zero tokens, zero hallucinations, fully testable, runs forever for free.
-</p>
-
-<p>
-If not, and only then, I use the cheapest capable model for the task. Semantic cache first. Route simple classification to a small model. Reserve frontier models for genuine multi-step reasoning. Human-in-the-loop gate on anything touching money or client records.
-</p>
-
-<div class="method-steps" aria-label="Deterministic-first decision method">
-  <div class="method-step">
-    <span class="num">01</span>
-    <div class="text"><strong>Can a rule decide this?</strong> If yes, hard-code it. Deterministic logic costs nothing and cannot hallucinate. This handles the vast majority of most business processes.</div>
-  </div>
-  <div class="method-step">
-    <span class="num">02</span>
-    <div class="text"><strong>If not, use the cheapest capable model.</strong> Check semantic cache first. Route to a small local model if it can handle it. Frontier models only for the genuinely hard stuff.</div>
-  </div>
-  <div class="method-step">
-    <span class="num">03</span>
-    <div class="text"><strong>Human gate on critical paths.</strong> Anything touching money, client records, or irreversible actions gets a human approval step before it runs. AI assists, humans decide.</div>
-  </div>
-  <div class="method-step">
-    <span class="num">04</span>
-    <div class="text"><strong>Every build ships with validation, retries, fallback paths, and audit logging from day one.</strong> If it can fail, there's a defined path. Nothing fails silently.</div>
-  </div>
-</div>
-
-<h2>The self-hosted stack that makes this possible</h2>
-
-<p>
-Running deterministic-first automation at scale requires infrastructure you control. If your orchestration layer is a SaaS platform, you're paying per-execution fees on top of your token spend. If your data moves through third-party APIs, you're adding latency, egress costs, and a new failure point every hop.
-</p>
-
-<p>
-I run everything on self-hosted n8n with Docker Compose and Traefik for routing. Data lives in Supabase (Postgres) and Qdrant handles vector search for semantic caching. When a query hits the cache, no token is spent. When a query needs a model call, it gets routed to the cheapest capable option.
-</p>
-
-<p>
-The key insight from Sequoia's analysis is this: GPU compute is a commodity. Providers who own nothing but rented GPUs have no pricing moat. Every new hardware generation makes the prior generation cheaper, which means sunk capex erodes fast. The incentive to raise prices on the software layer is enormous. Owning your own orchestration and keeping AI at the edges of your workflows is the hedge against that.
-</p>
-
-<h3>What "boring on purpose" actually means</h3>
-
-<p>
-I call my automation stack "boring on purpose." Deterministic is boring. Rules are boring. If-statements are boring. They're also reliable, cheap, testable, and completely immune to pricing shocks. Boring automation doesn't hallucinate. It doesn't wake you up at 3am because a vendor raised prices. It runs.
-</p>
-
-<p>
-The builds I trust most often look underwhelming in a demo. A billing sync can run on readable rules. An intake workflow can validate and route most records without a model. A lead-triage flow can use AI for a narrow drafting step while keeping the decision with a person.
-</p>
-
-<p>
-None of these are flashy. All of them are in production. None of them will break when a vendor raises prices, because the parts that are expensive to run are already replaced by the parts that are free to run.
-</p>
-
-<h2>What to do before the subsidy ends</h2>
-
-<p>
-You don't need to rip out everything you've built with AI. You need to audit what you've actually handed to AI versus what could be a rule.
-</p>
-
-<ul>
-  <li><strong>Audit by task, not by total bill.</strong> Aggregate spending hides which agents are burning budget without producing value. Log every AI call by specific task and look at cost-per-outcome.</li>
-  <li><strong>Identify deterministic candidates.</strong> If a process can be drawn as a flowchart, hard-code it. Don't pay an LLM to reason through static logic on every execution.</li>
-  <li><strong>Add semantic caching before you add more AI.</strong> A vector cache that serves stored answers for similar queries cuts spend without changing the workflow. Use namespacing to prevent cross-tenant data leaks.</li>
-  <li><strong>Move orchestration off SaaS.</strong> Self-hosted n8n eliminates per-task execution fees. One host, one bill, your data stays on your infrastructure.</li>
-  <li><strong>Put a human gate on anything irreversible.</strong> Agents make mistakes. The cost of a human approval step is much lower than the cost of an agent writing bad data to a client record at scale.</li>
-</ul>
-
-<p>
-The businesses that come out ahead on the other side of this pricing shift are the ones that built cost-resilient automation now, not the ones that bet everything on cheap tokens staying cheap.
-</p>
-
-<hr />
-
-<p>
-The durable pattern is simple: use rules for predictable work, cap and monitor model calls, and keep human approval on consequential actions. That structure remains useful even when model prices and vendors change.
-</p>
+<h2>Leave someone a way to operate it</h2>
+<p>Document which system owns the record, where errors appear, and who handles them. A workflow is easier to support when people can tell whether it finished, is waiting for review, or needs to be retried.</p>
 
 <div class="post-cta">
-  <h3>Is your AI spend climbing faster than your results?</h3>
-  <p>Send a general description of the workflow and current systems. Please leave out client names, matter details, and confidential information. I will tell you whether I can help and what a sensible next step would be.</p>
+  <h3>Have a handoff that needs a closer look?</h3>
+  <p>Send a general description of the process and tools involved. Please leave out client names, records and confidential information in the first message.</p>
   <div class="cta-row">
     <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Start a conversation <span class="arr">&#8594;</span></a>
     <a class="btn btn-ghost" href="../index.html">See the work</a>
   </div>
-  <p class="cta-micro"><span class="g">&#9679;</span> Start with a general, non-confidential description &middot; typical reply within one business day</p>
+  <p class="cta-micro"><span class="g">&#9679;</span> Start with a general, non-confidential description</p>
 </div>
-
 </article>
 </main>
 
