@@ -16,7 +16,8 @@
 .btn-ghost:hover{border-color:var(--coral);color:var(--ink)}
 
 .faq summary,.case summary{transition:color var(--duration-fast) var(--ease)}
-.faq summary:hover,.case summary:hover{color:var(--coral)}
+.faq summary:hover{color:var(--coral)}
+.case summary:hover{color:var(--lime)}
 
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:3px}
 
@@ -46,12 +47,39 @@ summary{cursor:pointer}
 [data-theme="dark"] .theme-toggle .ic-sun{display:block}
 [data-theme="dark"] .theme-toggle .ic-moon{display:none}
 @media(prefers-reduced-motion:reduce){.theme-toggle:hover,.theme-toggle:active{transform:none}}
-/* Narrow nav: only CTA + toggle remain (section links hidden ≤720px) — keep them tight so nothing clips at 320px. */
-@media(max-width:720px){.nav-links{gap:.7rem}}
-@media(max-width:520px){.brand{font-size:.98rem}.nav-cta{font-size:.7rem;padding:.55rem .85rem}}
+/* Keep the existing desktop links; reveal a native, keyboard-operable section menu on narrow screens. */
+.mobile-nav{display:none;position:relative}
+.nav-cta-short{display:none}
+.mobile-nav summary{display:flex;align-items:center;justify-content:center;min-width:52px;height:40px;
+  list-style:none;cursor:pointer;font-family:var(--mono);font-size:.72rem;font-weight:700;
+  border:1px solid var(--line-bright);border-radius:var(--r-pill);color:var(--ink)}
+.mobile-nav summary::-webkit-details-marker{display:none}
+.mobile-nav[open] summary{border-color:var(--lime);color:var(--lime)}
+.mobile-nav:not([open]) .mobile-nav-panel{display:none}
+.mobile-nav-panel{position:absolute;right:0;top:calc(100% + .65rem);width:min(15rem,calc(100vw - 2rem));
+  max-height:calc(100dvh - 5rem);overflow:auto;display:grid;padding:.4rem;border:1px solid var(--line-bright);
+  border-radius:10px;background:var(--surface);box-shadow:var(--shadow-strong);z-index:55}
+.mobile-nav-panel a{display:flex;align-items:center;min-height:44px;padding:.55rem .8rem;
+  border-radius:6px;color:var(--ink);font-size:.9rem;text-transform:none;letter-spacing:normal}
+.mobile-nav-panel a:hover,.mobile-nav-panel a:focus-visible{background:var(--bg-2);color:var(--lime)}
+@media(max-width:1100px){
+  .portfolio-home .nav-in{position:relative}
+  .portfolio-home .nav-links{gap:.45rem}
+  .portfolio-home .mobile-nav{display:block;position:static}
+  .portfolio-home .mobile-nav-panel{right:clamp(1.25rem,4vw,2.5rem);top:calc(100% + .65rem)}
+  .portfolio-home .nav-cta-full{display:none}
+  .portfolio-home .nav-cta-short{display:inline}
+  .portfolio-home .nav-links .mobile-nav-panel a{display:flex}
+}
+@media(max-width:520px){
+  .brand{font-size:.94rem}
+  .nav-cta{font-size:.7rem;padding:.55rem .7rem}
+  .portfolio-home .nav-in{flex-wrap:wrap;row-gap:.4rem}
+  .portfolio-home .nav-links{flex-wrap:wrap;justify-content:flex-end}
+  .portfolio-home .mobile-nav-panel{max-height:calc(100dvh - 10rem)}
+}
 @media(max-width:420px){.theme-toggle{width:36px;height:36px}}
-/* Tiniest screens (≤374px): brand + full CTA + toggle can't coexist — drop the redundant nav CTA
-   (hero + closing section keep prominent CTAs), keep brand + theme toggle. */
+/* At the narrowest widths, the header contact route remains in the menu. */
 @media(max-width:374px){.nav-cta{display:none}}
 
 @media(prefers-reduced-motion:reduce){
