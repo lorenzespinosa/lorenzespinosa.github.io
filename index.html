@@ -278,6 +278,58 @@
         <p class="calc-magnet">Prefer to start by email? <a href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Send a general workflow outline →</a></p>
       </div>
     </div>
+
+    <div class="scn-region" id="scnRegion" role="region" aria-labelledby="scn-h">
+      <h3 class="scn-title" id="scn-h">ROI scenario comparison</h3>
+      <p class="scn-intro">Save up to three named scenarios and compare them side by side. Weekly cost uses hours &times; process count &times; rate; monthly is weekly &times; 4.33 and yearly is weekly &times; 52. The <b>Yearly difference</b> column is measured against the first saved scenario, so the first row reads $0.00 and later rows show how much more or less they cost per year.</p>
+      <div class="scn-form">
+        <div class="scn-field scn-field-name">
+          <label for="sName">Scenario name</label>
+          <input id="sName" name="sName" type="text" maxlength="80" autocomplete="off">
+        </div>
+        <div class="scn-field">
+          <label for="sHours">Scenario hours per process each week</label>
+          <input id="sHours" name="sHours" type="number" min="1" max="40" step="0.5" inputmode="decimal" placeholder="1 to 40">
+        </div>
+        <div class="scn-field">
+          <label for="sProc">Scenario process count</label>
+          <input id="sProc" name="sProc" type="number" min="1" max="10" step="1" inputmode="numeric" placeholder="1 to 10">
+        </div>
+        <div class="scn-field">
+          <label for="sRate">Scenario loaded cost per hour</label>
+          <input id="sRate" name="sRate" type="number" min="10" max="200" step="0.01" inputmode="decimal" placeholder="10 to 200">
+        </div>
+        <div class="scn-actions">
+          <button type="button" class="btn btn-primary scn-btn" id="sSave">Save scenario</button>
+          <button type="button" class="btn btn-ghost scn-btn" id="sUpdate" hidden>Update scenario</button>
+          <button type="button" class="btn btn-ghost scn-btn" id="sCancel" hidden>Cancel edit</button>
+        </div>
+      </div>
+      <p class="scn-status" id="sStatus" role="status" aria-live="polite"></p>
+      <div class="scn-tablewrap" tabindex="0" role="region" aria-label="Saved ROI scenarios">
+        <table class="scn-table" id="scnTable">
+          <caption class="sr-only">Saved ROI scenarios</caption>
+          <thead>
+            <tr>
+              <th scope="col">Scenario</th>
+              <th scope="col">Weekly hours</th>
+              <th scope="col">Weekly cost</th>
+              <th scope="col">Monthly cost</th>
+              <th scope="col">Yearly cost</th>
+              <th scope="col">Yearly difference</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="scnBody">
+            <tr class="scn-empty"><td colspan="7">No scenarios saved yet. Fill the fields above and choose Save scenario to start comparing.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scn-foot">
+        <button type="button" class="btn btn-ghost scn-btn" id="sExport">Export scenarios</button>
+        <span class="scn-cap" id="scnCount"></span>
+      </div>
+    </div>
   </div>
 </section>
 
