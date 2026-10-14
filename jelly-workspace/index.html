@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jelly Workspace — App information</title>
+<meta name="description" content="Jelly Workspace is Lorenz Espinosa’s personal Google Drive integration for owner-approved backup and file operations.">
+<link rel="canonical" href="https://lorenzespinosa.github.io/jelly-workspace/">
+<meta property="og:title" content="Jelly Workspace — App information">
+<meta property="og:description" content="Jelly Workspace is Lorenz Espinosa’s personal Google Drive integration for owner-approved backup and file operations.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lorenzespinosa.github.io/jelly-workspace/">
+<meta name="twitter:card" content="summary">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="../styles/tokens.css">
+<link rel="stylesheet" href="../styles/typography.css">
+<link rel="stylesheet" href="../styles/main.css">
+<style>
+.app-doc header,.app-doc main,.app-doc footer{max-width:820px;margin:auto;padding:1.5rem;position:relative;z-index:1}
+.app-doc header{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.app-doc nav{position:static;display:flex;gap:1rem;flex-wrap:wrap;backdrop-filter:none;background:transparent;border:0}
+.app-doc main{padding-top:2.5rem;padding-bottom:2.5rem}
+.app-doc h1{max-width:none;font-size:clamp(2rem,5vw,3rem);line-height:1.12;margin-bottom:1rem}
+.app-doc h2{font-family:var(--display);font-size:1.35rem;margin:2rem 0 .7rem;line-height:1.3}
+.app-doc p,.app-doc ul{margin-bottom:1rem;max-width:72ch}
+.app-doc ul{padding-left:1.35rem}.app-doc li{margin-bottom:.5rem}
+.app-doc a{color:var(--lime);text-decoration:underline;text-underline-offset:.2em}
+.app-doc .eyebrow{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:.65rem}
+.app-doc .intro{font-size:1.1rem;color:var(--muted)}
+.app-doc code{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}
+.app-doc footer{border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.app-doc{overflow-wrap:anywhere}.app-doc section{scroll-margin-top:1rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="app-doc">
+<a class="skip" href="#main">Skip to content</a>
+<header>
+<a href="../">Lorenz Espinosa</a>
+<nav aria-label="Jelly Workspace"><a href="./">App information</a><a href="privacy.html">Privacy policy</a><a href="./#terms">Terms of use</a></nav>
+</header>
+<main id="main">
+<p class="eyebrow">Personal automation · Google Drive connection</p>
+<h1>Jelly Workspace</h1>
+<p class="intro">A private connection between Lorenz Espinosa’s personal assistant and Google Drive, designed for owner-approved backup storage and file operations.</p>
+<section aria-labelledby="purpose"><h2 id="purpose">What it does</h2>
+<p>Jelly Workspace is used by the account owner to authorize selected Google Drive operations: creating a backup folder, uploading chosen backup files, reading file metadata to check transfers, and managing those app-associated files when the owner requests it. It is not a public backup service or a file-sharing portal.</p>
+<p>This website explains the integration. It does not sign you in to Google, receive authorization codes, or expose backup contents.</p></section>
+<section aria-labelledby="permissions"><h2 id="permissions">Google permissions</h2>
+<ul><li><strong>Google identity:</strong> verify the account’s email address and account identifier.</li><li><strong>Per-file Drive access:</strong> see, create, edit, and delete only Drive files created by or explicitly used with this app, through the <code>drive.file</code> permission.</li></ul>
+<p>The current connection does not request Gmail, Calendar, Contacts, or unrestricted access to all Drive files. A Google permission is a capability; it does not by itself authorize the assistant to delete, publish, or share a file.</p></section>
+<section aria-labelledby="control"><h2 id="control">The owner stays in control</h2>
+<p>Google consent takes place on Google’s own authorization screen. The owner can review or remove the connection through <a href="https://myaccount.google.com/connections">Google Account connections</a>. Removing access does not automatically delete existing files from Drive.</p>
+<p>Read the <a href="privacy.html">Jelly Workspace privacy policy</a> for how Google data is accessed, used, stored, and shared.</p></section>
+<section id="terms" aria-labelledby="terms-title"><h2 id="terms-title">Terms of use</h2>
+<p>Jelly Workspace is a personal integration operated by Lorenz Leslie Espinosa, not a generally available hosted service. Use requires the account owner’s authorization and must be limited to data the owner is entitled to manage.</p>
+<p>Account authorization does not constitute approval for every possible action. Destructive operations and changes to file sharing require the owner’s applicable instruction. Google services remain subject to Google’s terms and policies.</p>
+<p>No subscription, uptime promise, or guarantee of successful backup or restoration is offered by this information page. Backup copies must be verified before local data is removed.</p>
+<p>For support or privacy questions, contact <a href="mailto:renzespinosa13@gmail.com">renzespinosa13@gmail.com</a>.</p></section>
+</main>
+<footer>Jelly Workspace · Operated by Lorenz Leslie Espinosa · <a href="mailto:renzespinosa13@gmail.com">Contact the operator</a></footer>
+</body>
+</html>
