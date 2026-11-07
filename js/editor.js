@@ -24,7 +24,7 @@
   const curve=(a,b)=>{const dx=Math.max(40,Math.abs(b.x-a.x)*0.6);return `M${a.x},${a.y} C${a.x+dx},${a.y} ${b.x-dx},${b.y} ${b.x},${b.y}`;};
 
   // "1 item" badge per main connection; a static "error" tag on the error branch
-  const badges=links.map(l=>{const d=document.createElement('span');d.className=l.error?'errlabel':'itembadge';d.textContent=l.error?'error':'1 item';canvas.appendChild(d);return d;});
+  const badges=links.map(l=>{const d=document.createElement('span');d.className=l.error?'errlabel':'itembadge';d.setAttribute('aria-hidden','true');d.textContent=l.error?'error':'1 item';canvas.appendChild(d);return d;});
 
   function draw(){
     links.forEach((l,i)=>{
@@ -103,7 +103,11 @@
         if(entries[0].isIntersecting){
           obs.unobserve(ed);             // one-shot
           draw();                        // ensure wires are correct on first reveal (rects were 0 while hidden <1024px)
-          setTimeout(run,900);           // let the .editor reveal (0.52s) settle before the pass
+          // while the cursors are still carrying the demo in, wait until it lands
+          const host=ed.closest('[data-wv-build]');
+          if(host&&host.dataset.wvBuild!=='complete'&&ed.getAttribute('data-wv-hide')!==null&&document.documentElement.classList.contains('wv-construct'))
+            ed.addEventListener('wv-landed',()=>{draw();setTimeout(run,600);},{once:true});
+          else setTimeout(run,900);      // let the .editor reveal (0.52s) settle before the pass
         }
       },{threshold:0.5});
       io.observe(ed);

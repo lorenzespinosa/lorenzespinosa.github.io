@@ -1,9 +1,12 @@
 // nav border + scroll progress
 const nav=document.getElementById('nav'),bar=document.getElementById('progress');
+// The page height is read when the layout changes size, not on every scroll event (a read there forces a layout pass).
+let pageH=document.documentElement.scrollHeight;
+if('ResizeObserver' in window)new ResizeObserver(()=>{pageH=document.documentElement.scrollHeight;}).observe(document.body);
 function onScroll(){
   nav.classList.toggle('scrolled',scrollY>20);
-  const h=document.documentElement.scrollHeight-innerHeight;
-  bar.style.width=(h>0?(scrollY/h)*100:0)+'%';
+  const h=pageH-innerHeight;
+  bar.style.transform='scaleX('+(h>0?scrollY/h:0).toFixed(4)+')'; // transform, not width: no layout on every scroll event
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 

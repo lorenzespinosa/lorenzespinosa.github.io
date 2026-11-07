@@ -5,3 +5,4 @@ import './reveal.js';
 import './hero-motion.js';
 import './editor.js';
 import './roi.js';
+import './snap.js';

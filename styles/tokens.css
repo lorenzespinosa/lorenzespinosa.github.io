@@ -1,128 +1,101 @@
-/* ── Design tokens ──────────────────────────────────────────────
-   Light is the default theme (:root). Dark is the opt-in override
-   ([data-theme="dark"]) and preserves the original v1.0–v1.2 values
-   verbatim. Theme-agnostic tokens (fonts, type, spacing, radius,
-   easing, editor canvas) live in :root only. */
+/* Design tokens. Light is :root, dark is [data-theme="dark"]. Every colour and face on the site resolves here. */
 :root{
   color-scheme:light;
 
-  /* surfaces — light */
-  --bg:#f6f7f8; --bg-2:#eef0f2; --surface:#ffffff; --surface-2:#f3f4f6;
-  --line:#e3e6e9; --line-bright:#d0d5da;
-  --ink:#14181b; --muted:#566069; --faint:#737d86;
+  /* palette, light: the original cool grey paper, near-black ink and the coral identity */
+  --color-paper:#f6f7f8;
+  --color-paper-2:#eceef1;
+  --color-surface:#ffffff;
+  --color-ink:#14181b;
+  --color-ink-2:#2c3339;
+  --color-muted:#525c65;
+  --color-faint:#69737c;
+  --color-rule:#dce0e4;
+  --color-rule-strong:#c3c9cf;
+  --color-accent:#c42c52;
+  --color-accent-hover:#a8203f;
+  --color-accent-ink:#ffffff;
+  --color-mark:#ea4b71;
+  --color-accent-soft:#fbe8ed;
+  --color-focus:#1f5fd6;
+  --color-ok:#0a7a4e;
+  --color-warn:#b45309;
+  --color-loss:#ff6b6b; /* the calculator's running cost, on the ink band (6.4:1) */
+  --color-error:#c81e1e;
+  --color-band:#14181b;
+  --color-band-ink:#f2f4f5;
+  --color-band-muted:#b4bcc3;
+  --color-band-rule:#343b41;
+  --color-band-accent:#ff8fab;
+  --color-nav:rgba(246,247,248,.94);
+  /* the editor canvas stays light in both themes, as before */
+  --color-canvas:#eceff4; --color-canvas-dot:#d3d3da; --color-canvas-node:#ffffff; --color-canvas-border:#dcdde4;
+  --color-canvas-ink:#1c1c1f; --color-canvas-muted:#5f5f69; --color-wire:#b4b4c0;
+  --color-node-trigger:#ea4b71; --color-node-validate:#2f6df0; --color-node-process:#7a52d6; --color-node-deliver:#0a7a4e;
+  --color-node-audit:#b45309; --color-node-fallback:#c81e1e;
 
-  /* accents — coral identity kept; text accents darkened for AA on white */
-  --coral:#ea4b71; --coral-2:#ff7a9c; --green:#0a7a4e; --ice:#2f6df0; --amber:#b45309; --red:#dc2626;
-  --coral-soft:oklch(72% 0.17 12);
-  --coral-ghost:oklch(64% 0.19 12 / 0.10);
-  --lime:#c42c52;                            /* text-accent alias — AA-safe on light */
-  --coral-strong:#c42c52;                    /* solid CTA fills with white text — AA both themes */
+  /* faces: the brand's two families, with metric-matched fallbacks (typography.css) */
+  --font-display:'Bricolage Grotesque','Bricolage Fallback',system-ui,sans-serif;
+  --font-body:'Hanken Grotesk','Hanken Fallback',-apple-system,system-ui,sans-serif;
+  --font-code:ui-monospace,SFMono-Regular,Menlo,monospace;
+  --display-weight:700;
 
-  /* editor canvas — intentionally light in both themes; cooler in light so it reads as a distinct panel */
-  --canvas:#eceff4; --canvas-dot:#d3d3da; --canvas-node:#ffffff; --canvas-border:#dcdde4; --canvas-ink:#1c1c1f; --canvas-muted:#8a8a92; --wire:#c2c2cc;
+  /* type scale */
+  --text-xs:.8125rem; --text-sm:.875rem; --text-md:1rem; --text-body:1.0625rem; --text-lg:1.25rem; --text-xl:1.5625rem;
+  --text-title:clamp(1.25rem,.75vw + .875rem,1.5rem);
+  --text-lead:clamp(1.125rem,.35vw + 1rem,1.3125rem);
+  --text-section:clamp(2rem,2.5vw + 1rem,3.25rem);
+  --text-display:clamp(2.5rem,4.2vw + 1rem,4.75rem);
+  --tracking-display:-.025em;
 
-  /* themed chrome */
-  --nav-bg:rgba(247,248,250,0.80);
-  --grain-opacity:0.16;
-  --photo-veil:rgba(20,24,27,0.55);
+  /* spacing */
+  --space-3xs:2px; --space-2xs:4px; --space-xs:8px; --space-sm:12px; --space-md:16px; --space-lg:24px;
+  --space-xl:40px; --space-2xl:64px; --space-3xl:96px; --space-4xl:144px;
+  --container:1360px; --gutter:64px; --gap-columns:32px;
+  --section-gap-s:96px; --section-gap:136px; --section-gap-l:168px;
+  --nav-h:72px;
+  --shadow-pop:0 18px 40px -24px rgba(20,24,27,.45);
 
-  /* fonts (theme-agnostic) */
-  --display:'Bricolage Grotesque','Bricolage Fallback',system-ui,Georgia,serif;
-  --body:'Hanken Grotesk','Hanken Fallback',-apple-system,system-ui,sans-serif;
-  --mono:'Space Mono',ui-monospace,SFMono-Regular,monospace;
-  --w-body:400; --w-medium:500; --w-semibold:600; --w-display:800;
-
-  /* type scale (theme-agnostic) */
-  --text-xs:.74rem;
-  --text-sm:.85rem;
-  --text-base:clamp(1rem,0.96rem + 0.2vw,1.08rem);
-  --text-lg:clamp(1.1rem,1rem + 0.4vw,1.3rem);
-  --text-xl:clamp(1.4rem,1.15rem + 1vw,1.9rem);
-  --text-2xl:clamp(2rem,1.5rem + 2vw,3rem);
-  --text-3xl:clamp(2.6rem,1.8rem + 3.4vw,4.4rem);
-  --text-hero:clamp(3rem,1.2rem + 7vw,6.6rem);
-
-  /* spacing (theme-agnostic) */
-  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-5:1.5rem;
-  --sp-6:2rem; --sp-7:3rem; --sp-8:4rem;
-  --space:clamp(3.5rem,2.5rem + 3vw,6rem);
-  --maxw:1160px;
-
-  /* radius (theme-agnostic) */
-  --r-sm:8px; --r-md:14px; --r-lg:20px; --r-pill:999px;
-
-  /* elevation — light (soft neutral shadows) */
-  --elev-1:0 1px 2px rgba(16,24,40,.06);
-  --elev-2:0 8px 24px rgba(16,24,40,.08);
-  --elev-3:0 20px 55px rgba(16,24,40,.12);
-  --shadow-strong:0 30px 70px -45px rgba(16,24,40,.40);
-  --glow-coral:0 0 0 1px oklch(64% 0.19 12 / .22), 0 8px 30px oklch(64% 0.19 12 / .14);
-
-  /* motion (theme-agnostic) */
-  --ease:cubic-bezier(0.16,1,0.3,1);
-  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
-  --duration-fast:150ms; --duration-normal:300ms; --duration-slow:560ms;
-
-  /* glass — light: bright translucent surfaces; tint keeps text AA over frosted bg */
-  --glass-bg:rgba(255,255,255,0.55);
-  --glass-bg-2:rgba(255,255,255,0.42);
-  --glass-border:rgba(255,255,255,0.65);
-  --glass-edge:rgba(255,255,255,0.9);    /* specular top-edge highlight */
-  --glass-blur:14px;
-  --glass-saturate:1.6;                  /* pull content color through (iOS "color reflection") */
-  --glass-sheen:rgba(255,255,255,0.35);
+  /* shape and motion */
+  --radius-sm:6px; --radius-card:10px; --radius-pill:999px; --rule-hair:1px;
+  --ease-out:cubic-bezier(.16,1,.3,1); --dur-micro:120ms; --dur-short:220ms; --dur-long:420ms;
+  --z-raised:10; --z-sticky-nav:300;
 }
 
 [data-theme="dark"]{
   color-scheme:dark;
-
-  --bg:#0a0c0b; --bg-2:#0f1311; --surface:#141917; --surface-2:#1b211e;
-  --line:#242c28; --line-bright:#33403a;
-  --ink:#eaf0ea; --muted:#9aa49c; --faint:#7c857d;
-
-  --green:#34c08b; --ice:#6ea8fe; --amber:#fbbf24; --red:#ff6b6b;
-  --lime:var(--coral);
-
-  /* editor canvas stays as originally shipped in dark */
-  --canvas:#f7f7f9; --canvas-border:#e3e3e8;
-
-  --nav-bg:rgba(10,12,11,0.70);
-  --grain-opacity:0.40;
-  --photo-veil:rgba(10,12,11,0.92);
-
-  --elev-1:0 1px 2px rgba(0,0,0,.3);
-  --elev-2:0 6px 24px rgba(0,0,0,.35);
-  --elev-3:0 18px 60px rgba(0,0,0,.45);
-  --shadow-strong:0 40px 90px -50px rgba(0,0,0,.85);
-  --glow-coral:0 0 0 1px oklch(64% 0.19 12 / .25), 0 8px 40px oklch(64% 0.19 12 / .18);
-
-  /* glass — dark: translucent dark surface with luminous edge; blur 16px (capped for GPU) */
-  --glass-bg:rgba(20,25,23,0.55);
-  --glass-bg-2:rgba(27,33,30,0.45);
-  --glass-border:rgba(255,255,255,0.12);
-  --glass-edge:rgba(255,255,255,0.22);   /* luminous edge on dark */
-  --glass-blur:16px;
-  --glass-saturate:1.5;
-  --glass-sheen:rgba(255,255,255,0.10);
+  --color-paper:#0a0c0b;
+  --color-paper-2:#111513;
+  --color-surface:#151a18;
+  --color-ink:#eaf0ea;
+  --color-ink-2:#cdd5ce;
+  --color-muted:#a3ada5;
+  --color-faint:#8d978f;
+  --color-rule:#242c28;
+  --color-rule-strong:#3a4640;
+  --color-accent:#c42c52;
+  --color-accent-hover:#d63a61;
+  --color-accent-ink:#ffffff;
+  --color-mark:#ff6f93;
+  --color-accent-soft:#2a1419;
+  --color-focus:#8ab4ff;
+  --color-ok:#34c08b;
+  --color-warn:#fbbf24;
+  --color-error:#ff7b7b;
+  --color-band:#1a201d;
+  --color-band-ink:#eaf0ea;
+  --color-band-muted:#a3ada5;
+  --color-band-rule:#2f3934;
+  --color-band-accent:#ff8fab;
+  --color-nav:rgba(10,12,11,.94);
+  --color-canvas:#f2f3f6; --color-canvas-border:#e3e3e8;
 }
 
-/* Theme cross-fade — only after first paint, never on initial load.
-   Fully disabled under reduced-motion (see main.css kill-switch too). */
-.theme-transition,
-.theme-transition body,
-.theme-transition nav,
-.theme-transition .card,
-.theme-transition .work,
-.theme-transition .repo,
-.theme-transition .persona,
-.theme-transition .tcard,
-.theme-transition details.faq,
-.theme-transition .editor,
-.theme-transition .calc{
-  transition:background-color var(--duration-normal) var(--ease),
-             color var(--duration-normal) var(--ease),
-             border-color var(--duration-normal) var(--ease);
+@media (max-width:60rem){ :root{ --gutter:28px; --section-gap-s:72px; --section-gap:96px; --section-gap-l:120px; --nav-h:64px; } }
+@media (max-width:40rem){ :root{ --gutter:20px; --section-gap-s:56px; --section-gap:72px; --section-gap-l:88px; --gap-columns:16px; } }
+
+/* Theme cross-fade only after first paint (theme.js adds the class), never under reduced motion. */
+.theme-transition body,.theme-transition .site-nav,.theme-transition .tile,.theme-transition .panel{
+  transition:background-color var(--dur-short) var(--ease-out),color var(--dur-short) var(--ease-out),border-color var(--dur-short) var(--ease-out);
 }
-@media(prefers-reduced-motion:reduce){
-  .theme-transition,.theme-transition *{transition:none!important}
-}
+@media (prefers-reduced-motion:reduce){ .theme-transition *{transition:none!important} }

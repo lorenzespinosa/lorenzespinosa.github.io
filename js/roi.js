@@ -7,13 +7,25 @@
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   const big=document.getElementById('cBig');
   const CALENDAR_SECONDS_PER_YEAR=365*24*3600;   // 24/7 accrual, never pauses
-  let processes=3,period='yearly',yearly=0;
+  let processes=10,period='yearly',yearly=0;
   // base = the period projection (target); baseShown eases toward it; accrued bleeds live
   let base=0,baseShown=0,baseFrom=0,baseT0=0,accrued=0;
   const dur=650;
   const moneyInt=n=>'$'+Math.round(n).toLocaleString();
   const money2=n=>'$'+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-  function render(){big.textContent=reduce?moneyInt(baseShown):money2(baseShown+accrued);}
+  // Write only when the shown text changes: the loop runs every frame, and an unchanged write still costs a style and layout pass.
+  let shown='';
+  // Losing-money effect: the figure is red (CSS) and throbs each time it counts up, at most once every 400 ms (2.5 a second,
+  // under the 3 flashes a second limit). The throb is a transform only; reduced motion keeps it red and still.
+  const THROB_MS=400,throbFrames=[{transform:'scale(1)'},{transform:'scale(1.045)',offset:.35},{transform:'scale(1)'}];
+  let lastThrob=-Infinity,lastValue=0;
+  function throb(value){
+    const now=performance.now();
+    if(reduce||value<=lastValue||now-lastThrob<THROB_MS||!big.animate)return;
+    lastThrob=now;
+    big.animate(throbFrames,{duration:320,easing:'cubic-bezier(.33,1,.68,1)'});
+  }
+  function render(){const v=baseShown+accrued,t=reduce?moneyInt(baseShown):money2(v);if(t!==shown){shown=t;big.textContent=t;throb(v);}lastValue=v;}
 
   function recompute(){
     const hours=+h.value,rate=+r.value;

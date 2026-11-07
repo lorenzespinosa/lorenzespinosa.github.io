@@ -1,21 +1,51 @@
+/* Metric-matched fallbacks, so the swap to the web fonts does not move the layout (widths measured against the web fonts: Bricolage 700 is 95.2% of Arial Bold, Hanken 400 matches Arial). */
 @font-face{
   font-family:'Bricolage Fallback';
   src:local('Arial Bold'),local('Arial');
-  font-weight:700 800;
+  font-weight:700;
+  size-adjust:95.2%;
+  ascent-override:100%;
+  descent-override:25%;
+  line-gap-override:0%;
+}
+@font-face{
+  font-family:'Hanken Fallback';
+  src:local('Arial');
+  font-weight:400;
   size-adjust:100%;
-  ascent-override:92%;
-  descent-override:24%;
+  ascent-override:100%;
+  descent-override:30%;
   line-gap-override:0%;
 }
 
 @font-face{
   font-family:'Hanken Fallback';
-  src:local('Arial');
-  font-weight:400 600;
-  size-adjust:98%;
-  ascent-override:95%;
-  descent-override:25%;
+  src:local('Arial Bold'),local('Arial');
+  font-weight:600;
+  size-adjust:94.4%;
+  ascent-override:100%;
+  descent-override:30%;
   line-gap-override:0%;
 }
 
-h1{text-wrap:balance}
+h1,h2,h3,h4{
+  margin:0;
+  font-family:var(--font-display);
+  font-weight:var(--display-weight);
+  font-synthesis:none;
+  letter-spacing:var(--tracking-display);
+  line-height:1.06;
+  color:var(--color-ink);
+  overflow-wrap:break-word;
+  min-width:0;
+  text-wrap:balance;
+}
+h1{font-size:var(--text-display);line-height:1.02}
+h2{font-size:var(--text-section);max-width:12.8em}
+h3{font-size:var(--text-title);line-height:1.2;letter-spacing:-.015em}
+p{margin:0;text-wrap:pretty}
+b,strong{font-weight:600;color:var(--color-ink)}
+code{font-family:var(--font-code);font-size:.9em}
+.lede{font-size:var(--text-lead);line-height:1.5;color:var(--color-muted);max-width:52ch}
+.sec-lede{font-size:var(--text-lead);line-height:1.5;color:var(--color-muted);max-width:60ch}
+.small{font-size:var(--text-sm);color:var(--color-muted)}

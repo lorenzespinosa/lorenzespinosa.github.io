@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-<script>/* FOUC-free theme resolver, must run before any stylesheet. */(function(){try{var s=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;if(s==='dark'||(!s&&d))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>/* Pre-paint: theme, the js flag and the once-per-visit build gate. */(function(){var d=document.documentElement;d.classList.add('js');try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme:dark)').matches;if(s==='dark'||(!s&&m))d.setAttribute('data-theme','dark');}catch(e){}var n=navigator,c=n.connection||{},mm=window.matchMedia;if(mm&&!mm('(prefers-reduced-motion: reduce)').matches&&!mm('(forced-colors: active)').matches&&!mm('print').matches&&!c.saveData&&!(n.deviceMemory&&n.deviceMemory<=2)&&!(n.hardwareConcurrency&&n.hardwareConcurrency<=2)&&'IntersectionObserver' in window){var b=false;try{b=sessionStorage.getItem('wv-built')==='1';}catch(e){}d.classList.add('wv-motion',b?'wv-return':'wv-loader-pending');}})();</script>
 <title>Lorenz Espinosa · IT Systems &amp; Automation Consultant</title>
 <meta name="description" content="I help teams connect the tools they already use, test missing data and failed steps, and keep integrations documented and supported after launch." />
 <meta property="og:title" content="Lorenz Espinosa · IT Systems &amp; Automation Consultant" />
@@ -14,16 +14,18 @@
 <meta property="og:image" content="https://lorenzespinosa.github.io/lorenz.jpg" />
 <meta property="og:image:width" content="576" />
 <meta property="og:image:height" content="576" />
+<meta property="og:image:alt" content="Portrait of Lorenz Espinosa, IT systems and automation consultant" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Lorenz Espinosa · IT Systems &amp; Automation Consultant" />
 <meta name="twitter:description" content="IT systems and automation for small teams and larger organizations, built around the tools people already use, with testing, documentation, and support." />
 <meta name="twitter:image" content="https://lorenzespinosa.github.io/lorenz.jpg" />
+<meta name="twitter:image:alt" content="Portrait of Lorenz Espinosa, IT systems and automation consultant" />
 <meta name="theme-color" id="theme-color" content="#f6f7f8" />
 <link rel="canonical" href="https://lorenzespinosa.github.io/" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0c0b'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ea4b71'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23ea4b71' stroke-opacity='0.35' stroke-width='1.5'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&amp;family=Hanken+Grotesk:wght@400;600&amp;display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles/tokens.css" />
 <link rel="stylesheet" href="styles/typography.css" />
 <link rel="stylesheet" href="styles/main.css" />
@@ -31,6 +33,8 @@
 <link rel="stylesheet" href="styles/components.css" />
 <link rel="stylesheet" href="styles/hero.css" />
 <link rel="stylesheet" href="styles/glass.css" />
+<link rel="stylesheet" href="styles/swarm-motion.css" />
+<link rel="stylesheet" href="styles/fit.css" />
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -69,11 +73,11 @@
 <body>
 
 <a href="#main" class="skip">Skip to content</a>
-<div id="progress" aria-hidden="true"></div>
+<div id="progress" class="progress-x" aria-hidden="true"></div>
 
-<nav id="nav" class="portfolio-home">
+<nav id="nav" class="site-nav portfolio-home" aria-label="Main">
   <div class="nav-in">
-    <a href="#top" class="brand"><span class="dot"></span>Lorenz Espinosa</a>
+    <a href="#top" class="brand"><span class="dot" aria-hidden="true"></span>Lorenz Espinosa</a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#work">Work</a>
@@ -82,7 +86,7 @@
       <a href="#roi">Cost estimate</a>
       <a href="#blog">Blog</a>
       <a href="#faq">FAQ</a>
-      <a class="nav-cta" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A"><span class="nav-cta-full">Start a conversation</span><span class="nav-cta-short">Contact</span></a>
+      <a class="btn btn-primary btn-sm nav-cta" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A"><span class="nav-cta-full">Start a conversation</span><span class="nav-cta-short">Contact</span></a>
       <details class="mobile-nav">
         <summary aria-label="Sections menu">Menu</summary>
         <div class="mobile-nav-panel" aria-label="Site sections">
@@ -106,63 +110,60 @@
 
 <main id="main">
 <header class="hero" id="top">
-  <div class="wrap">
-    <div class="hero-inner">
+  <div class="wrap hero-inner">
     <div class="hero-copy">
-    <span class="pill reveal"><span class="live"></span> Based in the Philippines · Remote projects</span>
-    <h1 class="reveal">I make the systems you already use <span class="accent">work together.</span></h1>
-    <p class="lede reveal">I’m an <b>IT systems &amp; automation consultant</b>. I connect the tools teams already use, test failures and missing data, and document how the workflow runs. People keep important decisions.</p>
-    <div class="hero-proof reveal">
-      <span><b>Practical</b> systems integration</span>
-      <span><b>Human review</b> where it matters</span>
-      <span><b>Documented</b> and supported</span>
+      <div class="lead-head" data-build="hero">
+      <h1 id="hero-title" data-build-op="type">I make the systems you already use work together.</h1>
+      <p class="lede" data-build-op="type">I’m an <b>IT systems &amp; automation consultant</b>. I connect the tools teams already use, test failures and missing data, and document how the workflow runs. People keep important decisions.</p>
+      </div>
+      <div class="lead-rest" data-build="lead-rest">
+      <ul class="hero-proof">
+        <li data-build-op="place"><b>Practical</b> systems integration</li>
+        <li data-build-op="place"><b>Human review</b> where it matters</li>
+        <li data-build-op="place"><b>Documented</b> and supported</li>
+      </ul>
+      <div class="cta-row" data-build-op="draw">
+        <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Discuss a workflow</a>
+        <a class="btn btn-ghost" href="#work">See how I work</a>
+      </div>
+      <p class="cta-micro">Start with a general, non-confidential description</p>
+      </div>
     </div>
-    <div class="cta-row reveal">
-      <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Discuss a workflow <span class="arr">→</span></a>
-      <a class="btn btn-ghost" href="#work">See how I work</a>
-    </div>
-    <a class="hero-code-link reveal" href="https://github.com/lorenzespinosa/n8n-lint" target="_blank" rel="noopener">Inspect n8n-lint code <span aria-hidden="true">↗</span></a>
-    <p class="cta-micro reveal"><span class="g">●</span> Start with a general, non-confidential description</p>
-    <a class="hero-case reveal" href="#process">See the method: <b>scope, test, document, support</b> <span class="arr" aria-hidden="true">→</span></a>
-    </div><!-- /.hero-copy -->
 
-    <div class="editor reveal" aria-label="Illustrative workflow demo: drag the nodes or play the animation">
+    <div class="editor-slot" data-build="editor">
+    <div class="editor" data-build-op="carry" aria-label="Illustrative workflow demo: drag the nodes or play the animation">
       <div class="ed-bar">
-        <div class="left">
-          <span class="ed-dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>
-          <span class="ed-tab">sample-handoff.workflow</span>
-          <span>· 6 nodes</span>
-        </div>
+        <span class="ed-tab">sample-handoff.workflow</span>
+        <span class="ed-count">6 nodes</span>
       </div>
       <div class="canvas">
-        <div class="cv" id="canvas">
+        <div class="cv wf-diagram" id="canvas">
         <svg class="wires" id="wires" aria-hidden="true"></svg>
-        <div class="gnode trigger" data-n="trigger" style="left:4%;top:14%"><div class="body"><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Trigger</b><span>webhook · event</span></div></div>
-        <div class="gnode" data-n="validate" style="left:27%;top:14%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12 2.5 2.5L16 9"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Validate</b><span>fields · auth</span></div></div>
-        <div class="gnode" data-n="process" style="left:50%;top:14%"><div class="body"><span class="io in"></span><span class="io out-main"></span><span class="io out-err"></span><svg viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Process</b><span>transform · enrich</span></div></div>
-        <div class="gnode" data-n="deliver" style="left:73%;top:14%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Deliver</b><span>write · notify</span></div></div>
-        <div class="gnode" data-n="audit" style="left:73%;top:58%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h5"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><span class="addbtn" aria-hidden="true">+</span><div class="label"><b>Audit&nbsp;Log</b><span>PII-masked</span></div></div>
-        <div class="gnode" data-n="fallback" style="left:50%;top:58%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg><span class="check"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Fallback</b><span>on error · retry</span></div></div>
+        <div class="gnode trigger" data-n="trigger" style="left:4%;top:14%"><div class="body"><span class="io out"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg><span class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Trigger</b><span>webhook · event</span></div></div>
+        <div class="gnode" data-n="validate" style="left:27%;top:14%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12 2.5 2.5L16 9"/></svg><span class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Validate</b><span>fields · auth</span></div></div>
+        <div class="gnode" data-n="process" style="left:50%;top:14%"><div class="body"><span class="io in"></span><span class="io out-main"></span><span class="io out-err"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg><span class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Process</b><span>transform · enrich</span></div></div>
+        <div class="gnode" data-n="deliver" style="left:73%;top:14%"><div class="body"><span class="io in"></span><span class="io out"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg><span class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Deliver</b><span>write · notify</span></div></div>
+        <div class="gnode" data-n="audit" style="left:73%;top:58%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h5"/></svg><span class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span></div><span class="addbtn" aria-hidden="true">+</span><div class="label"><b>Audit&nbsp;Log</b><span>PII-masked</span></div></div>
+        <div class="gnode" data-n="fallback" style="left:50%;top:58%"><div class="body"><span class="io in"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg><span class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg></span></div><div class="label"><b>Fallback</b><span>on error · retry</span></div></div>
         <span class="ed-hint">Sample workflow. No client data or results.</span>
         </div>
       </div>
       <div class="ed-bar ed-bar--bottom">
         <span class="ed-zoom">100%</span>
-        <button class="ed-run" id="run" type="button"><span aria-hidden="true">▶</span>&nbsp; Play demo</button>
+        <button class="ed-run" id="run" type="button"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2v8l7-4z"/></svg>Play demo</button>
       </div>
     </div>
-    </div><!-- /.hero-inner -->
-
+    </div>
   </div>
 </header>
 
 <section id="flow" class="scrolly" aria-label="From scattered manual work to one dependable workflow">
   <div class="scrolly-stage">
-    <p class="scrolly-eyebrow">How it feels</p>
     <h2 class="scrolly-head">
       <span class="flip-before">The same work, repeated.</span>
       <span class="flip-after">One dependable workflow.</span>
     </h2>
+    <div class="flow-mid">
     <div class="flow-viz" aria-hidden="true">
       <div class="frame frame-chaos">
         <span class="chip c1">copy and paste</span>
@@ -191,97 +192,110 @@
         <span class="pnode ok">Done</span>
       </div>
     </div>
-    <p class="scrolly-cap"><span class="dot"></span> scroll to see scattered steps become one clear workflow</p>
+    <button class="flow-tidy" id="flowTidy" type="button" aria-describedby="flowStatus">Clean it up</button>
+    <p class="sr-only" id="flowStatus" role="status" aria-live="polite"></p>
+    </div>
+    <p class="scrolly-cap">Scroll to see scattered steps become one clear workflow</p>
   </div>
 </section>
 
-<section id="proof" aria-labelledby="proof-h">
+<section id="proof" class="sec" aria-labelledby="proof-h">
   <div class="wrap">
+    <div class="pg">
     <h2 id="proof-h" class="sr-only">What a dependable workflow includes</h2>
-    <div class="bento reveal">
-      <article class="btile btile--feature">
-        <span class="btile-eyebrow">The goal</span>
-        <div class="btile-metric"><span class="n">Less friction</span></div>
-        <p class="btile-note">A workflow should reduce repeated entry, unclear handoffs, and quiet failures without forcing your team to replace every tool it already knows.</p>
+    <div class="bento" data-build="proof">
+      <article class="tile tile--feature" data-build-op="place">
+        <p class="tile-label">The goal</p>
+        <p class="tile-metric">Less friction</p>
+        <p class="tile-note" data-build-op="place" data-build-whole>A workflow should reduce repeated entry, unclear handoffs, and quiet failures without forcing your team to replace every tool it already knows.</p>
       </article>
-      <article class="btile">
-        <span class="btile-eyebrow">Existing tools</span>
-        <div class="btile-metric sm"><span class="n">Connected</span></div>
+      <article class="tile tile--fact" data-build-op="place">
+        <p class="tile-label">Existing tools</p>
+        <p class="tile-metric">Connected</p>
       </article>
-      <article class="btile">
-        <span class="btile-eyebrow">Important decisions</span>
-        <div class="btile-metric sm"><span class="n metric-win">Reviewed</span></div>
-        <p class="btile-note">Human approval stays in the workflow where judgment matters.</p>
+      <article class="tile tile--fact" data-build-op="place">
+        <p class="tile-label">Important decisions</p>
+        <p class="tile-metric">Reviewed</p>
+        <p class="tile-note">Human approval stays in the workflow where judgment matters.</p>
       </article>
-      <article class="btile">
-        <span class="btile-eyebrow">Errors and exceptions</span>
-        <div class="btile-metric sm"><span class="n metric-win">Visible</span></div>
-        <p class="btile-note">Failures are logged, surfaced, and given a recovery path.</p>
+      <article class="tile tile--fact" data-build-op="place">
+        <p class="tile-label">Errors and exceptions</p>
+        <p class="tile-metric">Visible</p>
+        <p class="tile-note">Failures are logged, surfaced, and given a recovery path.</p>
       </article>
-      <article class="btile">
-        <span class="btile-eyebrow">Handover</span>
-        <div class="btile-metric sm"><span class="n">Clear</span></div>
-        <p class="btile-note">Your team gets useful documentation and knows who owns the next step.</p>
+      <article class="tile tile--fact" data-build-op="place">
+        <p class="tile-label">Handover</p>
+        <p class="tile-metric">Clear</p>
+        <p class="tile-note">Your team gets useful documentation and knows who owns the next step.</p>
       </article>
-      <article class="btile btile--stack btile--beliefs">
-        <span class="btile-eyebrow">How I build</span>
+      </div>
+    </div>
+    <div class="pg">
+    <div class="bento bento--b" data-build="proof-b">
+      <article class="tile tile--beliefs" data-build-op="place">
+        <h3 class="tile-head">How I build</h3>
         <ul class="beliefs">
-          <li><span class="b-mark" aria-hidden="true"></span><span>Understand the process <b>before</b> choosing the automation</span></li>
-          <li><span class="b-mark" aria-hidden="true"></span><span>Fit the solution to your <b>existing systems and team</b></span></li>
-          <li><span class="b-mark" aria-hidden="true"></span><span>Use rules for predictable work and <b>AI only where it helps</b></span></li>
-          <li><span class="b-mark" aria-hidden="true"></span><span>Plan for <b>monitoring, recovery, and support</b> from the start</span></li>
+          <li>Understand the process <b>before</b> choosing the automation</li>
+          <li>Fit the solution to your <b>existing systems and team</b></li>
+          <li>Use rules for predictable work and <b>AI only where it helps</b></li>
+          <li>Plan for <b>monitoring, recovery, and support</b> from the start</li>
         </ul>
       </article>
-      <article class="btile btile--cta">
-        <p>Is a routine process taking more attention than it should?</p>
-        <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Discuss the workflow <span class="arr">→</span></a>
+      <article class="tile tile--cta" data-build-op="place">
+        <p class="tile-ask">Is a routine process taking more attention than it should?</p>
+        <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Discuss the workflow</a>
       </article>
+    </div>
     </div>
   </div>
 </section>
 
-
-<section id="roi">
+<section id="roi" class="sec sec--paper2" aria-labelledby="roi-h">
   <div class="wrap">
-    <div class="eyebrow reveal">The math</div>
-    <h2 class="reveal">What could a repetitive process be costing you?</h2>
-    <p class="sec-lede reveal">Use the calculator to estimate the labor tied up in one repeated process. It is a planning aid, not a promise of savings.</p>
-    <div class="calc reveal">
-      <div class="calc-inputs">
+    <div class="pg">
+    <div class="sec-head" data-build="roi-head">
+      <h2 id="roi-h">What could a repetitive process be costing you?</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>Use the calculator to estimate the labor tied up in one repeated process. It is a planning aid, not a promise of savings.</p>
+    </div>
+    <div class="calc">
+      <div class="calc-inputs" data-build="calc">
         <div class="calc-field">
-          <div class="row"><label>Hours per process, each week</label><span class="val" id="cHoursV">10h</span></div>
-          <input type="range" id="cHours" min="1" max="40" value="10" aria-label="Hours per process each week">
+          <div class="row"><label for="cHours">Hours per process, each week</label><span class="val" id="cHoursV">40h</span></div>
+          <input type="range" id="cHours" min="1" max="40" value="40" aria-label="Hours per process each week">
         </div>
         <div class="calc-field">
-          <div class="row"><label>Loaded cost per hour</label><span class="val" id="cRateV">$50</span></div>
-          <input type="range" id="cRate" min="10" max="200" step="5" value="50" aria-label="Loaded cost per hour">
+          <div class="row"><label for="cRate">Loaded cost per hour</label><span class="val" id="cRateV">$45</span></div>
+          <input type="range" id="cRate" min="10" max="200" step="5" value="45" aria-label="Loaded cost per hour">
         </div>
         <div class="calc-field">
-          <div class="row"><label>Processes to automate</label></div>
-          <div class="proc-btns" id="cProc">
-            <button type="button" data-v="1">1</button><button type="button" data-v="3" class="on">3</button><button type="button" data-v="5">5</button><button type="button" data-v="10">10+</button>
+          <div class="row"><span class="calc-label" id="cProcL">Processes to automate</span></div>
+          <div class="proc-btns" id="cProc" role="group" aria-labelledby="cProcL">
+            <button type="button" data-v="1">1</button><button type="button" data-v="3">3</button><button type="button" data-v="5">5</button><button type="button" data-v="10" class="on">10+</button>
           </div>
         </div>
         <div class="calc-field">
-          <div class="row"><label style="color:var(--faint);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em">Projection</label></div>
-          <div class="period" id="cPeriod"><button type="button" data-p="weekly">Weekly</button><button type="button" data-p="monthly">Monthly</button><button type="button" data-p="yearly" class="on">Yearly</button></div>
+          <div class="row"><span class="calc-label" id="cPeriodL">Projection</span></div>
+          <div class="period" id="cPeriod" role="group" aria-labelledby="cPeriodL"><button type="button" data-p="weekly">Weekly</button><button type="button" data-p="monthly">Monthly</button><button type="button" data-p="yearly" class="on">Yearly</button></div>
         </div>
       </div>
-      <div class="calc-result">
-        <div class="lbl">Estimated manual-work cost · <span id="cPeriodLbl">yearly</span></div>
-        <div class="big" id="cBig">$0</div>
-        <div class="bleed"><span class="bleed-dot" aria-hidden="true"></span><span class="bleed-l">Estimate based on the inputs you selected</span></div>
-        <div class="calc-stat"><span class="k">Team capacity represented</span><span class="v" id="cFte">0x</span></div>
-        <div class="calc-stat"><span class="k">Five-year equivalent</span><span class="v coral" id="c5">$0</span></div>
-        <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Talk through the process <span class="arr">→</span></a>
-        <div class="cta-micro" style="margin-top:.85rem"><span class="g">●</span> Start with a general, non-confidential description</div>
-        <p class="calc-magnet">Prefer to start by email? <a href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Send a general workflow outline →</a></p>
+      <div class="calc-result" data-build="calc-result">
+        <p class="lbl">Estimated manual-work cost, <span id="cPeriodLbl">yearly</span></p>
+        <div class="big" id="cBig">$936,000</div>
+        <p class="bleed">Estimate based on the inputs you selected</p>
+        <div class="calc-stat"><span class="k">Team capacity represented</span><span class="v" id="cFte">10.0x FTE</span></div>
+        <div class="calc-stat"><span class="k">Five-year equivalent</span><span class="v" id="c5">$4,680,000</span></div>
+        <a class="btn btn-primary btn-onband" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Talk through the process</a>
+        <p class="cta-micro">Start with a general, non-confidential description</p>
+        <p class="calc-magnet">Prefer to start by email? <a href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Send a general workflow outline</a></p>
       </div>
     </div>
+    </div>
 
+    <div class="pg">
+    <details class="scn-box" id="scnBox" data-build="scenarios">
+    <summary class="scn-toggle"><h3 class="scn-title" id="scn-h">ROI scenario comparison</h3></summary>
     <div class="scn-region" id="scnRegion" role="region" aria-labelledby="scn-h">
-      <h3 class="scn-title" id="scn-h">ROI scenario comparison</h3>
-      <p class="scn-intro">Save up to three named scenarios and compare them side by side. Weekly cost uses hours &times; process count &times; rate; monthly is weekly &times; 4.33 and yearly is weekly &times; 52. The <b>Yearly difference</b> column is measured against the first saved scenario, so the first row reads $0.00 and later rows show how much more or less they cost per year.</p>
+      <p class="scn-intro" data-build-op="place" data-build-whole>Save up to three named scenarios and compare them side by side. Weekly cost uses hours &times; process count &times; rate; monthly is weekly &times; 4.33 and yearly is weekly &times; 52. The <b>Yearly difference</b> column is measured against the first saved scenario, so the first row reads $0.00 and later rows show how much more or less they cost per year.</p>
       <div class="scn-form">
         <div class="scn-field scn-field-name">
           <label for="sName">Scenario name</label>
@@ -330,312 +344,322 @@
         <span class="scn-cap" id="scnCount"></span>
       </div>
     </div>
+    </details>
+    </div>
   </div>
 </section>
 
-<section id="who">
+<section id="who" class="sec" aria-labelledby="who-h">
   <div class="wrap">
-    <div class="eyebrow reveal">Who I help</div>
-    <h2 class="reveal">For teams that need their systems to be dependable.</h2>
-    <p class="sec-lede reveal">Most clients do not need another app. They need the tools they already pay for to exchange the right information, at the right time, with clear ownership when something needs attention.</p>
-    <div class="persona-grid">
-      <div class="persona reveal">
-        <div class="pic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></div>
-        <h3>Law firms</h3>
-        <p class="quote">Intake, follow-up, document, billing, and reporting steps need to stay organized without exposing confidential information or removing human judgment.</p>
-        <div class="out">Safer handoffs and clearer accountability →</div>
+    <div class="sec-head" data-build="who-head">
+      <h2 id="who-h">For teams that need their systems to be dependable.</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>Most clients do not need another app. They need the tools they already pay for to exchange the right information, at the right time, with clear ownership when something needs attention.</p>
+    </div>
+    <div class="persona-list" data-build="who">
+      <div class="persona" data-build-op="place">
+        <h3><svg class="pic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>Law firms</h3>
+        <p class="quote" data-build-op="place" data-build-whole>Intake, follow-up, document, billing, and reporting steps need to stay organized without exposing confidential information or removing human judgment.</p>
+        <p class="out">Safer handoffs and clearer accountability</p>
       </div>
-      <div class="persona reveal">
-        <div class="pic"><svg viewBox="0 0 24 24"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></div>
-        <h3>Small businesses</h3>
-        <p class="quote">Sales, scheduling, billing, and customer updates often span several tools and depend on someone remembering the next step.</p>
-        <div class="out">Connected systems and less repeated work →</div>
+      <div class="persona" data-build-op="place">
+        <h3><svg class="pic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Small businesses</h3>
+        <p class="quote" data-build-op="place" data-build-whole>Sales, scheduling, billing, and customer updates often span several tools and depend on someone remembering the next step.</p>
+        <p class="out">Connected systems and less repeated work</p>
       </div>
-      <div class="persona reveal">
-        <div class="pic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12 2.5 2.5L16 9"/></svg></div>
-        <h3>Operations teams</h3>
-        <p class="quote">Existing automations work on the happy path but fail quietly when data is incomplete, a vendor changes something, or an approval is needed.</p>
-        <div class="out">Monitoring, recovery, and support →</div>
+      <div class="persona" data-build-op="place">
+        <h3><svg class="pic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12 2.5 2.5L16 9"/></svg>Operations teams</h3>
+        <p class="quote" data-build-op="place" data-build-whole>Existing automations work on the happy path but fail quietly when data is incomplete, a vendor changes something, or an approval is needed.</p>
+        <p class="out">Monitoring, recovery, and support</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="about">
+<section id="about" class="sec sec--paper2" aria-labelledby="about-h">
   <div class="wrap">
-    <div class="eyebrow reveal">Who you'd be working with</div>
-    <h2 class="reveal">Hi, I’m Lorenz. I make business systems easier to run and easier to trust.</h2>
-    <div class="about-grid">
-      <div class="about-photo reveal">
+    <div class="pg">
+    <div class="about-grid" data-build="about">
+      <div class="about-photo" data-build-op="place">
         <picture>
           <source srcset="lorenz.webp" type="image/webp" />
           <img src="lorenz.jpg" alt="Lorenz Espinosa, IT Systems and Automation Consultant" width="300" height="375" loading="lazy" decoding="async" />
         </picture>
-        <div class="badge"><span class="d"></span>IT systems &amp; automation</div>
+        <p class="badge">IT systems &amp; automation</p>
       </div>
-      <div class="about-bio reveal">
-        <p>I’m an <b>IT systems &amp; automation consultant</b> who has worked with small teams and larger organizations. I start by understanding the process, the people responsible for it, and the exceptions that cause trouble. Then I build a scoped integration the team can operate.</p>
-        <p>I plan for <b>missing data, failed steps, approvals, and recovery</b>. I document how the workflow runs, explain how to operate it, and can stay involved for monitoring and support.</p>
-        <p class="about-cred">My background includes <b>enterprise Microsoft&nbsp;Cloud, multi-tenant IT, and marketing automation</b>. That experience shapes how I approach access, reliability, change control, and support.</p>
-        <div class="trust-pills">
-          <span class="trust-pill"><span class="d"></span>IT systems</span>
-          <span class="trust-pill"><span class="d"></span>Workflow automation</span>
-          <span class="trust-pill"><span class="d"></span>Testing &amp; documentation</span>
-        </div>
-        <div class="sig">Lorenz Leslie Espinosa<span>IT Systems &amp; Automation Consultant · remote worldwide</span></div>
+      <div class="about-bio">
+        <h2 id="about-h">Hi, I’m Lorenz. I make business systems easier to run and easier to trust.</h2>
+        <p data-build-op="place" data-build-whole>I’m an <b>IT systems &amp; automation consultant</b> who has worked with small teams and larger organizations. I start by understanding the process, the people responsible for it, and the exceptions that cause trouble. Then I build a scoped integration the team can operate.</p>
+        <p data-build-op="place" data-build-whole>I plan for <b>missing data, failed steps, approvals, and recovery</b>. I document how the workflow runs, explain how to operate it, and can stay involved for monitoring and support.</p>
+        <p class="about-cred" data-build-op="place" data-build-whole>My background includes <b>enterprise Microsoft&nbsp;Cloud, multi-tenant IT, and marketing automation</b>. That experience shapes how I approach access, reliability, change control, and support.</p>
+        <ul class="trust-pills">
+          <li data-build-op="place">IT systems</li>
+          <li data-build-op="place">Workflow automation</li>
+          <li data-build-op="place">Testing &amp; documentation</li>
+        </ul>
+        <p class="sig">Lorenz Leslie Espinosa<span>IT Systems &amp; Automation Consultant, remote worldwide</span></p>
       </div>
     </div>
-    <div class="trust-cards">
-      <div class="tcard reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-        <div><b>Designed around your environment</b><p>I work with the systems you already use and recommend self-hosting only when it improves privacy, control, cost, or reliability for your situation.</p></div>
+    </div>
+    <div class="pg">
+    <div class="trust-cards" data-build="trust">
+      <div class="tcard" data-build-op="place">
+        <h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Designed around your environment</h3><p data-build-op="place" data-build-whole>I work with the systems you already use and recommend self-hosting only when it improves privacy, control, cost, or reliability for your situation.</p>
       </div>
-      <div class="tcard reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h4"/></svg></div>
-        <div><b>Observable and recoverable</b><p>Important actions can be logged, sensitive data can be masked, and failures are surfaced with a defined way to recover.</p></div>
+      <div class="tcard" data-build-op="place">
+        <h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M9 13h6M9 17h4"/></svg>Observable and recoverable</h3><p data-build-op="place" data-build-whole>Important actions can be logged, sensitive data can be masked, and failures are surfaced with a defined way to recover.</p>
       </div>
-      <div class="tcard reveal">
-        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg></div>
-        <div><b>Clear ownership after launch</b><p>You receive documentation and a practical handover. Ongoing monitoring and support are available when your team would rather not maintain the workflow alone.</p></div>
+      <div class="tcard" data-build-op="place">
+        <h3><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>Clear ownership after launch</h3><p data-build-op="place" data-build-whole>You receive documentation and a practical handover. Ongoing monitoring and support are available when your team would rather not maintain the workflow alone.</p>
       </div>
+    </div>
     </div>
   </div>
 </section>
 
-<section id="work">
+<section id="work" class="sec" aria-labelledby="work-h">
   <div class="wrap">
-    <div class="eyebrow reveal">How I approach a workflow</div>
-    <h2 class="reveal">Start with the handoff, not a new tool.</h2>
-    <p class="sec-lede reveal">These are planning checks, not client case studies or measured results. The right design depends on your systems, access and the people responsible for the work.</p>
-    <div class="work-grid">
-      <div class="work reveal">
-        <span class="st">Scope</span>
+    <div class="pg">
+    <div class="sec-head" data-build="work-head">
+      <h2 id="work-h">Start with the handoff, not a new tool.</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>These are planning checks, not client case studies or measured results. The right design depends on your systems, access and the people responsible for the work.</p>
+    </div>
+    <div class="work-grid" data-build="work">
+      <div class="work" data-build-op="place">
         <h3>Map the handoff</h3>
-        <p>List where information starts, who needs it next and what should happen when it is incomplete.</p>
-        <div class="result"><span class="big">Map first</span><span class="desc">owners and exceptions in plain view</span></div>
-        <div class="stk">Forms · inboxes · business systems</div>
+        <p data-build-op="place" data-build-whole>List where information starts, who needs it next and what should happen when it is incomplete.</p>
+        <p class="result"><span class="big">Map first</span><span class="desc">owners and exceptions in plain view</span></p>
+        <p class="stk"><span class="st">Scope</span>Forms, inboxes, business systems</p>
         <details class="case">
-          <summary><span class="pl">▸</span> See the checks</summary>
-          <div class="bar-row before"><span class="lab">Ask</span><p>Which step asks a person to copy, check or chase information?</p></div>
-          <div class="bar-row after"><span class="lab">Check</span><p>Identify the source of truth and the handoff owner before connecting systems.</p></div>
-          <div class="bar-row resultr"><span class="lab">Plan</span><p>Write down the intended path and the exceptions that need a person.</p></div>
+          <summary>See the checks</summary>
+          <div class="bar-row"><span class="lab">Ask</span><p>Which step asks a person to copy, check or chase information?</p></div>
+          <div class="bar-row"><span class="lab">Check</span><p>Identify the source of truth and the handoff owner before connecting systems.</p></div>
+          <div class="bar-row"><span class="lab">Plan</span><p>Write down the intended path and the exceptions that need a person.</p></div>
         </details>
       </div>
-      <div class="work reveal">
-        <span class="st">Integration</span>
+      <div class="work" data-build-op="place">
         <h3>Check the input before it moves</h3>
-        <p>Required fields, duplicates and failed requests need a visible path rather than a silent guess.</p>
-        <div class="result"><span class="big">Testable</span><span class="desc">clear rules for expected inputs</span></div>
-        <div class="stk">APIs · webhooks · workflow rules</div>
+        <p data-build-op="place" data-build-whole>Required fields, duplicates and failed requests need a visible path rather than a silent guess.</p>
+        <p class="result"><span class="big">Testable</span><span class="desc">clear rules for expected inputs</span></p>
+        <p class="stk"><span class="st">Integration</span>APIs, webhooks, workflow rules</p>
         <details class="case">
-          <summary><span class="pl">▸</span> See the checks</summary>
-          <div class="bar-row before"><span class="lab">Ask</span><p>What does the next system require, and what happens if a field is missing?</p></div>
-          <div class="bar-row after"><span class="lab">Check</span><p>Validate what can be checked with rules, then test an incomplete and a duplicate request.</p></div>
-          <div class="bar-row resultr"><span class="lab">Plan</span><p>Keep a review route for records that cannot be handled safely by a rule.</p></div>
+          <summary>See the checks</summary>
+          <div class="bar-row"><span class="lab">Ask</span><p>What does the next system require, and what happens if a field is missing?</p></div>
+          <div class="bar-row"><span class="lab">Check</span><p>Validate what can be checked with rules, then test an incomplete and a duplicate request.</p></div>
+          <div class="bar-row"><span class="lab">Plan</span><p>Keep a review route for records that cannot be handled safely by a rule.</p></div>
         </details>
       </div>
-      <div class="work reveal">
-        <span class="st">Human review</span>
+      </div>
+    </div>
+    <div class="pg">
+    <div class="work-grid work-grid--b" data-build="work-b">
+      <div class="work" data-build-op="place">
         <h3>Keep decisions with a person</h3>
-        <p>AI may help prepare text or a summary when that suits the task. A person should remain responsible for consequential actions.</p>
-        <div class="result"><span class="big">Reviewable</span><span class="desc">an explicit approval point where needed</span></div>
-        <div class="stk">Defined task · limited access · review</div>
+        <p data-build-op="place" data-build-whole>AI may help prepare text or a summary when that suits the task. A person should remain responsible for consequential actions.</p>
+        <p class="result"><span class="big">Reviewable</span><span class="desc">an explicit approval point where needed</span></p>
+        <p class="stk"><span class="st">Human review</span>Defined task, limited access, review</p>
         <details class="case">
-          <summary><span class="pl">▸</span> See the checks</summary>
-          <div class="bar-row before"><span class="lab">Ask</span><p>Does this step need language interpretation, or is it a fixed decision?</p></div>
-          <div class="bar-row after"><span class="lab">Check</span><p>Limit the information a model can see and decide which output must be reviewed.</p></div>
-          <div class="bar-row resultr"><span class="lab">Plan</span><p>Give someone authority to accept, correct or stop an important action.</p></div>
+          <summary>See the checks</summary>
+          <div class="bar-row"><span class="lab">Ask</span><p>Does this step need language interpretation, or is it a fixed decision?</p></div>
+          <div class="bar-row"><span class="lab">Check</span><p>Limit the information a model can see and decide which output must be reviewed.</p></div>
+          <div class="bar-row"><span class="lab">Plan</span><p>Give someone authority to accept, correct or stop an important action.</p></div>
         </details>
       </div>
-      <div class="work reveal">
-        <span class="st">Support</span>
+      <div class="work" data-build-op="place">
         <h3>Plan for a failed step</h3>
-        <p>A workflow needs an owner, a way to notice a failure and a documented recovery path that fits the system.</p>
-        <div class="result"><span class="big">Recoverable</span><span class="desc">a known next step when work stops</span></div>
-        <div class="stk">Logs · alerts · handover</div>
+        <p data-build-op="place" data-build-whole>A workflow needs an owner, a way to notice a failure and a documented recovery path that fits the system.</p>
+        <p class="result"><span class="big">Recoverable</span><span class="desc">a known next step when work stops</span></p>
+        <p class="stk"><span class="st">Support</span>Logs, alerts, handover</p>
         <details class="case">
-          <summary><span class="pl">▸</span> See the checks</summary>
-          <div class="bar-row before"><span class="lab">Ask</span><p>Who notices when a connected service changes or a request cannot finish?</p></div>
-          <div class="bar-row after"><span class="lab">Check</span><p>Decide what to retry, what to hold and whom to notify.</p></div>
-          <div class="bar-row resultr"><span class="lab">Plan</span><p>Document the recovery step and who is responsible for it.</p></div>
+          <summary>See the checks</summary>
+          <div class="bar-row"><span class="lab">Ask</span><p>Who notices when a connected service changes or a request cannot finish?</p></div>
+          <div class="bar-row"><span class="lab">Check</span><p>Decide what to retry, what to hold and whom to notify.</p></div>
+          <div class="bar-row"><span class="lab">Plan</span><p>Document the recovery step and who is responsible for it.</p></div>
         </details>
       </div>
     </div>
-    <div class="cta-row">
+    <div class="cta-band" data-build="work-cta">
       <p>Have a handoff that keeps breaking?</p>
-      <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Discuss the workflow <span class="arr">→</span></a>
+      <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A" data-build-op="draw">Discuss the workflow</a>
+    </div>
     </div>
   </div>
 </section>
 
-
-<section id="blog">
+<section id="blog" class="sec sec--paper2" aria-labelledby="blog-h">
   <div class="wrap">
-    <div class="eyebrow reveal">From the Blog</div>
-    <h2 class="reveal">Notes from the work.</h2>
-    <p class="sec-lede reveal">Plain-language articles about dependable automation, responsible AI use, and what changes when a workflow has to survive outside a demo.</p>
-    <div class="work-grid">
-      <article class="work reveal">
-        <span class="st">Workflow design</span>
+    <div class="sec-head" data-build="blog-head">
+      <h2 id="blog-h">From the blog: notes from the work.</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>Plain-language articles about dependable automation, responsible AI use, and what changes when a workflow has to survive outside a demo.</p>
+    </div>
+    <div class="post-rows" data-build="blog">
+      <article class="post-row" data-build-op="place">
+        <p class="post-topic">Workflow design</p>
         <h3>When AI belongs in a workflow</h3>
-        <p>Use rules for predictable steps. Give AI a narrow task, then plan for review and failures.</p>
-        <a class="case-link" href="/blog/token-tax.html">Read the article →</a>
+        <p data-build-op="place" data-build-whole>Use rules for predictable steps. Give AI a narrow task, then plan for review and failures.</p>
+        <a class="post-link" href="/blog/token-tax.html">Read the workflow design article</a>
       </article>
-      <article class="work reveal">
-        <span class="st">AI search</span>
+      <article class="post-row" data-build-op="place">
+        <p class="post-topic">AI search</p>
         <h3>Structured data helps search. It doesn't guarantee AI citations.</h3>
-        <p>Google says its AI features use familiar Search fundamentals. Structured data can describe a page, but no special markup guarantees a citation.</p>
-        <a class="case-link" href="/blog/geo-not-schema.html">Read the article →</a>
+        <p data-build-op="place" data-build-whole>Google says its AI features use familiar Search fundamentals. Structured data can describe a page, but no special markup guarantees a citation.</p>
+        <a class="post-link" href="/blog/geo-not-schema.html">Read the AI search article</a>
       </article>
-      <article class="work reveal">
-        <span class="st">Automation lessons</span>
+      <article class="post-row" data-build-op="place">
+        <p class="post-topic">Automation lessons</p>
         <h3>Which automations actually matter? Start with the failure mode</h3>
-        <p>The most useful automations often solve ordinary but consequential problems: repeated entry, missed handoffs, unclear ownership, and failures that nobody sees.</p>
-        <a class="case-link" href="/blog/which-automations-mattered.html">Read the article →</a>
+        <p data-build-op="place" data-build-whole>The most useful automations often solve ordinary but consequential problems: repeated entry, missed handoffs, unclear ownership, and failures that nobody sees.</p>
+        <a class="post-link" href="/blog/which-automations-mattered.html">Read the automation lessons article</a>
       </article>
     </div>
-    <div class="cta-row reveal">
-      <a class="btn btn-ghost" href="/blog/">View all Blog posts <span class="arr">→</span></a>
-    </div>
+    <p class="more-row" data-build="blog-more"><a class="btn btn-ghost" href="/blog/" data-build-op="draw">View all blog posts</a></p>
   </div>
 </section>
 
-<section id="opensource" aria-labelledby="os-h">
-  <div class="wrap">
-    <div class="eyebrow reveal">Open source</div>
-    <h2 id="os-h" class="reveal">One code example to inspect.</h2>
-    <p class="sec-lede reveal">n8n-lint is a public CLI with tests. It shows code I wrote, not a client system, deployment or result.</p>
-    <div class="repo-grid repo-grid--single">
-      <a class="repo reveal" href="https://github.com/lorenzespinosa/n8n-lint" target="_blank" rel="noopener">
-        <div class="repo-top"><span class="repo-name">n8n-lint</span></div>
-        <p class="repo-val">JavaScript CLI that checks n8n workflow files before import. It flags schema problems, likely exposed credential strings, and common mistakes. The repository includes tests and CI instructions.</p>
-        <div class="repo-meta"><span class="repo-tag">tested CLI</span><span class="repo-lang">JavaScript</span></div>
+<section id="opensource" class="sec" aria-labelledby="os-h">
+  <div class="wrap os-grid">
+    <div class="os-intro" data-build="opensource">
+      <h2 id="os-h">Open source: one code example to inspect.</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>n8n-lint is a public CLI with tests. It shows code I wrote, not a client system, deployment or result.</p>
+      <a class="repo" href="https://github.com/lorenzespinosa/n8n-lint" target="_blank" rel="noopener" data-build-op="draw">
+        <span class="repo-name">n8n-lint</span>
+        <span class="repo-val" data-build-op="place" data-build-whole>JavaScript CLI that checks n8n workflow files before import. It flags schema problems, likely exposed credential strings, and common mistakes. The repository includes tests and CI instructions.</span>
+        <span class="repo-meta"><span class="repo-tag">tested CLI</span><span class="repo-lang">JavaScript</span></span>
       </a>
     </div>
-
-    <div class="os-trust reveal" aria-labelledby="os-trust-h">
+    <div class="os-trust" data-build="os-checks" aria-labelledby="os-trust-h">
       <div class="os-trust-head">
         <h3 id="os-trust-h">Checks I plan for</h3>
         <p>Questions worth settling before a workflow is built and handed over.</p>
       </div>
       <ul class="os-trust-list">
-        <li><b>Input checks</b><span>list required fields and a route for missing information</span><code>plan</code></li>
-        <li><b>Failure handling</b><span>choose when a retry is useful and when to hold an item for review</span><code>plan</code></li>
-        <li><b>Human decisions</b><span>keep important approvals with a person</span><code>review</code></li>
-        <li><b>Operating notes</b><span>document what to check when a step stops</span><code>handover</code></li>
-        <li><b>Workflow-file checks</b><span>n8n-lint flags likely JSON and credential-string issues before import</span><code>n8n-lint</code></li>
-        <li><b>Ownership</b><span>decide who monitors the workflow and handles changes</span><code>support</code></li>
+        <li data-build-op="place"><b>Input checks</b><span>list required fields and a route for missing information</span><code>plan</code></li>
+        <li data-build-op="place"><b>Failure handling</b><span>choose when a retry is useful and when to hold an item for review</span><code>plan</code></li>
+        <li data-build-op="place"><b>Human decisions</b><span>keep important approvals with a person</span><code>review</code></li>
+        <li data-build-op="place"><b>Operating notes</b><span>document what to check when a step stops</span><code>handover</code></li>
+        <li data-build-op="place"><b>Workflow-file checks</b><span>n8n-lint flags likely JSON and credential-string issues before import</span><code>n8n-lint</code></li>
+        <li data-build-op="place"><b>Ownership</b><span>decide who monitors the workflow and handles changes</span><code>support</code></li>
       </ul>
     </div>
   </div>
 </section>
 
-<section id="services">
+<section id="services" class="sec sec--paper2" aria-labelledby="svc-h">
   <div class="wrap">
-    <div class="eyebrow reveal">What I build</div>
-    <h2 class="reveal">Four practical ways to improve how the work gets done.</h2>
-    <p class="sec-lede reveal">Start with a review, fix one workflow, add carefully controlled AI where it helps, or keep me involved for ongoing support. The recommendation depends on the process and the systems you already have.</p>
-    <div class="svc-grid">
-      <div class="card reveal">
+    <div class="pg">
+    <div class="sec-head" data-build="services-head">
+      <h2 id="svc-h">Four practical ways to improve how the work gets done.</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>Start with a review, fix one workflow, add carefully controlled AI where it helps, or keep me involved for ongoing support. The recommendation depends on the process and the systems you already have.</p>
+    </div>
+    <div class="svc-grid" data-build="services">
+      <div class="card" data-build-op="place">
         <span class="num">01</span>
         <h3>Workflow review</h3>
         <p class="win">Decide what is worth changing before paying to build it.</p>
-        <p>I map the current process, identify the handoffs and failure points, and give you a prioritized recommendation with scope, dependencies, and practical next steps.</p>
-        <div class="price">By scope <span>· fixed fee</span></div>
-        <span class="tag">Scope and timeline agreed first</span>
+        <p data-build-op="place" data-build-whole>I map the current process, identify the handoffs and failure points, and give you a prioritized recommendation with scope, dependencies, and practical next steps.</p>
+        <p class="price">By scope, <span>fixed fee</span></p>
+        <p class="tag">Scope and timeline agreed first</p>
       </div>
-      <div class="card reveal">
+      <div class="card" data-build-op="place">
         <span class="num">02</span>
         <h3>Systems integration &amp; automation</h3>
         <p class="win">Connect the tools you already use around one clear process.</p>
-        <p>One defined workflow is designed, built, tested, documented, and handed over. Hosting and tooling are chosen around your privacy, reliability, and support needs.</p>
-        <div class="price">By scope <span>· fixed project</span></div>
-        <span class="tag">Fixed-scope proposal</span>
+        <p data-build-op="place" data-build-whole>One defined workflow is designed, built, tested, documented, and handed over. Hosting and tooling are chosen around your privacy, reliability, and support needs.</p>
+        <p class="price">By scope, <span>fixed project</span></p>
+        <p class="tag">Fixed-scope proposal</p>
       </div>
-      <div class="card reveal">
+      </div>
+    </div>
+    <div class="pg">
+    <div class="svc-grid svc-grid--b" data-build="services-b">
+      <div class="card" data-build-op="place">
         <span class="num">03</span>
         <h3>Careful AI integration</h3>
         <p class="win">Use AI for a specific job without giving it unchecked control.</p>
-        <p>AI can summarize, classify, or draft inside a controlled workflow. Important actions stay permissioned, reviewable, and bounded by clear rules and cost limits.</p>
-        <div class="price">By scope <span>· per project</span></div>
-        <span class="tag">AI only for a defined task</span>
+        <p data-build-op="place" data-build-whole>AI can summarize, classify, or draft inside a controlled workflow. Important actions stay permissioned, reviewable, and bounded by clear rules and cost limits.</p>
+        <p class="price">By scope, <span>per project</span></p>
+        <p class="tag">AI only for a defined task</p>
       </div>
-      <div class="card reveal">
+      <div class="card" data-build-op="place">
         <span class="num">04</span>
         <h3>Ongoing systems support</h3>
         <p class="win">Keep workflows monitored, maintained, and improving after launch.</p>
-        <p>I monitor what is running, handle changes and failures, maintain documentation, and work through a prioritized improvement backlog with your team.</p>
-        <div class="price">By agreement<span> · ongoing support</span></div>
-        <span class="tag">Ongoing terms by agreement</span>
+        <p data-build-op="place" data-build-whole>I monitor what is running, handle changes and failures, maintain documentation, and work through a prioritized improvement backlog with your team.</p>
+        <p class="price">By agreement, <span>ongoing support</span></p>
+        <p class="tag">Ongoing terms by agreement</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="sec" aria-labelledby="process-h">
+  <div class="wrap">
+    <div class="sec-head" data-build="process-head">
+      <h2 id="process-h">Start with the process. Finish with a system your team can run.</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>A short, general conversation is enough to decide whether the problem and my approach fit. Please leave out client names, matter details, and confidential information at this stage.</p>
+    </div>
+    <div class="steps-track" data-build="process">
+    <span class="steps-rule" aria-hidden="true" data-build-op="connect"></span>
+    <ol class="steps">
+      <li class="step" data-build-op="place"><h3>Intro conversation</h3><p class="k">Discovery</p><p>You describe the process and systems in general terms. I tell you whether I can help.</p></li>
+      <li class="step" data-build-op="place"><h3>Proposal</h3><p class="k">Scope</p><p>We agree on the outcome, responsibilities, safeguards, timeline, and support needs.</p></li>
+      <li class="step" data-build-op="place"><h3>Build &amp; test</h3><p class="k">Build</p><p>The workflow is built and tested against normal cases, exceptions, permissions, and recovery paths.</p></li>
+      <li class="step" data-build-op="place"><h3>Ship + docs</h3><p class="k">Launch</p><p>The system is deployed with documentation, handover, and a clear owner for follow-up.</p></li>
+      <li class="step" data-build-op="place"><h3>Stay ahead</h3><p class="k">Support</p><p>Ongoing monitoring, maintenance, and improvements are available when needed.</p></li>
+    </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--paper2 sec--statement" aria-label="How every build works">
+  <div class="wrap" data-build="pattern">
+    <figure class="pattern">
+      <blockquote class="q" data-build-op="type">"Good automation is quiet. It moves the right information, asks for a decision when judgment matters, and tells someone when it needs help."</blockquote>
+      <figcaption class="by">How every build works: understand the process, connect the systems, test the exceptions, document the handover.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="stack-h">
+  <div class="wrap stack-wrap">
+    <div data-build="stack-head"><h2 id="stack-h">Tools I can work with.</h2></div>
+    <div class="stack-grid" data-build="stack">
+      <div class="stk-col">
+        <h3>Integration &amp; automation</h3>
+        <ul class="chips"><li>n8n</li><li>Make</li><li>Zapier</li><li>APIs &amp; webhooks</li><li>JavaScript</li></ul>
+      </div>
+      <div class="stk-col">
+        <h3>IT systems &amp; support</h3>
+        <ul class="chips"><li>Windows Server</li><li>Active Directory</li><li>Microsoft 365</li><li>AWS</li></ul>
+      </div>
+      <div class="stk-col">
+        <h3>AI, when it helps</h3>
+        <ul class="chips"><li>AI workflows</li></ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="process">
-  <div class="wrap">
-    <div class="eyebrow reveal">How I work</div>
-    <h2 class="reveal">Start with the process. Finish with a system your team can run.</h2>
-    <p class="sec-lede reveal">A short, general conversation is enough to decide whether the problem and my approach fit. Please leave out client names, matter details, and confidential information at this stage.</p>
-    <div class="steps reveal">
-      <div class="step first"><div class="k">Discovery</div><h4>Intro conversation</h4><p>You describe the process and systems in general terms. I tell you whether I can help.</p></div>
-      <div class="step"><div class="k">Scope</div><h4>Proposal</h4><p>We agree on the outcome, responsibilities, safeguards, timeline, and support needs.</p></div>
-      <div class="step"><div class="k">Build</div><h4>Build &amp; test</h4><p>The workflow is built and tested against normal cases, exceptions, permissions, and recovery paths.</p></div>
-      <div class="step"><div class="k">Launch</div><h4>Ship + docs</h4><p>The system is deployed with documentation, handover, and a clear owner for follow-up.</p></div>
-      <div class="step"><div class="k">Support</div><h4>Stay ahead</h4><p>Ongoing monitoring, maintenance, and improvements are available when needed.</p></div>
+<section id="faq" class="sec sec--paper2" aria-labelledby="faq-h">
+  <div class="wrap faq-layout">
+    <div class="sec-head" data-build="faq-head">
+      <h2 id="faq-h">Questions before you reach out.</h2>
+      <p class="sec-lede" data-build-op="place" data-build-whole>A few practical questions before we speak.</p>
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="pattern reveal">
-      <p class="q">"Good automation is quiet. It moves the right information, asks for a decision when judgment matters, and tells someone when it needs help."</p>
-      <p class="by">how every build works · understand the process · connect the systems · test the exceptions · document the handover</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="eyebrow reveal">The stack</div>
-    <h2 class="reveal">Tools I can work with.</h2>
-    <div class="stack-grid" style="margin-top:2.5rem">
-      <div class="stk-col reveal">
-        <h4>Integration &amp; automation</h4>
-        <div class="chips"><span class="chip">n8n</span><span class="chip">Make</span><span class="chip">Zapier</span><span class="chip">APIs &amp; webhooks</span><span class="chip">JavaScript</span></div>
-      </div>
-      <div class="stk-col reveal">
-        <h4>IT systems &amp; support</h4>
-        <div class="chips"><span class="chip">Windows Server</span><span class="chip">Active Directory</span><span class="chip">Microsoft 365</span><span class="chip">AWS</span></div>
-      </div>
-      <div class="stk-col reveal">
-        <h4>AI, when it helps</h4>
-        <div class="chips"><span class="chip">AI workflows</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="wrap">
-    <div class="eyebrow reveal">Questions</div>
-    <h2 class="reveal">Before you reach out.</h2>
-    <p class="sec-lede reveal">A few practical questions before we speak.</p>
-    <div class="faq-grid">
-      <details class="faq reveal"><summary>How do projects usually start?<span class="pl">+</span></summary>
+    <div class="faq-list" data-build="faq">
+      <details class="faq" data-build-op="place"><summary>How do projects usually start?</summary>
         <div class="ans">A short call or email is enough to start. Describe the process, systems, and timeline in general terms, and leave out client names, matter details, and confidential information. I will tell you whether I can help and what a sensible next step would be.</div></details>
-      <details class="faq reveal"><summary>What does it cost?<span class="pl">+</span></summary>
+      <details class="faq" data-build-op="place"><summary>What does it cost?</summary>
         <div class="ans">Pricing depends on scope and the systems involved. A general description of the goal is enough to discuss fit. Any project proposal can set out deliverables, timing and support terms before work begins.</div></details>
-      <details class="faq reveal"><summary>Won't this just be more AI tools and bills?<span class="pl">+</span></summary>
+      <details class="faq" data-build-op="place"><summary>Won't this just be more AI tools and bills?</summary>
         <div class="ans">It should not be. I begin with the process and the systems you already have. AI is included only for a defined task where it adds useful judgment, and important actions can remain behind human approval. The aim is a simpler operating process, not a larger collection of tools.</div></details>
-      <details class="faq reveal"><summary>Do you work with the tools we already use?<span class="pl">+</span></summary>
+      <details class="faq" data-build-op="place"><summary>Do you work with the tools we already use?</summary>
         <div class="ans">That is usually the starting point. I work with CRMs, billing systems, phone platforms, databases, Microsoft tools, n8n, Make, Zapier, Power Automate, and other services that provide a safe way to integrate. The recommendation depends on access, reliability, privacy, and maintenance needs.</div></details>
-      <details class="faq reveal"><summary>What happens when something breaks?<span class="pl">+</span></summary>
+      <details class="faq" data-build-op="place"><summary>What happens when something breaks?</summary>
         <div class="ans">Failures should be expected and designed for. Depending on the workflow, that can include validation, retries, alerts, logs, fallback paths, and a queue for items that need attention. Ongoing support can be scoped when the team needs it.</div></details>
-      <details class="faq reveal"><summary>Where are you based, and how do you work?<span class="pl">+</span></summary>
+      <details class="faq" data-build-op="place"><summary>Where are you based, and how do you work?</summary>
         <div class="ans">I’m based in the Philippines and work remotely with English-speaking teams. Send a general description of your process and systems, and I’ll tell you whether I can help.</div></details>
-      <details class="faq reveal"><summary>Will my team be able to maintain it?<span class="pl">+</span></summary>
+      <details class="faq" data-build-op="place"><summary>Will my team be able to maintain it?</summary>
         <div class="ans">Yes. I document what was built, how it is operated, what to check when something fails, and who owns each follow-up. If your team would rather not maintain it, we can discuss monitoring and support as part of the scope.</div></details>
     </div>
   </div>
@@ -653,32 +677,36 @@
 ]}
 </script>
 
-<section class="final">
+<section class="final" aria-labelledby="final-h">
   <div class="wrap">
-    <div class="eyebrow reveal" style="justify-content:center">Let's talk</div>
-    <h2 class="reveal">Have a process that depends on too much copying, chasing, or remembering? <em>Let’s make it dependable.</em></h2>
-    <p class="reveal">Send a general description of the process, the systems involved, and your timeline. Please leave out client names, matter details, and confidential information. I’ll reply with whether I can help and a sensible next step.</p>
-    <div class="cta-row reveal">
-      <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Start a conversation <span class="arr">→</span></a>
-      <a class="btn btn-ghost" href="https://www.linkedin.com/in/lorenz-leslie-espinosa/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+    <div class="final-head" data-build="final"><h2 id="final-h" data-build-op="place" data-build-whole>Have a process that depends on too much copying, chasing, or remembering? <span class="final-turn">Let’s make it dependable.</span></h2></div>
+    <div class="final-rest" data-build="final-rest">
+    <p data-build-op="place" data-build-whole>Send a general description of the process, the systems involved, and your timeline. Please leave out client names, matter details, and confidential information. I’ll reply with whether I can help and a sensible next step.</p>
+    <div class="cta-row" data-build-op="draw">
+      <a class="btn btn-primary btn-onband" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Start a conversation</a>
+      <a class="btn btn-ghost btn-onband-ghost" href="https://www.linkedin.com/in/lorenz-leslie-espinosa/" target="_blank" rel="noopener">Connect on LinkedIn</a>
     </div>
-    <p class="note reveal">Based in the Philippines · remote work with English-speaking teams.</p>
+    <p class="note" data-build-op="place" data-build-whole>Based in the Philippines, remote work with English-speaking teams.</p>
+    </div>
   </div>
 </section>
 </main>
 
-<footer>
-  <div class="wrap foot-in">
-    <span class="l">© 2026 Lorenz Leslie Espinosa · IT Systems &amp; Automation Consultant</span>
-    <div>
-      <a href="/blog/">Blog</a>
-      <a href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/lorenz-leslie-espinosa/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:renzespinosa13@gmail.com">Email</a>
-    </div>
+<footer class="site-footer">
+  <div class="wrap foot-in" data-build="footer">
+    <p class="foot-who">© 2026 Lorenz Leslie Espinosa<span>IT Systems &amp; Automation Consultant</span></p>
+    <ul class="foot-links">
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/lorenz-leslie-espinosa/" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="mailto:renzespinosa13@gmail.com">Email</a></li>
+    </ul>
+    <p class="credit">Created by <a href="https://weavendo.com/">Weavendo</a></p>
   </div>
 </footer>
 
+<script src="js/swarm-boot.js" defer></script>
+<script src="js/swarm-motion.js" defer></script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

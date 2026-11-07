@@ -1,0 +1,86 @@
+/* ---------- every snap page fits the screen (homepage only) ----------
+   On desktop windows (at least 901 px wide and 560 px tall) the space around and inside each part follows the window
+   height, so a part that fits a tall screen with room to spare also fits a short laptop screen. Text sizes never change
+   here: they stay in rem, so browser zoom still enlarges them fully. A part that is still too tall for the window is split
+   by js/snap.js into its .pg blocks, each one its own snap page of at least one screen. Phones, tablets and short windows
+   keep the round 3 layout. */
+.pg{display:contents}
+
+@media (min-width:901px) and (min-height:560px){
+  main{
+    /* space above a page's content: 40 px up to 733 px tall, 57 at 874, 108 at 1300. Never under 40 px, so the cursor crew's
+       typing label, which floats just above a heading as it is typed, stays inside the page and clear of the nav. */
+    --fit-pad:clamp(40px,12svh - 48px,136px);
+    --fit-gap:clamp(12px,6svh - 20px,64px);    /* between a heading block and what follows */
+    --fit-card:clamp(16px,4svh - 4px,40px)     /* inside cards and panels */
+  }
+  main>.sec,main>.final,main>.sec--statement{padding-block:var(--fit-pad)}
+  main .sec-head{margin-bottom:var(--fit-gap)}
+
+  /* a split part: its pages carry the padding, and each page is at least one screen tall, top-aligned like a whole part */
+  main>.fit-split{padding-block:0}
+  main>.fit-split>.wrap>.pg{display:flow-root;min-height:calc(100svh - var(--nav-h));padding-block:var(--fit-pad)}
+}
+
+/* ---------- wide but short windows: the same content, arranged wider so it needs less height ----------
+   From 1101 px wide (where the page already uses side-by-side columns) and up to 1000 px tall (laptops and most desktop
+   windows). Taller screens keep the round 3 arrangement. */
+@media (min-width:1101px) and (min-height:560px) and (max-height:1000px){
+  /* a part's heading block: the heading on the left, its short introduction beside it */
+  main .sec-head{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--gap-columns);align-items:end;max-width:none}
+  main .faq-layout .sec-head{grid-template-columns:minmax(0,1fr)}
+
+  /* cards and rows: inner space follows the window height */
+  main .tile{padding:var(--fit-card)}
+  main .tile--feature{padding:calc(var(--fit-card) * 1.25)}
+  main .persona{padding-block:var(--fit-card)}
+  main .work,main .card{padding:var(--fit-card)}
+  main .trust-cards{margin-top:var(--fit-gap)}
+  main .cta-band{margin-top:var(--fit-gap);padding-top:var(--fit-gap)}
+  main .os-trust-list li{padding-block:10px}
+  main .stk-col{min-height:0}
+  main .more-row{margin-top:var(--fit-gap)}
+  main .scn-box{margin-top:var(--fit-gap)}
+
+  /* the calculator: the four inputs in two rows of two, the result panel tighter */
+  main .calc-inputs{grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:var(--fit-card) var(--gap-columns);padding:var(--fit-card)}
+  main .calc-result{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--space-lg);row-gap:10px;padding:var(--fit-card)}
+  main .calc-result>*{grid-column:1 / -1}
+  main .calc-result>.calc-stat{grid-column:auto;flex-direction:column;gap:var(--space-3xs)}
+
+  /* about: a smaller photo, the heading across the two text columns, the text in two columns below it */
+  main .about-grid{grid-template-columns:minmax(0,3fr) minmax(0,4.5fr) minmax(0,4.5fr);gap:var(--space-lg) var(--space-xl)}
+  main .about-bio{display:contents}
+  main .about-photo{grid-column:1;grid-row:1 / span 4}
+  main .about-bio>h2{grid-column:2 / span 2;grid-row:1;max-width:none}
+  main .about-bio>p:nth-of-type(1){grid-column:2;grid-row:2}
+  main .about-bio>p:nth-of-type(2){grid-column:2;grid-row:3 / span 2}
+  main .about-bio>.about-cred{grid-column:3;grid-row:2}
+  main .about-bio>.trust-pills{grid-column:3;grid-row:3;align-self:start}
+  main .about-bio>.sig{grid-column:3;grid-row:4}
+
+  /* the blog: the three articles side by side */
+  main .post-rows{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gap-columns)}
+  main .post-row{grid-template-columns:minmax(0,1fr);align-content:start;gap:var(--space-xs);padding-block:var(--fit-card)}
+  main .post-link{grid-column:auto}
+
+  /* the close: the question on the left, the next step beside it; the footer a little tighter */
+  main>.final>.wrap{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--space-3xl);align-items:end}
+  body>.site-footer{padding:var(--space-lg) 0}
+}
+
+/* ---------- short laptop windows: the cost estimate fits one screen ----------
+   Up to 760 px tall, the calculator's result panel puts the button and its short note side by side and the scenario
+   comparison bar is a little lower, so the heading, the whole calculator and the comparison bar fit one screen together
+   and the bar never ends up alone on a page of its own. */
+@media (min-width:1101px) and (min-height:560px) and (max-height:760px){
+  main .calc-result{row-gap:8px;padding-block:16px}
+  main .calc-result>.calc-stat{padding-block:8px}
+  main .calc-result>.btn{grid-column:1;margin-top:0}
+  main .calc-result>.cta-micro{grid-column:2;align-self:center}
+  main .scn-box{margin-top:12px}
+  main .scn-toggle{min-height:48px;padding-block:var(--space-2xs)}
+}
+/* The scroll story after "Clean it up" is pressed (js/hero-motion.js sets data-short): one screen below the nav, so it is one
+   page and the next scroll goes on to the next part. */
+@media screen{ .js #flow[data-short]{height:calc(100svh - var(--nav-h))} }
