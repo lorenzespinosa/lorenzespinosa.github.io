@@ -85,6 +85,16 @@
   }
   // A boundary between two parts sits inside the screen (below the nav, above the bottom edge).
   function cut(g, y){ return g.list.some(p => [p.top, p.bottom].some(b => b > y + g.navH + 3 && b < y + g.vh - 3 && b < g.max + g.vh - 3)); }
+  const story = document.getElementById('flow');
+  function cleaning(){ return !!story && story.getAttribute('data-tidy') === 'run'; }
+  // a settle put off until the cursors have finished cleaning up the story (its target; set in rest(), dropped on new input)
+  let afterClean = null;
+  if(story && window.MutationObserver) new MutationObserver(() => {
+    if(afterClean === null || cleaning()) return;
+    const to = afterClean; afterClean = null;
+    if(timer || aim !== null || held || performance.now() - moved < 100) return;
+    glide(to);
+  }).observe(story, { attributes: true, attributeFilter: ['data-tidy'] });
   function focusStays(dy){
     const a = document.activeElement;
     if(!a || a === document.body || nav.contains(a)) return true;
@@ -134,21 +144,33 @@
     } else {
       pick = behind.length && prev - behind[0] <= g.seen + 3 ? behind[0] : ahead.find(s => s < prev - 1);
     }
+    // With a mouse or trackpad the cursors may start cleaning up the scroll story while the page moves. While they do, a
+    // downward move never glides back up: it goes on to the next stop when that keeps within one screen of the last view
+    // (nothing skipped), or stays where it is. Phones keep round 6's settling.
+    // Staying, it waits here and makes its settle only once the clean-up has finished, unless new input comes first.
+    if(fine.matches && pick != null && pick < y - 1 && y >= prev && cleaning()){
+      const a = ahead[0];
+      if(a != null && a - prev <= g.seen + 3) pick = a;
+      else { afterClean = pick; return; }
+    }
     if(pick == null || Math.abs(pick - y) < 2 || !focusStays(pick - y)){ settled(y); return; }
     // lastRest stays where the page really was until the glide arrives, or until new input cuts it short (then it is the place
     // where it was cut, below): never a target the page did not reach, which read a forward swipe as a move back and glided
     // back to where it began.
-    aim = pick;
+    glide(pick);
+  }
+  function glide(to){
+    aim = to;
     // marks the glide as the page's own scroll (the cursor crew keeps the reader's pace, not the glide's)
     document.documentElement.setAttribute('data-auto-scroll', '');
-    scrollTo({ top: pick, behavior: reduce.matches ? 'instant' : 'smooth' });
+    scrollTo({ top: to, behavior: reduce.matches ? 'instant' : 'smooth' });
   }
   let moved = 0, endY = 0;
   let scrolledHeld = false;
   addEventListener('scroll', () => { moved = performance.now(); if(held) scrolledHeld = true; if(fingers) byFinger = true; }, { passive: true });
   // new input (a link, a key, the wheel, a tap) may start a new scroll: drop a settle that was about to run
   // A glide that new input cuts short ends where the page is now: that view was on screen, so it is the last rest from then on.
-  ['click', 'keydown', 'wheel', 'pointerdown', 'touchstart', 'hashchange'].forEach(t => addEventListener(t, e => { if(t === 'wheel') wheelAt = performance.now(); if(aim !== null){ aim = null; lastRest = scrollY; } document.documentElement.removeAttribute('data-auto-scroll'); if(timer){ clearTimeout(timer); timer = 0; } if(t !== 'touchstart' && e.pointerType !== 'touch') byFinger = false; }, { passive: true, capture: true }));
+  ['click', 'keydown', 'wheel', 'pointerdown', 'touchstart', 'hashchange'].forEach(t => addEventListener(t, e => { afterClean = null; if(t === 'wheel') wheelAt = performance.now(); if(aim !== null){ aim = null; lastRest = scrollY; } document.documentElement.removeAttribute('data-auto-scroll'); if(timer){ clearTimeout(timer); timer = 0; } if(t !== 'touchstart' && e.pointerType !== 'touch') byFinger = false; }, { passive: true, capture: true }));
   function soon(){ if(timer) clearTimeout(timer); endY = scrollY; timer = setTimeout(rest, 'onscrollend' in window ? 40 : 160); }
   if('onscrollend' in window) addEventListener('scrollend', soon, { passive: true });
   else addEventListener('scroll', soon, { passive: true });

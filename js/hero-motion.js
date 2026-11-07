@@ -1,17 +1,23 @@
 // The scroll story (#flow): scattered chips become one workflow. With the cursor crew running, cursors drag each chip into the
 // workflow, when the visitor presses "Clean it up", once they have scrolled a third of the way in, or after 6 s at rest in it. Without the
 // crew (reduced motion, Save-Data, no engine) the CSS transition tidies the chips at the same moment.
-// With a mouse or trackpad the scroll-started clean-up waits until the page has come to rest (js/snap.js sends "wv-rest"), so
-// the cursors never start while the page still moves. A press also shortens the story to one screen (data-short, styles/fit.css):
-// the story is then one page, and the next scroll goes straight on to the next part.
+// With a mouse or trackpad the scroll-started clean-up starts once the visitor scrolls a fifth of a screen on past the story's
+// start while it fills the screen below the nav (its stage is pinned there, so nothing slides under the cursors), also while the
+// page still moves, so a visitor who scrolls straight through sees the cursors at work; stopping a third of the way in or further
+// (js/snap.js sends "wv-rest") starts it too, and stopping at the story's start leaves the button to press. A press also
+// shortens the story to one screen (data-short, styles/fit.css): the story is then one page, and the next scroll goes straight on to the next part.
 // Only data attributes, transform and opacity change; CSS owns the look.
 (function(){
   const flow = document.getElementById('flow');
   if(!flow) return;
   const btn = document.getElementById('flowTidy'), status = document.getElementById('flowStatus');
   const stage = flow.querySelector('.scrolly-stage'), nav = document.getElementById('nav');
-  // a mouse or trackpad: cursor work waits for the page to rest (phones keep starting it as they scroll)
+  // a mouse or trackpad: the scroll-started clean-up starts by how far into the story the visitor is (phones: a third of the way in)
   const waitRest = matchMedia('(hover:hover) and (pointer:fine)');
+  // how much of the screen below the nav the story must fill before a scroll starts its clean-up (mouse or trackpad)
+  const FILL = 0.96;
+  // ... and how far past the story's start, as a share of that screen (arriving and stopping there keeps the button)
+  const INTO = 0.2;
 
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(reduce){ flow.setAttribute('data-stage','2'); flow.setAttribute('data-tidy','done'); return; }
@@ -87,7 +93,12 @@
     const navB = navBottom(), out = rect.bottom <= navB || rect.top >= window.innerHeight;
     // Left the section while it was still messy or being cleaned (a jump past it): show the clean workflow at once.
     if(out){ if(tidy !== 'done' && (tidy === 'run' || rect.bottom <= navB)) settleNow(); return; }
-    if(tidy === 'idle' && p >= 0.3 && !waitRest.matches) startTidy();
+    if(tidy !== 'idle') return;
+    if(!waitRest.matches){ if(p >= 0.3) startTidy(); return; }
+    // mouse or trackpad: the story fills (nearly) all of the screen below the nav, and the visitor has scrolled on past its
+    // start (where the page snaps to and the button waits for a press) by a fifth of a screen
+    const seen = innerHeight - navB;
+    if(Math.min(rect.bottom, innerHeight) - Math.max(rect.top, navB) >= FILL * seen && navB - rect.top >= INTO * seen) startTidy();
   }
   // The page has come to rest: start the clean-up if the visitor stopped a third of the way in or further with the story on
   // screen; a story passed while the page moved is shown clean at once.
