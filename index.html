@@ -89,7 +89,7 @@
       <a class="btn btn-primary btn-sm nav-cta" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A"><span class="nav-cta-full">Start a conversation</span><span class="nav-cta-short">Contact</span></a>
       <details class="mobile-nav">
         <summary aria-label="Sections menu">Menu</summary>
-        <div class="mobile-nav-panel" aria-label="Site sections">
+        <div class="mobile-nav-panel" role="group" aria-label="Site sections">
           <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#opensource">Open source</a>
@@ -131,7 +131,7 @@
     </div>
 
     <div class="editor-slot" data-build="editor">
-    <div class="editor" data-build-op="carry" aria-label="Illustrative workflow demo: drag the nodes or play the animation">
+    <div class="editor" data-build-op="carry" role="group" aria-label="Illustrative workflow demo: drag the nodes or play the animation">
       <div class="ed-bar">
         <span class="ed-tab">sample-handoff.workflow</span>
         <span class="ed-count">6 nodes</span>
@@ -270,17 +270,18 @@
         <div class="calc-field">
           <div class="row"><span class="calc-label" id="cProcL">Processes to automate</span></div>
           <div class="proc-btns" id="cProc" role="group" aria-labelledby="cProcL">
-            <button type="button" data-v="1">1</button><button type="button" data-v="3">3</button><button type="button" data-v="5">5</button><button type="button" data-v="10" class="on">10+</button>
+            <button type="button" data-v="1" aria-pressed="false">1</button><button type="button" data-v="3" aria-pressed="false">3</button><button type="button" data-v="5" aria-pressed="false">5</button><button type="button" data-v="10" class="on" aria-pressed="true">10</button>
           </div>
         </div>
         <div class="calc-field">
           <div class="row"><span class="calc-label" id="cPeriodL">Projection</span></div>
-          <div class="period" id="cPeriod" role="group" aria-labelledby="cPeriodL"><button type="button" data-p="weekly">Weekly</button><button type="button" data-p="monthly">Monthly</button><button type="button" data-p="yearly" class="on">Yearly</button></div>
+          <div class="period" id="cPeriod" role="group" aria-labelledby="cPeriodL"><button type="button" data-p="weekly" aria-pressed="false">Weekly</button><button type="button" data-p="monthly" aria-pressed="false">Monthly</button><button type="button" data-p="yearly" class="on" aria-pressed="true">Yearly</button></div>
         </div>
       </div>
       <div class="calc-result" data-build="calc-result">
         <p class="lbl">Estimated manual-work cost, <span id="cPeriodLbl">yearly</span></p>
         <div class="big" id="cBig">$936,000</div>
+        <p class="sr-only" id="cLive" role="status" aria-live="polite"></p>
         <p class="bleed">Estimate based on the inputs you selected</p>
         <div class="calc-stat"><span class="k">Team capacity represented</span><span class="v" id="cFte">10.0x FTE</span></div>
         <div class="calc-stat"><span class="k">Five-year equivalent</span><span class="v" id="c5">$4,680,000</span></div>
@@ -526,7 +527,7 @@
         <span class="repo-meta"><span class="repo-tag">tested CLI</span><span class="repo-lang">JavaScript</span></span>
       </a>
     </div>
-    <div class="os-trust" data-build="os-checks" aria-labelledby="os-trust-h">
+    <div class="os-trust" data-build="os-checks" role="group" aria-labelledby="os-trust-h">
       <div class="os-trust-head">
         <h3 id="os-trust-h">Checks I plan for</h3>
         <p>Questions worth settling before a workflow is built and handed over.</p>
@@ -695,12 +696,15 @@
 <footer class="site-footer">
   <div class="wrap foot-in" data-build="footer">
     <p class="foot-who">© 2026 Lorenz Leslie Espinosa<span>IT Systems &amp; Automation Consultant</span></p>
-    <ul class="foot-links">
-      <li><a href="/blog/">Blog</a></li>
-      <li><a href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/lorenz-leslie-espinosa/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="mailto:renzespinosa13@gmail.com">Email</a></li>
-    </ul>
+    <div class="foot-contact">
+      <ul class="foot-links">
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="https://github.com/lorenzespinosa" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/lorenz-leslie-espinosa/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Email</a></li>
+      </ul>
+      <p class="cta-micro">Start with a general, non-confidential description</p>
+    </div>
     <p class="credit">Created by <a href="https://weavendo.com/">Weavendo</a></p>
   </div>
 </footer>

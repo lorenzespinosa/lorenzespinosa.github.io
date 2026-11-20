@@ -16,8 +16,9 @@
 .ed-bar--bottom{border-bottom:0;border-top:1px solid var(--color-rule)}
 .ed-tab{color:var(--color-ink);font-weight:600}
 .ed-zoom{font-variant-numeric:tabular-nums}
-.ed-run{display:inline-flex;align-items:center;gap:var(--space-xs);min-height:36px;padding:0 var(--space-md);border:0;border-radius:var(--radius-pill);
+.ed-run{position:relative;display:inline-flex;align-items:center;gap:var(--space-xs);min-height:36px;padding:0 var(--space-md);border:0;border-radius:var(--radius-pill);
   background:var(--color-accent);color:var(--color-accent-ink);font-weight:600;font-size:var(--text-sm);cursor:pointer;transition:background-color var(--dur-micro) var(--ease-out)}
+.ed-run::after{content:"";position:absolute;inset:-4px 0}
 .ed-run svg{width:10px;height:10px;fill:currentColor}
 .ed-run:hover{background:var(--color-accent-hover)}
 .ed-run:active{transform:translateY(1px)}

@@ -6,9 +6,13 @@
   "use strict";
   var root = document.documentElement;
   var reduced = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+  var forcedColors = window.matchMedia ? window.matchMedia("(forced-colors: active)") : null;
+  var print = window.matchMedia ? window.matchMedia("print") : null;
   var nav = navigator, connection = nav.connection || {};
+  var printing = false;
   function permitted() {
-    return !(reduced && reduced.matches) && !connection.saveData &&
+    return !printing && !(print && print.matches) && !(reduced && reduced.matches) &&
+      !(forcedColors && forcedColors.matches) && !connection.saveData &&
       !(nav.deviceMemory && nav.deviceMemory <= 2) &&
       !(nav.hardwareConcurrency && nav.hardwareConcurrency <= 2) &&
       "IntersectionObserver" in window;
@@ -26,13 +30,21 @@
       document.addEventListener(name, fadeLoader, { passive: true });
     });
   } else removeLoader();
-  function syncMotion() { root.classList.toggle("wv-motion", permitted()); }
-  syncMotion();
-  if (reduced) {
-    if (reduced.addEventListener) reduced.addEventListener("change", syncMotion);
-    else if (reduced.addListener) reduced.addListener(syncMotion);
+  function syncMotion() {
+    var allowed = permitted();
+    var changed = allowed !== root.classList.contains("wv-motion");
+    root.classList.toggle("wv-motion", allowed);
+    if (!allowed) removeLoader();
+    if (changed) window.dispatchEvent(new Event("wv-motion-change"));
   }
+  syncMotion();
+  [reduced, forcedColors, print].forEach(function (media) {
+    if (!media) return;
+    if (media.addEventListener) media.addEventListener("change", syncMotion);
+    else if (media.addListener) media.addListener(syncMotion);
+  });
   if (connection.addEventListener) connection.addEventListener("change", syncMotion);
-  window.addEventListener("beforeprint", function () { root.classList.remove("wv-motion"); removeLoader(); });
-  window.addEventListener("afterprint", syncMotion);
+  window.addEventListener("beforeprint", function () { printing = true; syncMotion(); });
+  window.addEventListener("afterprint", function () { printing = false; syncMotion(); });
+  window.addEventListener("pageshow", syncMotion);
 })();

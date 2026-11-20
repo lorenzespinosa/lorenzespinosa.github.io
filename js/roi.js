@@ -9,7 +9,7 @@
   const CALENDAR_SECONDS_PER_YEAR=365*24*3600;   // 24/7 accrual, never pauses
   let processes=10,period='yearly',yearly=0;
   // base = the period projection (target); baseShown eases toward it; accrued bleeds live
-  let base=0,baseShown=0,baseFrom=0,baseT0=0,accrued=0;
+  let base=0,baseShown=0,baseFrom=0,baseT0=0,accrued=0,raf=0;
   const dur=650;
   const moneyInt=n=>'$'+Math.round(n).toLocaleString();
   const money2=n=>'$'+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -38,32 +38,40 @@
     document.getElementById('cPeriodLbl').textContent=period;
     document.getElementById('cFte').textContent=(totalHours/40).toFixed(1)+'x FTE';
     document.getElementById('c5').textContent=moneyInt(yearly*5);
-    if(reduce){baseShown=base;render();}
+    if(reduce){baseShown=base;render();}else wake();
   }
 
-  h.addEventListener('input',recompute);r.addEventListener('input',recompute);
-  proc.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;processes=+b.dataset.v;[...proc.children].forEach(x=>x.classList.toggle('on',x===b));recompute();});
-  per.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;period=b.dataset.p;[...per.children].forEach(x=>x.classList.toggle('on',x===b));recompute();});
+  // #cBig re-renders every animation frame; this separate region speaks only the settled result
+  const live=document.getElementById('cLive');
+  let liveT=0;
+  function announce(){if(!live)return;clearTimeout(liveT);liveT=setTimeout(()=>{live.textContent='Estimated manual-work cost, '+period+': '+moneyInt(base)+'. Five-year equivalent: '+moneyInt(yearly*5)+'.';},600);}
+
+  const onInput=()=>{recompute();announce();};
+  h.addEventListener('input',onInput);r.addEventListener('input',onInput);
+  proc.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;processes=+b.dataset.v;[...proc.children].forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b);});recompute();announce();});
+  per.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;period=b.dataset.p;[...per.children].forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b);});recompute();announce();});
   recompute();
 
   if(reduce){baseShown=base;render();return;}
 
-  // single rAF loop: eases the base on change AND bleeds the cents in real time once visible
+  // one rAF loop eases the base on change and bleeds the cents while visible; it sleeps once offscreen and settled
   let last=null,visible=false;
-  (function frame(now){
+  function frame(now){
+    raf=0;
     if(last==null)last=now;
     const dt=(now-last)/1000; last=now;
     const k=Math.min(1,(now-baseT0)/dur),e=1-Math.pow(1-k,3);
     baseShown=baseFrom+(base-baseFrom)*e;
     if(visible) accrued+=(yearly/CALENDAR_SECONDS_PER_YEAR)*dt;
     render();
-    requestAnimationFrame(frame);
-  })(performance.now());
+    if(visible||k<1)wake();else last=null;
+  }
+  function wake(){if(!raf)raf=requestAnimationFrame(frame);}
   // replay the spring-up from $0 each time the calculator (re)enters view, then bleed 24/7
   new IntersectionObserver((es)=>{es.forEach(x=>{
     if(x.isIntersecting){
       if(!visible){baseFrom=0;baseShown=0;baseT0=performance.now();accrued=0;}
-      visible=true;
+      visible=true;wake();
     }else visible=false;
   });},{threshold:0.35}).observe(document.getElementById('roi'));
 })();

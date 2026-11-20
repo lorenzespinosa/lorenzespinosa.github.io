@@ -1,11 +1,12 @@
 # lorenzespinosa.github.io
 
-The personal site and blog. Static HTML, CSS, and one small ES module; no
-build step, no framework. Served by GitHub Pages straight from `main`.
+The personal site and blog. Static HTML, CSS, and JavaScript with no build
+step. Served by GitHub Pages straight from `main`.
 
 - `index.html` is the landing page (about, work highlights, FAQ)
 - `blog/` holds the long-form articles
-- `js/main.js` is the only script; `css/` the styles
+- `styles/` holds the styles and `js/` holds the scripts. The homepage cursor
+  animation in `js/swarm-motion.js` is plain, readable JavaScript.
 - `sitemap.xml`, `robots.txt`, and `llms.txt` describe the site to crawlers
 
 ## Working on it
