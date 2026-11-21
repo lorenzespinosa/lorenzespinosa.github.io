@@ -183,26 +183,22 @@
       claimAgent(agent, job, "tidy");
       let origin;
       job.steps = [
-        de(() => viewportToDocument(item.from()), 1),
+        de(() => item.from(), 1),
         ue(agent => {
           agent.press = 1;
-          origin = { x: agent.x - D, y: agent.y - $ };
+          origin = { x: agent.x, y: agent.y };
           item.start();
         }),
         se(0.08),
-        de(() => viewportToDocument(item.to()), 0.55, {
+        de(() => item.to(), 0.55, {
           drag: true,
           frame(agent) {
             agent.press = 1;
-            item.move(agent.x - D - origin.x, agent.y - $ - origin.y);
+            item.move(agent.x - origin.x, agent.y - origin.y);
           },
         }),
       ];
     }
-  }
-
-  function viewportToDocument(point) {
-    return { x: D + point.x, y: $ + point.y };
   }
 
   function at(t, e, n) {

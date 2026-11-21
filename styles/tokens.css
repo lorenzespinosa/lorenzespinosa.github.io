@@ -51,9 +51,9 @@
   /* spacing */
   --space-3xs:2px; --space-2xs:4px; --space-xs:8px; --space-sm:12px; --space-md:16px; --space-lg:24px;
   --space-xl:40px; --space-2xl:64px; --space-3xl:96px; --space-4xl:144px;
-  --container:1360px; --gutter:64px; --gap-columns:32px;
-  --section-gap-s:96px; --section-gap:136px; --section-gap-l:168px;
-  --nav-h:72px;
+  --container:1360px; --gutter:64px; --gap-columns:24px;
+  --section-gap-s:40px; --section-gap:48px; --section-gap-l:64px;
+  --nav-h:4.5rem;
   --shadow-pop:0 18px 40px -24px rgba(20,24,27,.45);
 
   /* shape and motion */
@@ -91,7 +91,7 @@
   --color-canvas:#f2f3f6; --color-canvas-border:#e3e3e8;
 }
 
-@media (max-width:60rem){ :root{ --gutter:28px; --section-gap-s:72px; --section-gap:96px; --section-gap-l:120px; --nav-h:64px; } }
+@media (max-width:60rem){ :root{ --gutter:28px; --section-gap-s:72px; --section-gap:96px; --section-gap-l:120px; --nav-h:4rem; } }
 @media (max-width:40rem){ :root{ --gutter:20px; --section-gap-s:56px; --section-gap:72px; --section-gap-l:88px; --gap-columns:16px; } }
 
 /* Theme cross-fade only after first paint (theme.js adds the class), never under reduced motion. */
