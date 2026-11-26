@@ -1,9 +1,9 @@
-/* Metric-matched fallbacks, so the swap to the web fonts does not move the layout (widths measured against the web fonts: Bricolage 700 is 95.2% of Arial Bold, Hanken 400 matches Arial). */
+/* metric-matched fallbacks: the font swap does not move the layout */
 @font-face{
   font-family:'Bricolage Fallback';
   src:local('Arial Bold'),local('Arial');
   font-weight:700;
-  size-adjust:95.2%;
+  size-adjust:97%;
   ascent-override:100%;
   descent-override:25%;
   line-gap-override:0%;

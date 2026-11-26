@@ -2,7 +2,7 @@
 
 /* ---------- article head ---------- */
 .post-hero{padding:var(--space-2xl) 0 var(--space-xl);border-bottom:1px solid var(--color-rule)}
-.post-hero .wrap{display:grid;gap:var(--space-lg);justify-items:start}
+.post-hero .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-lg);justify-items:start}
 .crumbs ol{display:flex;flex-wrap:wrap;gap:var(--space-xs);font-size:var(--text-sm);color:var(--color-muted)}
 .crumbs li{display:inline-flex;align-items:center;gap:var(--space-xs)}
 .crumbs li+li::before{content:"/";color:var(--color-rule-strong)}
@@ -26,8 +26,13 @@
 .prose p{max-width:68ch}
 .prose h2{margin-top:var(--space-2xl);font-size:clamp(1.5rem,1.2vw + 1rem,2rem);max-width:none;line-height:1.2}
 .prose h3{margin-top:var(--space-xl)}
-.prose a:not(.btn){display:inline-block;min-width:44px;min-height:44px;padding-block:7px;vertical-align:middle;color:var(--color-accent);text-decoration:underline;text-decoration-color:color-mix(in oklab,var(--color-accent) 40%,transparent)}
+.prose a:not(.btn){padding-block:2px;color:var(--color-accent);text-decoration:underline;text-decoration-color:color-mix(in oklab,var(--color-accent) 40%,transparent)}
 .prose a:not(.btn):hover{text-decoration-color:var(--color-accent)}
+/* citation links ([1]): a 44 px target without taller lines; a pair grows outwards so the two targets do not meet */
+.prose a[href^="#"]{position:relative}
+.prose a[href^="#"]::after{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.prose a[href^="#"]:has(+ a[href^="#"])::after{left:auto;right:0;transform:translateY(-50%)}
+.prose a[href^="#"] + a[href^="#"]::after{left:0;transform:translateY(-50%)}
 .prose ol,.prose ul:not([class]){padding-left:var(--space-lg);list-style:revert}
 .prose ol li+li,.prose ul:not([class]) li+li{margin-top:var(--space-xs)}
 .prose hr{border:0;border-top:1px solid var(--color-rule);margin:var(--space-2xl) 0}
@@ -47,7 +52,7 @@
 @media (max-width:480px){ .receipts-block li{grid-template-columns:minmax(0,1fr);gap:var(--space-3xs)} }
 
 /* the closing ask */
-.post-cta{display:grid;gap:var(--space-md);justify-items:start;margin-top:var(--space-2xl);padding:var(--space-xl);border-radius:var(--radius-card);background:var(--color-band);color:var(--color-band-ink)}
+.post-cta{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-md);justify-items:start;margin-top:var(--space-2xl);padding:var(--space-xl);border-radius:var(--radius-card);background:var(--color-band);color:var(--color-band-ink)}
 .post-cta h2,.post-cta h3{margin:0;color:var(--color-band-ink);font-size:var(--text-xl)}
 .post-cta p{color:var(--color-band-muted)}
 .post-cta .btn-ghost{color:var(--color-band-ink);border-color:var(--color-band-rule)}
@@ -69,5 +74,6 @@
 .post-card:hover h2{color:var(--color-accent)}
 [data-theme="dark"] .post-card:hover h2{color:var(--color-mark)}
 .blog-back{display:inline-flex;align-items:center;min-width:44px;min-height:44px;margin-top:var(--space-xl);padding:var(--space-xs) 0;color:var(--color-ink);text-decoration:underline;text-decoration-color:var(--color-rule-strong)}
+@media (max-width:40rem){ .crumbs [aria-current]{white-space:normal} }
 @media (max-width:640px){ .post-card{grid-template-columns:minmax(0,1fr)} .post-card .pdate{grid-row:auto} }
 @media (prefers-reduced-motion:reduce){ .post-card h2{transition:none} }
