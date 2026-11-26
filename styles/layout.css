@@ -8,7 +8,7 @@
 .about-bio>h2,.about-bio>.sig{grid-column:1 / -1}
 .trust-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap-columns);margin-top:var(--space-xl)}
 .work-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap-columns)}
-.bento--b{margin-top:var(--gap-columns)}
+.bento--b,.work-grid--b,.svc-grid--b{margin-top:var(--gap-columns)}
 .post-rows{display:grid;border-top:1px solid var(--color-rule)}
 .os-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--space-xl);align-items:start}
 .svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap-columns)}
@@ -16,23 +16,20 @@
 .step{grid-column:span 2}
 .step:nth-child(n+4){grid-column:span 3}
 .stack-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-md);align-items:start;margin-top:var(--space-xl);padding:var(--space-lg);border:1px solid var(--color-rule-strong);border-radius:var(--radius-card);background:var(--color-surface)}
-.stack-wrap #stack-h{font-size:var(--text-xl);line-height:1.06;letter-spacing:var(--tracking-display);max-width:none}
+.stack-wrap h2{font-size:var(--text-xl);max-width:none}
 .stack-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-lg);align-items:start}
 .faq-layout{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--space-2xl);align-items:start}
 
-@media (min-width:90rem),(min-width:68.8125em) and (min-height:35em){
+@media (min-width:90rem){
   main:has(#flow){display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}
   main:has(#flow)>header,main:has(#flow)>section{grid-column:1 / -1}
   main:has(#flow)>#flow{grid-column:1;grid-row:2}
   main:has(#flow)>#proof{grid-column:2;grid-row:2}
   #flow .frame-pipe .pwire{display:none}
+  #proof .tile--beliefs,#proof .tile--cta{grid-column:span 2}
 }
 @media (min-width:1101px){
   .final>.wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--space-2xl);align-items:end}
-}
-/* the note clear of the crew card */
-@media (min-width:1101px) and (max-width:1259.98px) and (min-height:43.8125em) and (max-height:46.875em){
-  .final>.wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 }
 @media (max-width:68.75rem){
   .bento{grid-template-columns:repeat(2,minmax(0,1fr))}

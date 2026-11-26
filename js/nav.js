@@ -10,18 +10,14 @@ function onScroll(){
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 
-// scroll-spy: lights the link of the last section whose top is above 35% of the screen under the nav (some sections have none)
+// scroll-spy: highlight the nav link for the section currently in view (wayfinding)
 const spyLinks=[...document.querySelectorAll('.nav-links > a:not(.nav-cta)')];
-let spyFrame=0;
-function spy(){
-  spyFrame=0;
-  const line=nav.getBoundingClientRect().bottom+(innerHeight-nav.offsetHeight)*.35;
-  let id='';
-  document.querySelectorAll('#main > [data-snap]').forEach(s=>{if(s.getClientRects().length&&s.getBoundingClientRect().top<=line)id=s.id;});
-  spyLinks.forEach(a=>{const on=a.hash==='#'+id;a.classList.toggle('active',on);on?a.setAttribute('aria-current','location'):a.removeAttribute('aria-current');});
-}
-addEventListener('scroll',()=>{if(!spyFrame)spyFrame=requestAnimationFrame(spy);},{passive:true});
-addEventListener('scrollend',spy);addEventListener('resize',spy);spy();
+const spyMap=new Map(spyLinks.map(a=>[a.getAttribute('href').slice(1),a]));
+const spy=new IntersectionObserver((es)=>{es.forEach((e)=>{
+  if(e.isIntersecting){spyLinks.forEach(a=>a.classList.remove('active'));
+    const a=spyMap.get(e.target.id);if(a)a.classList.add('active');}
+})},{rootMargin:'-45% 0px -50% 0px'});
+spyMap.forEach((_,id)=>{const s=document.getElementById(id);if(s)spy.observe(s);});
 
 // Close the narrow section menu after navigation, on Escape, or on outside touch/click.
 const mobileNav=document.querySelector('.mobile-nav');

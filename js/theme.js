@@ -1,4 +1,4 @@
-/* Theme toggle: flips light/dark, persists the choice, keeps icon + a11y
+/* Theme toggle — flips light/dark, persists the choice, keeps icon + a11y
    label in sync. The FOUC-free pre-paint resolver lives inline in <head>;
    this module only wires the button and post-load behaviour. */
 (function () {
@@ -16,10 +16,10 @@
   function reflect(theme) {
     if (meta) meta.setAttribute('content', COLORS[theme]);
     if (!btn) return;
-    // The button names the action it performs (switch to the OTHER theme). It has no pressed state as well, so a
-    // screen reader hears one clear instruction.
+    // The button advertises the action it performs (switch to the OTHER theme).
     var toDark = theme === 'light';
     btn.setAttribute('aria-label', toDark ? 'Switch to dark theme' : 'Switch to light theme');
+    btn.setAttribute('aria-pressed', String(theme === 'dark'));
   }
 
   reflect(current());

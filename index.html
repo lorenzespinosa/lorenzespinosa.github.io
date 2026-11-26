@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-<script>/* Pre-paint: theme, the js flag and the once-per-visit build gate. */(function(){var d=document.documentElement;d.classList.add('js');try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme:dark)').matches;if(s==='dark'||(!s&&m))d.setAttribute('data-theme','dark');}catch(e){}var n=navigator,c=n.connection||{},mm=window.matchMedia;if(mm&&!mm('(prefers-reduced-motion: reduce)').matches&&!mm('(forced-colors: active)').matches&&!mm('print').matches&&!c.saveData&&!(n.deviceMemory&&n.deviceMemory<=2)&&!(n.hardwareConcurrency&&n.hardwareConcurrency<=2)&&'IntersectionObserver' in window){var b=false;try{b=sessionStorage.getItem('wv-built')==='1';}catch(e){}d.classList.add('wv-motion',b?'wv-return':'wv-loader-pending');if(!b&&!mm('(min-width:105em) and (min-height:43.8125em)').matches)d.classList.add('wv-held');}/* the reader moved (same key test as js/snap.js) */var v=function(e){if(e.type!='keydown'||/^( |Enter|Tab|Page(Up|Down)|Arrow(Up|Down)|Home|End)$/.test(e.key))window.readerMoved=1};['wheel','touchstart','keydown','hashchange'].forEach(function(t){addEventListener(t,v,{passive:true})});/* and following an in-page link by pointer (captured, so no other handler can stop it) */addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a[href^="#"]'))window.readerMoved=1},true);})();</script>
+<script>/* Pre-paint: theme, the js flag and the once-per-visit build gate. */(function(){var d=document.documentElement;d.classList.add('js');try{var s=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme:dark)').matches;if(s==='dark'||(!s&&m))d.setAttribute('data-theme','dark');}catch(e){}var n=navigator,c=n.connection||{},mm=window.matchMedia;if(mm&&!mm('(prefers-reduced-motion: reduce)').matches&&!mm('(forced-colors: active)').matches&&!mm('print').matches&&!c.saveData&&!(n.deviceMemory&&n.deviceMemory<=2)&&!(n.hardwareConcurrency&&n.hardwareConcurrency<=2)&&'IntersectionObserver' in window){var b=false;try{b=sessionStorage.getItem('wv-built')==='1';}catch(e){}d.classList.add('wv-motion',b?'wv-return':'wv-loader-pending');}})();</script>
 <title>Lorenz Espinosa · IT Systems &amp; Automation Consultant</title>
 <meta name="description" content="I help teams connect the tools they already use, test missing data and failed steps, and keep integrations documented and supported after launch." />
 <meta property="og:title" content="Lorenz Espinosa · IT Systems &amp; Automation Consultant" />
@@ -30,8 +30,10 @@
 <link rel="stylesheet" href="styles/typography.css" />
 <link rel="stylesheet" href="styles/main.css" />
 <link rel="stylesheet" href="styles/layout.css" />
-<link rel="stylesheet" href="styles/home.css" />
+<link rel="stylesheet" href="styles/components.css" />
+<link rel="stylesheet" href="styles/hero.css" />
 <link rel="stylesheet" href="styles/glass.css" />
+<link rel="stylesheet" href="styles/swarm-motion.css" />
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -97,7 +99,7 @@
           <a href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Contact</a>
         </div>
       </details>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Toggle light/dark theme">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle light/dark theme">
         <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
@@ -106,7 +108,7 @@
 </nav>
 
 <main id="main" tabindex="-1">
-<header class="hero" id="top" data-snap>
+<header class="hero" id="top">
   <div class="wrap hero-inner">
     <div class="hero-copy">
       <div class="lead-head" data-build="hero">
@@ -154,7 +156,7 @@
   </div>
 </header>
 
-<section id="flow" data-snap class="scrolly" aria-label="From scattered manual work to one dependable workflow">
+<section id="flow" class="scrolly" aria-label="From scattered manual work to one dependable workflow">
   <div class="scrolly-stage">
     <h2 class="scrolly-head">
       <span class="flip-before">The same work, repeated.</span>
@@ -221,7 +223,7 @@
   </div>
 </section>
 
-<section id="proof" data-snap class="sec" aria-labelledby="proof-h">
+<section id="proof" class="sec" aria-labelledby="proof-h">
   <div class="wrap">
     <div>
     <h2 id="proof-h" class="sr-only">What a dependable workflow includes</h2>
@@ -252,10 +254,27 @@
       </article>
       </div>
     </div>
+    <div>
+    <div class="bento bento--b" data-build="proof-b">
+      <article class="tile tile--beliefs" data-build-op="place">
+        <h3 class="tile-head">How I build</h3>
+        <ul class="beliefs">
+          <li>Understand the process <b>before</b> choosing the automation</li>
+          <li>Fit the solution to your <b>existing systems and team</b></li>
+          <li>Use rules for predictable work and <b>AI only where it helps</b></li>
+          <li>Plan for <b>monitoring, recovery, and support</b> from the start</li>
+        </ul>
+      </article>
+      <article class="tile tile--cta" data-build-op="place">
+        <p class="tile-ask">Is a routine process taking more attention than it should?</p>
+        <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Discuss the workflow</a>
+      </article>
+    </div>
+    </div>
   </div>
 </section>
 
-<section id="who" data-snap class="sec" aria-labelledby="who-h">
+<section id="who" class="sec" aria-labelledby="who-h">
   <div class="wrap">
     <div class="sec-head" data-build="who-head">
       <h2 id="who-h">For teams that need their systems to be dependable.</h2>
@@ -278,33 +297,15 @@
         <p class="out">Monitoring, recovery, and support</p>
       </div>
     </div>
-    <div class="bento bento--b" data-build="proof-b">
-      <article class="tile tile--beliefs" data-build-op="place">
-        <h3 class="tile-head">How I build</h3>
-        <ul class="beliefs">
-          <li>Understand the process <b>before</b> choosing the automation</li>
-          <li>Fit the solution to your <b>existing systems and team</b></li>
-          <li>Use rules for predictable work and <b>AI only where it helps</b></li>
-          <li>Plan for <b>monitoring, recovery, and support</b> from the start</li>
-        </ul>
-      </article>
-      <article class="tile tile--cta" data-build-op="place">
-        <p class="tile-ask">Is a routine process taking more attention than it should?</p>
-        <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A">Discuss the workflow</a>
-      </article>
-    </div>
   </div>
 </section>
 
-<section id="work" data-snap class="sec" aria-labelledby="work-h">
+<section id="work" class="sec" aria-labelledby="work-h">
   <div class="wrap">
+    <div>
     <div class="sec-head" data-build="work-head">
       <h2 id="work-h">Start with the handoff, not a new tool.</h2>
       <p class="sec-lede" data-build-op="place" data-build-whole>These are planning checks, not client case studies or measured results. The right design depends on your systems, access and the people responsible for the work.</p>
-      <div class="cta-band">
-        <p>Have a handoff that keeps breaking?</p>
-        <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A" data-build-op="draw">Discuss the workflow</a>
-      </div>
     </div>
     <div class="work-grid" data-build="work">
       <div class="work" data-build-op="place">
@@ -331,6 +332,10 @@
           <div class="bar-row"><span class="lab">Plan</span><p>Keep a review route for records that cannot be handled safely by a rule.</p></div>
         </details>
       </div>
+      </div>
+    </div>
+    <div>
+    <div class="work-grid work-grid--b" data-build="work-b">
       <div class="work" data-build-op="place">
         <h3>Keep decisions with a person</h3>
         <p data-build-op="place" data-build-whole>AI may help prepare text or a summary when that suits the task. A person should remain responsible for consequential actions.</p>
@@ -356,11 +361,17 @@
         </details>
       </div>
     </div>
+    <div class="cta-band" data-build="work-cta">
+      <p>Have a handoff that keeps breaking?</p>
+      <a class="btn btn-primary" href="mailto:renzespinosa13@gmail.com?subject=Systems%20and%20automation%20inquiry&body=Hi%20Lorenz%2C%0A%0AThe%20process%20I%27d%20like%20to%20improve%3A%0ASystems%2Ftools%20involved%3A%0ATimeline%3A%0A%0APlease%20keep%20this%20initial%20message%20general%20and%20leave%20out%20client%20names%2C%20matter%20details%2C%20or%20confidential%20information.%0A" data-build-op="draw">Discuss the workflow</a>
+    </div>
+    </div>
   </div>
 </section>
 
-<section id="services" data-snap class="sec sec--paper2" aria-labelledby="svc-h">
+<section id="services" class="sec sec--paper2" aria-labelledby="svc-h">
   <div class="wrap">
+    <div>
     <div class="sec-head" data-build="services-head">
       <h2 id="svc-h">Four practical ways to improve how the work gets done.</h2>
       <p class="sec-lede" data-build-op="place" data-build-whole>Start with a review, fix one workflow, add carefully controlled AI where it helps, or keep me involved for ongoing support. The recommendation depends on the process and the systems you already have.</p>
@@ -382,6 +393,10 @@
         <p class="price">By scope, <span>fixed project</span></p>
         <p class="tag">Fixed-scope proposal</p>
       </div>
+      </div>
+    </div>
+    <div>
+    <div class="svc-grid svc-grid--b" data-build="services-b">
       <div class="card" data-build-op="place">
         <span class="num">03</span>
         <h3>Careful AI integration</h3>
@@ -399,10 +414,30 @@
         <p class="tag">Ongoing terms by agreement</p>
       </div>
     </div>
+    </div>
+    <div data-build="stack">
+    <div class="stack-wrap">
+    <div data-build="stack-head"><h2 id="stack-h">Tools I can work with.</h2></div>
+    <div class="stack-grid">
+      <div class="stk-col">
+        <h3>Integration &amp; automation</h3>
+        <ul class="chips"><li>n8n</li><li>Make</li><li>Zapier</li><li>APIs &amp; webhooks</li><li>JavaScript</li></ul>
+      </div>
+      <div class="stk-col">
+        <h3>IT systems &amp; support</h3>
+        <ul class="chips"><li>Windows Server</li><li>Active Directory</li><li>Microsoft 365</li><li>AWS</li></ul>
+      </div>
+      <div class="stk-col">
+        <h3>AI, when it helps</h3>
+        <ul class="chips"><li>AI workflows</li></ul>
+      </div>
+    </div>
+    </div>
+    </div>
   </div>
 </section>
 
-<section id="process" data-snap class="sec" aria-labelledby="process-h">
+<section id="process" class="sec" aria-labelledby="process-h">
   <div class="wrap">
     <div class="sec-head" data-build="process-head">
       <h2 id="process-h">Start with the process. Finish with a system your team can run.</h2>
@@ -417,38 +452,17 @@
       <li class="step" data-build-op="place"><h3>Stay ahead</h3><p class="k">Support</p><p>Ongoing monitoring, maintenance, and improvements are available when needed.</p></li>
     </ol>
     </div>
-    <div class="process-foot">
-      <div data-build="pattern">
-      <figure class="pattern build-principle">
-        <blockquote class="q" data-build-op="type">"Good automation is quiet. It moves the right information, asks for a decision when judgment matters, and tells someone when it needs help."</blockquote>
-        <figcaption class="by">How every build works: understand the process, connect the systems, test the exceptions, document the handover.</figcaption>
-      </figure>
-      </div>
-      <div data-build="stack">
-      <div class="stack-wrap">
-      <div data-build="stack-head"><h3 id="stack-h">Tools I can work with.</h3></div>
-      <div class="stack-grid">
-        <div class="stk-col">
-          <h4>Integration &amp; automation</h4>
-          <ul class="chips"><li>n8n</li><li>Make</li><li>Zapier</li><li>APIs &amp; webhooks</li><li>JavaScript</li></ul>
-        </div>
-        <div class="stk-col">
-          <h4>IT systems &amp; support</h4>
-          <ul class="chips"><li>Windows Server</li><li>Active Directory</li><li>Microsoft 365</li><li>AWS</li></ul>
-        </div>
-        <div class="stk-col">
-          <h4>AI, when it helps</h4>
-          <ul class="chips"><li>AI workflows</li></ul>
-        </div>
-      </div>
-      </div>
-      </div>
+    <div data-build="pattern">
+    <figure class="pattern build-principle">
+      <blockquote class="q" data-build-op="type">"Good automation is quiet. It moves the right information, asks for a decision when judgment matters, and tells someone when it needs help."</blockquote>
+      <figcaption class="by">How every build works: understand the process, connect the systems, test the exceptions, document the handover.</figcaption>
+    </figure>
     </div>
   </div>
 </section>
 
 
-<section id="roi" data-snap class="sec sec--paper2" aria-labelledby="roi-h">
+<section id="roi" class="sec sec--paper2" aria-labelledby="roi-h">
   <div class="wrap">
     <div>
     <div class="sec-head" data-build="roi-head">
@@ -550,7 +564,7 @@
   </div>
 </section>
 
-<section id="about" data-snap class="sec sec--paper2" aria-labelledby="about-h">
+<section id="about" class="sec sec--paper2" aria-labelledby="about-h">
   <div class="wrap">
     <div>
     <div class="about-grid" data-build="about">
@@ -591,7 +605,7 @@
   </div>
 </section>
 
-<section id="opensource" data-snap class="sec" aria-labelledby="os-h">
+<section id="opensource" class="sec" aria-labelledby="os-h">
   <div class="wrap os-grid">
     <div class="os-intro" data-build="opensource">
       <h2 id="os-h">Open source: one code example to inspect.</h2>
@@ -619,7 +633,7 @@
   </div>
 </section>
 
-<section id="blog" data-snap class="sec sec--paper2" aria-labelledby="blog-h">
+<section id="blog" class="sec sec--paper2" aria-labelledby="blog-h">
   <div class="wrap">
     <div class="sec-head" data-build="blog-head">
       <h2 id="blog-h">From the blog: notes from the work.</h2>
@@ -649,7 +663,7 @@
   </div>
 </section>
 
-<section id="faq" data-snap class="sec sec--paper2" aria-labelledby="faq-h">
+<section id="faq" class="sec sec--paper2" aria-labelledby="faq-h">
   <div class="wrap faq-layout">
     <div class="sec-head" data-build="faq-head">
       <h2 id="faq-h">Questions before you reach out.</h2>
