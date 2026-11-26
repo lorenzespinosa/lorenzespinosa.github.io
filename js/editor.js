@@ -1,11 +1,10 @@
-// interactive n8n-style workflow editor: draggable nodes + live bezier wires + execute animation
+// workflow demo: draggable nodes, live wires and a run animation
 (function(){
   const canvas=document.getElementById('canvas');if(!canvas)return;
   const svg=document.getElementById('wires'),runBtn=document.getElementById('run');
   const SVGNS='http://www.w3.org/2000/svg';
   const nodes={};canvas.querySelectorAll('.gnode').forEach(n=>nodes[n.dataset.n]=n);
-  // connections reference explicit output/input connectors. Process has TWO outputs:
-  // .out-main (success → Deliver) and .out-err (error output → Fallback) - the n8n error-output pattern.
+  // Process has two outputs: .out-main (success, to Deliver) and .out-err (error, to Fallback).
   const links=[
     {from:'trigger',  sel:'.io.out',      to:'validate'},
     {from:'validate', sel:'.io.out',      to:'process'},
@@ -14,10 +13,10 @@
     {from:'process',  sel:'.io.out-err',  to:'fallback', error:true}
   ];
   const paths=links.map(l=>{const p=document.createElementNS(SVGNS,'path');p.setAttribute('class','wire'+(l.error?' err':''));svg.appendChild(p);return p;});
-  // a successful run only flows the MAIN path; the error branch stays idle (no items), like a real n8n run
+  // a successful run flows only the main path; the error branch stays idle
   const mainOrder=links.map((l,i)=>i).filter(i=>!links[i].error);
 
-  // endpoint = visual centre of a connector dot, relative to the canvas (handles transforms + multiple outputs)
+  // endpoint: the centre of a connector dot, relative to the canvas
   const center=el=>{const r=el.getBoundingClientRect(),c=canvas.getBoundingClientRect();return {x:r.left-c.left+r.width/2,y:r.top-c.top+r.height/2};};
   const srcDot=l=>center(nodes[l.from].querySelector(l.sel));
   const dstDot=l=>center(nodes[l.to].querySelector('.io.in'));
@@ -54,7 +53,7 @@
     n.addEventListener('pointerup',end);n.addEventListener('pointercancel',end);
   });
 
-  // execute - restartable; lights nodes, drops green checks + item counts like a real n8n run
+  // run (restartable): lights nodes, adds checks and item counts
   const prm=matchMedia('(prefers-reduced-motion:reduce)');  // read live so a mid-session OS toggle is honored
   let runToken=0;
   function clearRun(){
@@ -95,7 +94,7 @@
     })();
   }
   runBtn.addEventListener('click',run);
-  // auto-run once when the editor scrolls into view (desktop only — editor is display:none <1024px so it never intersects on mobile); skipped entirely under reduced motion
+  // runs once when the editor scrolls into view (it is hidden on small screens), not under reduced motion
   if(!prm.matches){
     const ed=document.querySelector('.editor');
     if(ed){

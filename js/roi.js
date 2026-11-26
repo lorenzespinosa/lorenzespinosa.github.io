@@ -1,6 +1,4 @@
-// ROI calculator: the headline number is a live "cost of doing nothing" meter.
-// It animates up when the sliders change, then keeps bleeding in real time (cents
-// ticking) once the calculator scrolls into view, so the loss is visibly climbing.
+// ROI calculator: the headline is a live cost-of-doing-nothing meter that keeps counting while in view.
 (function(){
   const h=document.getElementById('cHours'),r=document.getElementById('cRate'),proc=document.getElementById('cProc'),per=document.getElementById('cPeriod');
   if(!h)return;
@@ -15,8 +13,7 @@
   const money2=n=>'$'+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
   // Write only when the shown text changes: the loop runs every frame, and an unchanged write still costs a style and layout pass.
   let shown='';
-  // Losing-money effect: the figure is red (CSS) and throbs each time it counts up, at most once every 400 ms (2.5 a second,
-  // under the 3 flashes a second limit). The throb is a transform only; reduced motion keeps it red and still.
+  // The red figure throbs at most every 400 ms (under 3 flashes a second), by transform; reduced motion keeps it still.
   const THROB_MS=400,throbFrames=[{transform:'scale(1)'},{transform:'scale(1.045)',offset:.35},{transform:'scale(1)'}];
   let lastThrob=-Infinity,lastValue=0;
   function throb(value){
@@ -76,10 +73,7 @@
   });},{threshold:0.35}).observe(document.getElementById('roi'));
 })();
 
-// ── ROI scenario comparison (storage key: roi-scenarios-v1) ────────
-// Up to three named scenarios saved locally, compared against the first
-// saved scenario. Independent from the animated meter above: values are
-// computed directly from stored inputs and are never animated.
+// ROI scenario comparison (storage key: roi-scenarios-v1): up to three saved scenarios against the first, never animated.
 (function(){
   const root=document.getElementById('scnRegion');
   if(!root)return;

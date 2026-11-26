@@ -3,6 +3,10 @@
 
   const root = document.documentElement;
   const desktop = window.matchMedia && matchMedia("(min-width: 768px)");
+  // crew sizes for the card's shapes (styles/home.css)
+  const fullCard = window.matchMedia && matchMedia("(min-width:105em) and (min-height:43.8125em)");
+  const tileCard = window.matchMedia && matchMedia("(min-width:68.8125em) and (max-width:1208.98px) and (min-height:43.8125em) and (max-height:53.125em)");
+  const crewFor = () => fullCard.matches ? 20 : tileCard.matches ? 4 : 8;
   const fineInput = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)");
   const agents = [];
   const sections = [];
@@ -26,14 +30,10 @@
   let constructionActive = false, awaitingOpeningSections = false;
   let needsBuildFrame = false, scrollSettled = true;
   let frame = 0, lastFrame = 0, prepareTimer = 0, restTimer = 0, rulerTimer = 0;
-  let restCardFrame = 0;
-  let crewSize = desktop && desktop.matches ? 20 : 8;
+  let crewSize = fullCard ? crewFor() : 8;
   let I = root.clientWidth || innerWidth, V = innerHeight;
   let D = 0, $ = 0, S = 0, M = 0, k = 2.1, Q = null;
   const d = 20;
-  const a = document.querySelector(".site-head");
-  const l = document.querySelector(".site-foot");
-  const hero = document.querySelector("header.hero");
 
   window.wvSwarm = {
     get time() {
@@ -61,58 +61,6 @@
         ? "All " + total + " agents working"
         : working + (working === 1 ? " agent" : " agents") + " working · " + resting + " resting";
     if (line !== cardStatus.textContent) cardStatus.textContent = line;
-    updateRestCardTuck();
-  }
-
-  function overlapsCard(rect, box) {
-    return Math.min(rect.right, box.right) - Math.max(rect.left, box.left) > 0.5 &&
-      Math.min(rect.bottom, box.bottom) - Math.max(rect.top, box.top) > 0.5;
-  }
-
-  function heroTextOverlapsCard(box) {
-    const walker = document.createTreeWalker(hero, NodeFilter.SHOW_TEXT);
-    const range = document.createRange();
-    for (let node; (node = walker.nextNode());) {
-      if (!node.textContent.trim()) continue;
-      const element = node.parentElement;
-      if (element.checkVisibility) {
-        if (!element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) continue;
-      } else if (getComputedStyle(element).visibility !== "visible") continue;
-
-      range.selectNodeContents(node);
-      for (const rect of range.getClientRects()) {
-        if (!overlapsCard(rect, box)) continue;
-        const visible = { left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom };
-        let fixed = false;
-        for (let ancestor = element; ancestor; ancestor = ancestor.parentElement) {
-          const style = getComputedStyle(ancestor);
-          if (style.opacity === "0") break;
-          if (!fixed && ancestor !== element && ancestor !== root &&
-              (style.overflowX !== "visible" || style.overflowY !== "visible" || style.clipPath !== "none")) {
-            const clip = ancestor.getBoundingClientRect();
-            visible.left = Math.max(visible.left, clip.left);
-            visible.top = Math.max(visible.top, clip.top);
-            visible.right = Math.min(visible.right, clip.right);
-            visible.bottom = Math.min(visible.bottom, clip.bottom);
-            if (!overlapsCard(visible, box)) break;
-          }
-          if (ancestor === root) return true;
-          if (style.position === "fixed") fixed = true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function updateRestCardTuck() {
-    if (!enabled) return;
-    let tucked = false;
-    if (hero && !building && !tidyBatch && agents.every(agent => agent.parked)) {
-      const left = card.offsetLeft, top = card.offsetTop;
-      const box = { left, top: top - 8, right: left + card.offsetWidth, bottom: top + card.offsetHeight };
-      tucked = overlapsCard(hero.getBoundingClientRect(), box) && heroTextOverlapsCard(box);
-    }
-    card.classList.toggle("wv-tucked", tucked);
   }
 
   function tidy(items, done) {
@@ -124,7 +72,6 @@
       remaining: items.length,
       done,
     };
-    updateRestCardTuck();
     wake();
     return true;
   }
@@ -169,7 +116,6 @@
     }
     unfinished.forEach(dropTidyItem);
     notifyTidyDone(batch);
-    updateRestCardTuck();
   }
 
   function startTidyJobs(freeAgents) {
@@ -238,13 +184,12 @@
     cardGrid = document.createElement("span");
     cardGrid.className = "wv-rest-grid";
     card.append(cardStatus, cardGrid);
-    card.style.transition = "none"; // first placement without a fade, so a repeat visit never shows the card only to fade it out
     layer.appendChild(card);
     document.body.appendChild(layer);
     syncCrewSize();
-    void card.offsetWidth;
-    card.style.transition = "";
-    if (document.fonts) document.fonts.ready.then(updateRestCardTuck);
+    dispatchEvent(new Event("wv-card"));
+    // the card's shape can change without a resize (text size)
+    if (window.ResizeObserver) new ResizeObserver(() => enabled && crewSize !== crewFor() && (syncCrewSize(), dispatchEvent(new Event("wv-card")))).observe(card);
   }
 
   function createAgent(number) {
@@ -279,6 +224,7 @@
     };
   }
 
+  // two rows in the corner card
   function slot(agent) {
     const columns = crewSize / 2;
     const index = (agent.number - 1) % crewSize;
@@ -312,7 +258,8 @@
   }
 
   function syncCrewSize() {
-    crewSize = desktop.matches ? 20 : 8;
+    crewSize = crewFor();
+    if (constructionActive && crewSize < 20) releaseHeld();
     gridRect = null;
     for (const agent of agents.slice()) {
       if (agent.number > crewSize) {
@@ -331,6 +278,17 @@
     }
     agents.sort((first, second) => first.number - second.number);
     updateRestCard();
+  }
+
+  // a card turned smaller during the opening: what smaller crews leave unbuilt shows now and stays
+  function releaseHeld() {
+    for (const section of sections) {
+      const held = heldIn(section.host), isHeld = el => held.some(c => c.contains(el));
+      if (section.done) continue;
+      section.tasks.filter(job => job.el && isHeld(job.el)).forEach(finishBuildTask);
+      section.pieces.filter(isHeld).forEach(piece => piece.removeAttribute("data-wv-hide"));
+      section.pieces = section.pieces.filter(piece => !isHeld(piece));
+    }
   }
 
   function freeAgents() {
@@ -421,20 +379,18 @@
     for (var e = t.firstChild; e; e = e.nextSibling) if (3 === e.nodeType && e.nodeValue.trim()) return !0;
     return !1;
   }
+  // smaller crews, and a full one once the card was smaller at the start, leave out the hero's headline and lede and what
+  // holds a button (styles/home.css)
+  function heldIn(t) {
+    return fullCard.matches && !root.classList.contains("wv-held") ? [] : [].filter.call(t.children, c => t.matches(".lead-head") || c.matches(".btn") || c.querySelector(".btn"));
+  }
   function qt(t) {
-    var e = [].slice.call(t.querySelectorAll("[data-build-op]"));
-    (t !== a && t !== l) ||
-      [].forEach.call(
-        t.querySelectorAll(
-          ".site-head .brand,.site-head .nav>a,.site-head .status,.site-head .theme-top,.site-foot .brand,.site-foot .about,.site-foot .theme-pick,.site-foot h2,.site-foot li,.site-foot .fine>span",
-        ),
-        function (t) {
-          e.indexOf(t) < 0 && e.push(t);
-        },
-      );
+    var held = heldIn(t);
+    var free = function (el) { return !held.some(function (c) { return c.contains(el); }); };
+    var e = [].slice.call(t.querySelectorAll("[data-build-op]")).filter(free);
     for (var n = document.createTreeWalker(t, NodeFilter.SHOW_TEXT), o = n.nextNode(); o; o = n.nextNode()) {
       var r = o.parentElement;
-      if (r && o.nodeValue.trim() && !r.closest("script,style,svg,template"))
+      if (r && o.nodeValue.trim() && free(r) && !r.closest("script,style,svg,template"))
         if (
           (!r.closest("details:not([open])") || r.closest("summary")) &&
           !r.closest('[data-build-op="carry"]')
@@ -515,6 +471,7 @@
       if (pendingCarry) landCarry({ el: piece });
     }
     if (section.overlay) section.overlay.remove();
+    dispatchEvent(new Event("wv-card"));
     if (constructionActive && sections.every(entry => entry.done)) finishConstruction();
   }
 
@@ -848,8 +805,9 @@
         });
         if (
           (a.forEach(function (t) {
+            // Only identical text is copied; look-alikes are typed.
             var e = a.filter(function (e) {
-                return r(e, t);
+                return r(e, t) && e.text === t.text;
               }),
               n = e[0];
             n &&
@@ -1806,12 +1764,6 @@
 
   function onScroll() {
     readScroll();
-    if (enabled && !restCardFrame) {
-      restCardFrame = requestAnimationFrame(() => {
-        restCardFrame = 0;
-        updateRestCardTuck();
-      });
-    }
     if (!constructionActive) return;
     if (fineInput.matches) {
       scrollSettled = false;
@@ -1855,8 +1807,7 @@
     V = innerHeight;
     readScroll();
     if (!enabled) return;
-    if (crewSize !== (desktop.matches ? 20 : 8)) syncCrewSize();
-    else updateRestCardTuck();
+    if (crewSize !== crewFor()) syncCrewSize();
     gridRect = null;
     requestBuildFrame();
     wake();
@@ -1907,7 +1858,6 @@
     if (!building || awaitingOpeningSections || prepareTimer || needsBuildFrame ||
         agents.some(agent => !agent.parked)) return;
     building = false;
-    updateRestCardTuck();
   }
 
   function finishConstruction() {
@@ -1923,20 +1873,18 @@
     root.classList.remove("wv-construct", "wv-ruling");
     if (rulers) rulers.remove();
     rulers = null;
-    updateRestCardTuck();
   }
 
   function disableCrew() {
     enabled = false;
     stopFrame();
-    if (restCardFrame) cancelAnimationFrame(restCardFrame);
-    restCardFrame = 0;
     finishConstruction();
     sections.forEach(finishSection);
     settleTidy();
     root.classList.remove("wv-loader-pending", "wv-loader-leaving");
     if (layer) layer.remove();
     layer = card = cardStatus = cardGrid = gridRect = null;
+    dispatchEvent(new Event("wv-card"));
     agents.length = 0;
   }
 
@@ -1954,11 +1902,8 @@
     try {
       readScroll();
       enabled = true;
-      const hosts = opening ? [...document.querySelectorAll("[data-build]")] : [];
-      if (opening) {
-        if (a) hosts.unshift(a);
-        if (l) hosts.push(l);
-      }
+      // Phones: the hero copy shows at once; the crew builds the rest.
+      const hosts = opening ? [...document.querySelectorAll("[data-build]")].filter(host => desktop.matches || !host.closest(".hero")) : [];
       constructionActive = building = hosts.length > 0;
       createCrew();
       if (constructionActive) startConstruction(hosts);

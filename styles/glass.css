@@ -1,5 +1,4 @@
-/* Surfaces. The old frosted-glass layer is gone: the nav is a near-opaque solid with a hairline, which paints for free under the
-   moving cursors (a backdrop blur repaints the whole bar on every frame something moves behind it). */
+/* a solid nav: a blur would repaint under the cursors */
 .site-nav{box-shadow:none}
 .site-nav.scrolled{background:var(--color-nav)}
 @media print{
