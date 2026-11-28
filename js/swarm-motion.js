@@ -12,10 +12,10 @@
   const sections = [];
   const pendingSections = [];
   const colours = [
-    "#F24E1E", "#A259FF", "#1ABCFE", "#0ACF83", "#FF7262", "#FFC700", "#9747FF",
-    "#E8467C", "#14AE5C", "#0D99FF", "#FF8A00", "#00B5CE",
+    "#D63A00", "#9449EF", "#077CAA", "#018552", "#CD4438", "#906F05", "#8934EE",
+    "#D4316C", "#068544", "#0077C9", "#B15E03", "#097F91",
   ];
-  const arrow = "M3.5 2.8L24.5 11.5L15.1 15L10.9 24.5Z";
+  const arrow = "M6.24 3.82L23.17 10.13A1.5 1.5 0 0 1 22.98 13L16.28 14.53A1.5 1.5 0 0 0 15.18 15.56L13 22.8A1.5 1.5 0 0 1 10.14 22.84L4.42 5.57A1.4 1.4 0 0 1 6.24 3.82Z";
   const shapes = {
     arrow: { hot: [3.5, 2.8], fill: arrow },
     dup: { hot: [3.5, 2.8], fill: arrow, badge: true },
@@ -209,8 +209,8 @@
         group.appendChild(Et("path", { d: design.line, class: "wv-g-line" }));
       }
       if (design.badge) {
-        group.appendChild(Et("circle", { cx: "21.5", cy: "21.5", r: "4.6", class: "wv-g-fill" }));
-        group.appendChild(Et("path", { d: "M21.5 19.3V23.7M19.3 21.5H23.7", class: "wv-g-mark" }));
+        group.appendChild(Et("circle", { cx: "22.5", cy: "22.5", r: "3.8", class: "wv-g-fill" }));
+        group.appendChild(Et("path", { d: "M22.5 20.3V24.7M20.3 22.5H24.7", class: "wv-g-mark" }));
       }
       graphic.appendChild(group);
     }
@@ -332,6 +332,9 @@
     const position = "translate3d(" + left + "px," + top + "px,0)";
     const scale = agent.press > 0 ? "scale(" + (1 - 0.12 * agent.press).toFixed(3) + ")" : "";
     if (position !== agent.drawn) agent.node.style.transform = agent.drawn = position;
+    agent.node.classList.toggle("wv-fx", left > I - 112);
+    agent.node.classList.toggle("wv-fy", top > V - 46);
+    agent.node.classList.toggle("wv-out", left > I - 10 || top > V - 10 || left < -16 || top < -16);
     if (scale !== agent.scale) agent.graphic.style.transform = agent.scale = scale;
   }
   function zt(t, e, n) {
